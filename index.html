@@ -195,13 +195,72 @@
             33% { opacity: 0.9; }
             66% { opacity: 0.4; }
         }
-        /* Dock中的图标悬浮时，适当放大 */
+        /* 精美的应用图标容器设计 */
         .icon-container {
-            transition: transform 0.2s ease-out;
+            /* 精美的渐变背景 */
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.25) 0%,
+                rgba(255, 255, 255, 0.15) 50%,
+                rgba(255, 255, 255, 0.1) 100%
+            );
+            /* 精致的边框 */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            /* 多层阴影营造深度感 */
+            box-shadow: 
+                0 4px 20px rgba(0, 0, 0, 0.15),
+                0 2px 8px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+            /* 毛玻璃效果 */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 添加光泽效果 */
+        .icon-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.4) 50%, 
+                transparent 100%
+            );
+            transition: left 0.6s ease;
+        }
+        
+        .app-icon-link:hover .icon-container::before {
+            left: 100%;
         }
         
         .app-icon-link:hover .icon-container {
-            transform: scale(1.1);
+            transform: translateY(-2px) scale(1.05);
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.35) 0%,
+                rgba(255, 255, 255, 0.25) 50%,
+                rgba(255, 255, 255, 0.15) 100%
+            );
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.2),
+                0 4px 16px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 应用图标SVG样式优化 */
+        .icon-container svg {
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+            transition: filter 0.3s ease;
+        }
+        
+        .app-icon-link:hover .icon-container svg {
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
         }
 
         main {
@@ -289,7 +348,7 @@
             animation: fadeIn 0.8s ease-out;
         }
 
-        /* 响应式设计 */
+        /* 响应式设计优化 */
         @media (max-width: 640px) {
             .time-container {
                 padding: 1.5rem 2rem;
@@ -304,6 +363,100 @@
             .main-date {
                 font-size: 1rem;
                 font-weight: 400;
+            }
+            
+            .dock-container {
+                margin: 0 1rem;
+                padding: 1rem;
+            }
+            
+            .app-grid {
+                gap: 1rem;
+            }
+            
+            .icon-container {
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+            
+            .app-name {
+                font-size: 0.7rem;
+                margin-top: 0.25rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-time {
+                font-size: 3.5rem;
+            }
+            
+            .main-date {
+                font-size: 0.9rem;
+            }
+            
+            .app-title {
+                font-size: 1rem;
+            }
+            
+            .dock-container {
+                margin: 0 0.5rem;
+                padding: 0.75rem;
+            }
+            
+            .app-grid {
+                gap: 0.75rem;
+            }
+            
+            .icon-container {
+                width: 2.25rem;
+                height: 2.25rem;
+            }
+            
+            .icon-container svg {
+                width: 18px;
+                height: 18px;
+            }
+            
+            .app-name {
+                font-size: 0.65rem;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .time-container {
+                padding: 3rem 4rem;
+            }
+            
+            .main-time {
+                font-size: 6rem;
+            }
+            
+            .main-date {
+                font-size: 1.25rem;
+            }
+            
+            .dock-container {
+                max-width: 32rem;
+                padding: 1.5rem;
+            }
+            
+            .app-grid {
+                gap: 1.5rem;
+            }
+            
+            .icon-container {
+                width: 3.5rem;
+                height: 3.5rem;
+            }
+            
+            .icon-container svg {
+                width: 28px;
+                height: 28px;
+            }
+            
+            .app-name {
+                font-size: 0.8rem;
+                margin-top: 0.75rem;
             }
         }
 
@@ -331,6 +484,65 @@
             -webkit-text-fill-color: transparent;
         }
         
+        html.dark .dock-container {
+            background: linear-gradient(135deg, 
+                rgba(0, 0, 0, 0.3) 0%,
+                rgba(0, 0, 0, 0.2) 50%,
+                rgba(0, 0, 0, 0.15) 100%
+            );
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        html.dark .dock-container:hover {
+            background: linear-gradient(135deg, 
+                rgba(0, 0, 0, 0.4) 0%,
+                rgba(0, 0, 0, 0.3) 50%,
+                rgba(0, 0, 0, 0.2) 100%
+            );
+        }
+        
+        html.dark .icon-container {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.15) 0%,
+                rgba(255, 255, 255, 0.08) 50%,
+                rgba(255, 255, 255, 0.05) 100%
+            );
+        }
+        
+        /* 无障碍功能支持 */
+        @media (prefers-reduced-motion: reduce) {
+            .time-container,
+            .app-icon-link,
+            .app-grid,
+            .wallpaper-bg,
+            .wallpaper-bg::before,
+            .wallpaper-bg::after,
+            .icon-container::before {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+        
+        /* 高对比度模式支持 */
+        @media (prefers-contrast: high) {
+            .icon-container {
+                border: 2px solid rgba(255, 255, 255, 0.6);
+            }
+            
+            .app-name {
+                color: rgba(255, 255, 255, 1);
+                text-shadow: 
+                    0 0 2px rgba(0, 0, 0, 1),
+                    0 0 4px rgba(0, 0, 0, 1);
+            }
+            
+            .main-time, .main-date {
+                text-shadow: 
+                    0 0 4px rgba(0, 0, 0, 1),
+                    0 0 8px rgba(0, 0, 0, 1);
+            }
+        }
+        
         /* 优雅的应用标题 */
         .app-title {
             color: rgba(255, 255, 255, 0.8);
@@ -354,6 +566,114 @@
                 0 1px 4px rgba(0, 0, 0, 0.4),
                 0 2px 8px rgba(0, 0, 0, 0.25),
                 0 0 16px rgba(255, 255, 255, 0.1);
+        }
+        
+        /* 优化应用名称字体 */
+        .app-name {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-weight: 400;
+            font-size: 0.75rem;
+            letter-spacing: 0.02em;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 
+                0 1px 3px rgba(0, 0, 0, 0.4),
+                0 2px 6px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 0.5rem;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .app-icon-link:hover .app-name {
+            color: rgba(255, 255, 255, 1);
+            text-shadow: 
+                0 1px 4px rgba(0, 0, 0, 0.5),
+                0 2px 8px rgba(0, 0, 0, 0.3),
+                0 0 12px rgba(255, 255, 255, 0.1);
+            transform: translateY(-1px);
+        }
+        
+        /* 精美的Dock容器设计 */
+        .dock-container {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.15) 0%,
+                rgba(255, 255, 255, 0.08) 50%,
+                rgba(255, 255, 255, 0.05) 100%
+            );
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.12),
+                0 4px 16px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .dock-container:hover {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.2) 0%,
+                rgba(255, 255, 255, 0.12) 50%,
+                rgba(255, 255, 255, 0.08) 100%
+            );
+            box-shadow: 
+                0 12px 48px rgba(0, 0, 0, 0.15),
+                0 6px 24px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+        }
+        
+        /* 应用网格的淡入动画 */
+        .app-grid {
+            animation: slideUpFadeIn 0.6s ease-out 0.2s both;
+        }
+        
+        @keyframes slideUpFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 每个应用图标的错开动画 */
+        .app-icon-link {
+            animation: iconFadeIn 0.5s ease-out both;
+        }
+        
+        .app-icon-link:nth-child(1) { animation-delay: 0.1s; }
+        .app-icon-link:nth-child(2) { animation-delay: 0.15s; }
+        .app-icon-link:nth-child(3) { animation-delay: 0.2s; }
+        .app-icon-link:nth-child(4) { animation-delay: 0.25s; }
+        .app-icon-link:nth-child(5) { animation-delay: 0.3s; }
+        .app-icon-link:nth-child(6) { animation-delay: 0.35s; }
+        .app-icon-link:nth-child(7) { animation-delay: 0.4s; }
+        .app-icon-link:nth-child(8) { animation-delay: 0.45s; }
+        
+        @keyframes iconFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        
+        /* 星空背景呼吸效果 */
+        .wallpaper-bg {
+            animation: breathe 8s ease-in-out infinite;
+        }
+        
+        @keyframes breathe {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.05); }
         }
     </style>
 </head>
@@ -382,90 +702,90 @@
         
         <!-- App Dock -->
         <footer class="w-full p-4 pb-8 flex-shrink-0">
-            <div class="mx-auto max-w-md bg-transparent rounded-3xl p-4">
-                <div class="grid grid-cols-4 gap-4 text-center text-white text-xs font-medium" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0, 0, 0, 0.15);">
+            <div class="dock-container mx-auto max-w-md rounded-3xl p-4">
+                <div class="app-grid grid grid-cols-4 gap-4 text-center text-white text-xs font-medium" style="text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0, 0, 0, 0.15);">
                     <!-- App: 聊天 -->
                     <a href="chat.html" class="app-icon-link flex flex-col items-center">
-                        <div class="icon-container w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center shadow-md">
+                        <div class="icon-container w-12 h-12 rounded-xl flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-top: -1px;">
                                 <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26 12,2" stroke-linejoin="round" stroke-linecap="round"/>
                             </svg>
                         </div>
-                        <span class="mt-1">聊天</span>
+                        <span class="app-name">聊天</span>
                     </a>
                     <!-- App: 音乐 -->
                     <a href="music.html" class="app-icon-link flex flex-col items-center">
-                        <div class="icon-container w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center shadow-md">
+                        <div class="icon-container w-12 h-12 rounded-xl flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-vinyl" viewBox="0 0 16 16">
                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                                 <path d="M8 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4M4 8a4 4 0 1 1 8 0 4 4 0 0 1-8 0"/>
                                 <path d="M9 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
                             </svg>
                         </div>
-                        <span class="mt-1">音乐</span>
+                        <span class="app-name">音乐</span>
                     </a>
 
                     <!-- App: 简报 -->
                     <a href="summary.html" class="app-icon-link flex flex-col items-center">
-                        <div class="icon-container w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center shadow-md">
+                        <div class="icon-container w-12 h-12 rounded-xl flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z" />
                         </svg>
                         </div>
-                        <span class="mt-1">简报</span>
+                        <span class="app-name">简报</span>
                     </a>
                     <!-- App: 相册 -->
                     <a href="album.html" class="app-icon-link flex flex-col items-center">
-                        <div class="icon-container w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center shadow-md">
+                        <div class="icon-container w-12 h-12 rounded-xl flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
                                 <circle cx="8.5" cy="8.5" r="1.5" />
                                 <path d="M21 15l-5-5L5 21" />
                             </svg>
                         </div>
-                        <span class="mt-1">相册</span>
+                        <span class="app-name">相册</span>
                     </a>
 
                     <!-- App: 设置 -->
                     <a href="settings.html" class="app-icon-link flex flex-col items-center">
-                        <div class="icon-container w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center shadow-md">
+                        <div class="icon-container w-12 h-12 rounded-xl flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                             </svg>
 
                         </div>
-                        <span class="mt-1">设置</span>
+                        <span class="app-name">设置</span>
                     </a>
 
                     <!-- App: 个性化 -->
                     <a href="personalization.html" class="app-icon-link flex flex-col items-center">
-                        <div class="icon-container w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center shadow-md">
+                        <div class="icon-container w-12 h-12 rounded-xl flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.098 19.902a3.75 3.75 0 0 0 5.304 0l6.401-6.402M6.75 21A3.75 3.75 0 0 1 3 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 0 0 3.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008Z" />
                             </svg>
                         </div>
-                        <span class="mt-1">个性化</span>
+                        <span class="app-name">个性化</span>
                     </a>
 
                     <!-- App: 世界书 -->
                     <a href="worldbook.html" class="app-icon-link flex flex-col items-center">
-                        <div class="icon-container w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center shadow-md">
+                        <div class="icon-container w-12 h-12 rounded-xl flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
                             </svg>
                         </div>
-                        <span class="mt-1">世界书</span>
+                        <span class="app-name">世界书</span>
                     </a>
 
                     <a href="help.html" class="app-icon-link flex flex-col items-center">
-                        <div class="icon-container w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center shadow-md">
+                        <div class="icon-container w-12 h-12 rounded-xl flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                                 <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94"/>
                             </svg>
                         </div>
-                        <span class="mt-1">帮助</span>
+                        <span class="app-name">帮助</span>
                     </a>
                     
                 </div>
