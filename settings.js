@@ -365,7 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const url = URL.createObjectURL(blob);
                         const link = Object.assign(document.createElement('a'), {
                                 href: url,
-                                download: `StarChat-Backup-${new Date().toISOString().split('T')[0]}.json`
+                                download: `XPhone-Backup-${new Date().toISOString().split('T')[0]}.json`
                         });
                         document.body.appendChild(link);
                         link.click();
@@ -585,7 +585,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 },
                                 body: JSON.stringify({
                                         files: {
-                                                'starchat_backup.json': { // 使用固定的文件名
+                                                'xphone_backup.json': { // 使用固定的文件名
                                                         content: content
                                                 }
                                         }
@@ -643,10 +643,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
 
                         const gistData = await response.json();
-                        const fileContent = gistData.files['starchat_backup.json']?.content;
+                        const fileContent = gistData.files['xphone_backup.json']?.content;
 
                         if (!fileContent) {
-                                throw new Error("在Gist中找不到 'starchat_backup.json' 文件。");
+                                throw new Error("在Gist中找不到 'xphone_backup.json' 文件。");
                         }
 
                         const backupData = JSON.parse(fileContent);

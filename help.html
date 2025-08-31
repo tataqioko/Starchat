@@ -7,7 +7,7 @@
                 (function () {
                         try {
                                 // 使用同步的 localStorage 获取主题设置，这比数据库快得多
-                                const themeMode = localStorage.getItem('starchat-theme-mode');
+                                const themeMode = localStorage.getItem('xphone-theme-mode');
                                 const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
                                 if (themeMode === 'dark' || (themeMode === 'auto' && systemPrefersDark)) {
@@ -25,11 +25,11 @@
         <link rel="manifest" href="./manifest.json">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-        <meta name="apple-mobile-web-app-title" content="StarChat">
+        <meta name="apple-mobile-web-app-title" content="Xphone">
         <meta name="theme-color" content="#3b82f6" />
         <link rel="apple-touch-icon" href="./icons/icon-192x192.png">
 
-        <title>StarChat - 帮助</title>
+        <title>帮助</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://unpkg.com/dexie/dist/dexie.js"></script>
         <link rel="stylesheet" href="sharedStyles.css">
@@ -504,7 +504,7 @@
                                                                                 href="#music-help"
                                                                                 class="underline">音乐</a>、<a
                                                                                 href="#summary-help"
-                                                                                class="underline">动态</a>、<a
+                                                                                class="underline">简报</a>、<a
                                                                                 href="#album-help"
                                                                                 class="underline">相册</a>等核心应用。</li>
                                                         </ul>
@@ -776,14 +776,14 @@
                                         </details>
 
                                         <details id="summary-help">
-                                                <summary>动态</summary>
+                                                <summary>简报</summary>
                                                 <div class="details-content">
                                                         <p>当您离线超过<a href="#settings-help"
-                                                                        class="underline">设置</a>中指定的时间后，系统会模拟此期间所有分组的角色圈子中发生的故事（如关系变化、个人事件），并在此处生成一份动态供您阅读。动态内容也会被自动记录到此分组关联的<a
+                                                                        class="underline">设置</a>中指定的时间后，系统会模拟此期间所有分组的角色圈子中发生的故事（如关系变化、个人事件），并在此处生成一份简报供您阅读。简报内容也会被自动记录到此分组关联的<a
                                                                         href="#worldbook-help"
                                                                         class="underline">世界书（编年史）</a>中。</p>
-                                                        <p>在主页看到“动态生成中”提示时，表示系统正在为您生成动态，请在此界面稍等片刻。有时会因为api问题导致生成失败。</p>
-                                                        <p>角色必须要加入一个分组才会触发动态，单人分组会生成个人事件，不会有好感度变化。如多于一人会生成群组动态，内容包括角色之间的互动、关系变化等。
+                                                        <p>在主页看到“简报生成中”提示时，表示系统正在为您生成简报，请在此界面稍等片刻。有时会因为api问题导致生成失败。</p>
+                                                        <p>角色必须要加入一个分组才会触发简报，单人分组会生成个人事件，不会有好感度变化。如多于一人会生成群组简报，内容包括角色之间的互动、关系变化等。
                                                         </p>
                                                 </div>
                                         </details>
@@ -835,7 +835,7 @@
                                                                                 开启后，AI角色们会在后台独立“生活”，可能会主动给您发消息、发布动态、或在群聊里主动发言。<strong>注意：此功能会显著增加API费用。</strong>
                                                                                 您可以调整活动检测的频率和概率来控制消耗。</p>
                                                                         <p class="text-xs text-gray-500 mt-2">
-                                                                                <strong>它和“离线模拟/动态”有什么不同？</strong>
+                                                                                <strong>它和“离线模拟/简报”有什么不同？</strong>
                                                                         <ul
                                                                                 class="list-disc list-inside text-xs text-gray-500 ml-4">
                                                                                 <li><strong>后台活动</strong>: 是<span
@@ -985,7 +985,7 @@
                                                                         这一项【必须】从默认的 “Signed” 修改为
                                                                         <strong>Unsigned</strong> (未签名)。这是最关键的一步。
                                                                         <br> b. 您可以为这个预设起一个容易记住的名字（例如
-                                                                        `starchat-unsigned`），也可以使用系统生成的随机名。
+                                                                        `xphone-unsigned`），也可以使用系统生成的随机名。
                                                                         <br> c. 其他设置保持默认即可。点击页面底部的 <strong>Save</strong>
                                                                         (保存) 按钮。
                                                                 </li>
@@ -993,8 +993,8 @@
                                                                         <br>保存后，您会返回到上传预设列表。找到您刚刚创建的预设，并复制它的
                                                                         <strong>Preset name</strong> (预设名称)。
                                                                 </li>
-                                                                                                <li><strong>第6步：填入 StarChat 设置</strong>
-                                        <br>回到 StarChat 的"设置"页面，将第2步复制的
+                                                                <li><strong>第6步：填入 Xphone 设置</strong>
+                                                                        <br>回到 Xphone 的“设置”页面，将第2步复制的
                                                                         <code>Cloud Name</code> 和第5步复制的
                                                                         <code>Upload Preset</code>
                                                                         名称，分别粘贴到对应的输入框中，然后点击保存。
@@ -1016,7 +1016,7 @@
                                                                                 target="_blank" class="underline">Gist
                                                                                 网站</a>。
                                                                         <br> b. 在 “Filename including extension...”
-                                                                        (文件名) 输入框中，填写 <code>starchat_backup.json</code>。
+                                                                        (文件名) 输入框中，填写 <code>xphone_backup.json</code>。
                                                                         <br> c. 在文件内容区域随便输入一些文字，例如 <code>{}</code>。
                                                                         <br> d. 点击右下角的 “Create secret gist” (创建私密 Gist)
                                                                         按钮。<strong>请务必选择 Secret，不要选择 Public。</strong>
@@ -1045,7 +1045,7 @@
                                                                 </li>
                                                                 <li><strong>第4步：配置 Token 权限</strong>
                                                                         <br> a. 在 <strong>Note</strong> (备注) 栏填写一个描述，例如
-                                                                        `StarChat Sync`。
+                                                                        `Xphone Sync`。
                                                                         <br> b. 在 <strong>Expiration</strong> (有效期)
                                                                         栏，建议选择 <strong>No expiration</strong> (无有效期)，否则
                                                                         Token 过期后同步会失败。
@@ -1060,8 +1060,8 @@
                                                                         开头。<strong>这是您唯一一次看到这个 Token
                                                                                 的机会</strong>，请立即点击复制按钮，并将它保存在一个安全的地方。
                                                                 </li>
-                                                                                                <li><strong>第6步：填入 StarChat 设置</strong>
-                                        <br>回到 StarChat 的"设置"页面，将第2步复制的
+                                                                <li><strong>第6步：填入 Xphone 设置</strong>
+                                                                        <br>回到 Xphone 的“设置”页面，将第2步复制的
                                                                         <code>Gist ID</code> 和第5步复制的
                                                                         <code>Personal Access Token</code>，分别粘贴到云同步区域的对应输入框中，然后点击保存。
                                                                 </li>
@@ -1087,12 +1087,12 @@
                                                                         然后点击<strong>Copy to clipboard</strong>将其复制到剪贴板。
                                                                         <br><strong class="text-red-500 dark:text-red-400">请注意：</strong> 这个密钥非常重要，不要泄露给任何人。
                                                                 </li>
-                                                                                                <li><strong>第4步：在 StarChat 中创建并粘贴</strong>
-                                        <br> a. 回到 StarChat 的"设置"页面，在"TTS 语音服务"板块，点击"新增方案"。
+                                                                <li><strong>第4步：在 Xphone 中创建并粘贴</strong>
+                                                                        <br> a. 回到 Xphone 的“设置”页面，在“TTS 语音服务”板块，点击“新增方案”。
                                                                         <br> b. 为方案起一个名字（例如 `My ElevenLabs`），然后将第3步复制的 `API Key` 粘贴到对应的输入框中。
                                                                 </li>
                                                                 <li><strong>第5步：保存设置</strong>
-                                                                        <br>回到 StarChat 的"设置"页面顶部，点击"保存"按钮，您的 TTS 服务就配置完成了。之后您就可以在角色编辑页面为他们选择喜欢的声音了。
+                                                                        <br>回到 Xphone 的“设置”页面顶部，点击“保存”按钮，您的 TTS 服务就配置完成了。之后您就可以在角色编辑页面为他们选择喜欢的声音了。
                                                                 </li>
                                                         </ol>
                                                 </div>
@@ -1116,7 +1116,7 @@
                                                                         <li><strong>离线模拟</strong>:
                                                                                 当您离线超过设定的时间后，AI会自动模拟这段时间内角色之间可能发生的互动、关系变化或个人事件，并生成一份<a
                                                                                         href="#summary-help"
-                                                                                        class="underline">动态</a>。这会让角色的故事在您不在的时候也能延续。
+                                                                                        class="underline">简报</a>。这会让角色的故事在您不在的时候也能延续。
                                                                         </li>
                                                                         <li><strong>情报网 (Intelligence Network)</strong>:
                                                                                 <ul
@@ -1204,7 +1204,7 @@
                                                                                 <ul
                                                                                         class="list-disc list-inside text-sm mt-2 space-y-1 text-gray-600 dark:text-gray-400">
                                                                                         <li>在<a href="#summary-help"
-                                                                                                        class="underline">动态</a>应用中生成一份总结报告。
+                                                                                                        class="underline">简报</a>应用中生成一份总结报告。
                                                                                         </li>
                                                                                         <li>将角色间的<span
                                                                                                         class="highlight">关系变化</span>、个人目标的<span
@@ -1234,10 +1234,10 @@
                                                                                         <pre id="json-prompt-code"
                                                                                                 class="w-full p-0 text-xs font-mono bg-transparent dark:bg-transparent whitespace-pre-wrap">
 # 角色
-你是一个世界级的角色设定扩展器，专注于为一个名为"StarChat"的超真实模拟聊天应用创建角色档案。
+你是一个世界级的角色设定扩展器，专注于为一个名为“Xphone”的超真实模拟聊天应用创建角色档案。
 
 # 任务
-你的任务是基于我提供的【基础人设】，将其扩展成一个详尽、立体、且能直接应用于"StarChat"后台行为逻辑的角色档案。档案需要明确定义该角色在使用这个模拟手机时的各种行为习惯和内在规则。
+你的任务是基于我提供的【基础人设】，将其扩展成一个详尽、立体、且能直接应用于“Xphone”后台行为逻辑的角色档案。档案需要明确定义该角色在使用这个模拟手机时的各种行为习惯和内在规则。
 
 # 应用功能背景
 角色在应用中可以：

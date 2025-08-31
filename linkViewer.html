@@ -6,7 +6,7 @@
         <script>
                 (function () {
                         try {
-                                const themeMode = localStorage.getItem('starchat-theme-mode');
+                                const themeMode = localStorage.getItem('xphone-theme-mode');
                                 const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
                                 if (themeMode === 'dark' || (themeMode === 'auto' && systemPrefersDark)) {
                                         document.documentElement.classList.add('dark');
@@ -20,11 +20,11 @@
 
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-        <meta name="apple-mobile-web-app-title" content="StarChat">
+        <meta name="apple-mobile-web-app-title" content="Xphone">
         <meta name="theme-color" content="#3b82f6" />
         <link rel="apple-touch-icon" href="./icons/icon-192x192.png">
 
-        <title>StarChat - 链接详情</title>
+        <title>链接详情</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://unpkg.com/dexie/dist/dexie.js"></script>
         <link rel="stylesheet" href="sharedStyles.css">

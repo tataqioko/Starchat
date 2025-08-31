@@ -1,4 +1,4 @@
-const CACHE_NAME = 'starchat-cache-v1';
+const CACHE_NAME = 'xphone-cache-v1';
 const urlsToCache = [
   './',
   './index.html',

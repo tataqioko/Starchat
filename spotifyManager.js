@@ -3,7 +3,7 @@
 
 const clientId = 'c256072b5ce84cab842e7ab6b3f8d8b7';
 //const redirectUri = 'http://127.0.0.1:5500/music.html';
-const redirectUri = new URL('music.html', window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/')).href;
+const redirectUri = 'https://il057.github.io/Xphone/music.html';
 
 let player;
 let deviceId;
@@ -21,7 +21,7 @@ function initializePlayer(token) {
     if (isPlayerInitialized || !token) return;
 
     player = new Spotify.Player({
-                                name: 'StarChat Music Player',
+        name: 'XPhone Music Player',
         getOAuthToken: cb => { cb(token); }
     });
 

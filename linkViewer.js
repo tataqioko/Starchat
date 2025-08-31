@@ -1,4 +1,4 @@
-// StarChat - linkViewer.js
+// il057/xphone/Xphone-c707343078335a5c878ae579092241cbec4efe77/linkViewer.js
 
 import { db, callApi } from './db.js';
 import { showToast } from './ui-helpers.js';

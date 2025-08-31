@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             musicContainer.innerHTML = `
                 <div class="text-center p-4">
                     <p class="font-semibold text-lg mb-2">登录第2步：复制授权码</p>
-                                            <p class="text-gray-600 mb-4">请复制下方代码，然后手动返回StarChat应用，并粘贴到音乐页面的输入框中。</p>
+                    <p class="text-gray-600 mb-4">请复制下方代码，然后手动返回Xphone应用，并粘贴到音乐页面的输入框中。</p>
                     <input type="text" readonly value="${code}" onclick="this.select(); document.execCommand('copy'); alert('已复制到剪贴板!');" class="w-full p-2 text-center border rounded-md bg-gray-100 mb-4 cursor-pointer">
             </div>`;
         } else {

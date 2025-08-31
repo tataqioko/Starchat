@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             color: { background: '#ffffff', border: '#cccccc' },
             borderWidth: 4,
             size: 50,
-            font: { color: '#333333', face: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif', size: 16, strokeWidth: 1, strokeColor: 'white' }
+            font: { color: '#333333', face: 'Inter', size: 16, strokeWidth: 1, strokeColor: 'white' }
         });
     });
 
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             label: chat.name,
             shape: 'circularImage',
             image: chat.settings.aiAvatar || 'https://files.catbox.moe/kkll8p.svg',
-            font: { face: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif' }
+            font: { face: 'Inter' }
         });
     });
 
@@ -156,14 +156,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         nodes: {
             borderWidth: 2, size: 40,
             color: { border: '#222222', background: '#666666' },
-                            font: { color: '#000000', size: 12, face: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif' }
+            font: { color: '#000000', size: 12, face: 'Inter' }
         },
         edges: {
             arrows: { to: { enabled: true, scaleFactor: 0.7 } },
             font: {
                 color: '#ffffff', 
                 size: 14,
-                face: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif',
+                face: 'Inter',
                 strokeWidth: 3, 
                 strokeColor: 'rgba(0,0,0,0.8)', 
                 align: 'middle'

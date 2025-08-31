@@ -1,7 +1,7 @@
 {
-  "name": "StarChat",
-  "short_name": "StarChat",
-  "description": "A highly customizable AI character role-playing chat application.",
+  "name": "Xphone",
+  "short_name": "Xphone",
+  "description": "A simulated phone interface application.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
