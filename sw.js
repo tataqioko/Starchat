@@ -1,4 +1,4 @@
-const CACHE_NAME = 'xphone-cache-v1';
+const CACHE_NAME = 'starchat-cache-v1';
 const urlsToCache = [
   './',
   './index.html',
@@ -6,7 +6,6 @@ const urlsToCache = [
   './db.js',
   './applyGlobalStyles.js',
   './simulationEngine.js',
-  './spotifyManager.js',
   './chat.html',
   './chatRoom.html',
   './chatRoom.js',
@@ -21,10 +20,11 @@ const urlsToCache = [
   './settings.js',
   './personalization.html',
   './personalization.js',
-  './music.html',
-  './music.js',
+
   './album.html',
   './summary.html',
+  './notice.html',
+  './notice.js',
   './worldbook.html',
   './worldbook.js',
   './worldbook-editor.html',

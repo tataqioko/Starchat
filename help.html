@@ -7,7 +7,7 @@
                 (function () {
                         try {
                                 // 使用同步的 localStorage 获取主题设置，这比数据库快得多
-                                const themeMode = localStorage.getItem('xphone-theme-mode');
+                                const themeMode = localStorage.getItem('starchat-theme-mode');
                                 const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
                                 if (themeMode === 'dark' || (themeMode === 'auto' && systemPrefersDark)) {
@@ -25,7 +25,7 @@
         <link rel="manifest" href="./manifest.json">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-        <meta name="apple-mobile-web-app-title" content="Xphone">
+        <meta name="apple-mobile-web-app-title" content="starchat">
         <meta name="theme-color" content="#3b82f6" />
         <link rel="apple-touch-icon" href="./icons/icon-192x192.png">
 
@@ -34,8 +34,7 @@
         <script src="https://unpkg.com/dexie/dist/dexie.js"></script>
         <link rel="stylesheet" href="sharedStyles.css">
         <script type="module" src="applyGlobalStyles.js" defer></script>
-        <script src="https://sdk.scdn.co/spotify-player.js"></script>
-        <script type="module" src="./spotifyManager.js" defer></script>
+        
         <style>
                 :root {
                         --theme-color: #3b82f6;
@@ -501,8 +500,6 @@
                                                                 <li><span class="highlight">应用Dock栏</span>: 快速访问<a
                                                                                 href="#x-message-help"
                                                                                 class="underline">弦镜</a>、<a
-                                                                                href="#music-help"
-                                                                                class="underline">音乐</a>、<a
                                                                                 href="#summary-help"
                                                                                 class="underline">简报</a>、<a
                                                                                 href="#album-help"
@@ -747,10 +744,7 @@
                                                                                                         class="highlight">外卖代付</span>:
                                                                                                 向对方发起一个模拟的外卖代付请求，对方可以同意或拒绝。
                                                                                         </li>
-                                                                                        <li><span
-                                                                                                        class="highlight">一起听</span>:
-                                                                                                需要关联Spotify。选择一个歌单，与角色一起欣赏音乐。角色可以控制暂停，或者切歌。
-                                                                                        </li>
+                
                                                                                         <li><span
                                                                                                         class="highlight">通话</span>:
                                                                                                 与角色发起模拟的语音或视频通话。通话期间，你们的对话会被实时记录。
@@ -766,14 +760,7 @@
                                                 </div>
                                         </details>
 
-                                        <details id="music-help">
-                                                <summary>音乐</summary>
-                                                <div class="details-content">
-                                                        <p>通过关联您的Spotify
-                                                                Premium账号，解锁“一起听歌”功能。首次使用需要登录授权。登录成功后，即可在聊天室中与AI角色分享歌单，共同聆听。
-                                                        </p>
-                                                </div>
-                                        </details>
+
 
                                         <details id="summary-help">
                                                 <summary>简报</summary>
@@ -985,7 +972,7 @@
                                                                         这一项【必须】从默认的 “Signed” 修改为
                                                                         <strong>Unsigned</strong> (未签名)。这是最关键的一步。
                                                                         <br> b. 您可以为这个预设起一个容易记住的名字（例如
-                                                                        `xphone-unsigned`），也可以使用系统生成的随机名。
+                                                                        `starchat-unsigned`），也可以使用系统生成的随机名。
                                                                         <br> c. 其他设置保持默认即可。点击页面底部的 <strong>Save</strong>
                                                                         (保存) 按钮。
                                                                 </li>
@@ -993,8 +980,8 @@
                                                                         <br>保存后，您会返回到上传预设列表。找到您刚刚创建的预设，并复制它的
                                                                         <strong>Preset name</strong> (预设名称)。
                                                                 </li>
-                                                                <li><strong>第6步：填入 Xphone 设置</strong>
-                                                                        <br>回到 Xphone 的“设置”页面，将第2步复制的
+                                                                <li><strong>第6步：填入 starchat 设置</strong>
+                                                                        <br>回到 starchat 的“设置”页面，将第2步复制的
                                                                         <code>Cloud Name</code> 和第5步复制的
                                                                         <code>Upload Preset</code>
                                                                         名称，分别粘贴到对应的输入框中，然后点击保存。
@@ -1016,7 +1003,7 @@
                                                                                 target="_blank" class="underline">Gist
                                                                                 网站</a>。
                                                                         <br> b. 在 “Filename including extension...”
-                                                                        (文件名) 输入框中，填写 <code>xphone_backup.json</code>。
+                                                                        (文件名) 输入框中，填写 <code>starchat_backup.json</code>。
                                                                         <br> c. 在文件内容区域随便输入一些文字，例如 <code>{}</code>。
                                                                         <br> d. 点击右下角的 “Create secret gist” (创建私密 Gist)
                                                                         按钮。<strong>请务必选择 Secret，不要选择 Public。</strong>
@@ -1045,7 +1032,7 @@
                                                                 </li>
                                                                 <li><strong>第4步：配置 Token 权限</strong>
                                                                         <br> a. 在 <strong>Note</strong> (备注) 栏填写一个描述，例如
-                                                                        `Xphone Sync`。
+                                                                        `starchat Sync`。
                                                                         <br> b. 在 <strong>Expiration</strong> (有效期)
                                                                         栏，建议选择 <strong>No expiration</strong> (无有效期)，否则
                                                                         Token 过期后同步会失败。
@@ -1060,8 +1047,8 @@
                                                                         开头。<strong>这是您唯一一次看到这个 Token
                                                                                 的机会</strong>，请立即点击复制按钮，并将它保存在一个安全的地方。
                                                                 </li>
-                                                                <li><strong>第6步：填入 Xphone 设置</strong>
-                                                                        <br>回到 Xphone 的“设置”页面，将第2步复制的
+                                                                <li><strong>第6步：填入 starchat 设置</strong>
+                                                                        <br>回到 starchat 的“设置”页面，将第2步复制的
                                                                         <code>Gist ID</code> 和第5步复制的
                                                                         <code>Personal Access Token</code>，分别粘贴到云同步区域的对应输入框中，然后点击保存。
                                                                 </li>
@@ -1087,12 +1074,12 @@
                                                                         然后点击<strong>Copy to clipboard</strong>将其复制到剪贴板。
                                                                         <br><strong class="text-red-500 dark:text-red-400">请注意：</strong> 这个密钥非常重要，不要泄露给任何人。
                                                                 </li>
-                                                                <li><strong>第4步：在 Xphone 中创建并粘贴</strong>
-                                                                        <br> a. 回到 Xphone 的“设置”页面，在“TTS 语音服务”板块，点击“新增方案”。
+                                                                <li><strong>第4步：在 starchat 中创建并粘贴</strong>
+                                                                        <br> a. 回到 starchat 的“设置”页面，在“TTS 语音服务”板块，点击“新增方案”。
                                                                         <br> b. 为方案起一个名字（例如 `My ElevenLabs`），然后将第3步复制的 `API Key` 粘贴到对应的输入框中。
                                                                 </li>
                                                                 <li><strong>第5步：保存设置</strong>
-                                                                        <br>回到 Xphone 的“设置”页面顶部，点击“保存”按钮，您的 TTS 服务就配置完成了。之后您就可以在角色编辑页面为他们选择喜欢的声音了。
+                                                                        <br>回到 starchat 的“设置”页面顶部，点击“保存”按钮，您的 TTS 服务就配置完成了。之后您就可以在角色编辑页面为他们选择喜欢的声音了。
                                                                 </li>
                                                         </ol>
                                                 </div>
@@ -1234,10 +1221,10 @@
                                                                                         <pre id="json-prompt-code"
                                                                                                 class="w-full p-0 text-xs font-mono bg-transparent dark:bg-transparent whitespace-pre-wrap">
 # 角色
-你是一个世界级的角色设定扩展器，专注于为一个名为“Xphone”的超真实模拟聊天应用创建角色档案。
+你是一个世界级的角色设定扩展器，专注于为一个名为“starchat”的超真实模拟聊天应用创建角色档案。
 
 # 任务
-你的任务是基于我提供的【基础人设】，将其扩展成一个详尽、立体、且能直接应用于“Xphone”后台行为逻辑的角色档案。档案需要明确定义该角色在使用这个模拟手机时的各种行为习惯和内在规则。
+你的任务是基于我提供的【基础人设】，将其扩展成一个详尽、立体、且能直接应用于“starchat”后台行为逻辑的角色档案。档案需要明确定义该角色在使用这个模拟手机时的各种行为习惯和内在规则。
 
 # 应用功能背景
 角色在应用中可以：

@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         settingsToSave.themeMode = selectedThemeMode;
 
                         await db.globalSettings.put(settingsToSave);
-                        localStorage.setItem('xphone-theme-mode', selectedThemeMode);
+                        localStorage.setItem('starchat-theme-mode', selectedThemeMode);
                         await applyThemeMode();
                         presetContainer.classList.remove('edit-mode');
                         presetConfig.topology.container.classList.remove('edit-mode');

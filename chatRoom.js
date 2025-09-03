@@ -1,5 +1,4 @@
 import { db, apiLock, getActiveApiProfile, uploadImage, uploadAudioBlob, callApi } from './db.js';
-import * as spotifyManager from './spotifyManager.js';
 import { updateRelationshipScore, generateNewCharacterPersona, triggerImmediateSummary, formatRelativeTime, replaceUserMentions } from './simulationEngine.js';
 import { showUploadChoiceModal, showCallActionModal, promptForInput, showImageActionModal } from './ui-helpers.js';
 import { showToast, showToastOnNextPage, showRawContentModal, showConfirmModal } from './ui-helpers.js';
@@ -80,23 +79,12 @@ const lockOverlay = document.getElementById('chat-lock-overlay');
 const lockContent = document.getElementById('chat-lock-content');
 const manualSummaryBtn = document.getElementById('manual-summary-btn'); // [新增]
 
-// 音乐
-const listenTogetherBtn = document.getElementById('listen-together-btn');
-const playlistModal = document.getElementById('playlist-modal');
-const playlistSelectionContainer = document.getElementById('playlist-selection-container');
-const playlistCancelBtn = document.getElementById('playlist-cancel-btn');
 
-const musicPlayerBar = document.getElementById('music-player-bar');
-const playerSongTitle = document.getElementById('player-song-title');
-const playerSongArtist = document.getElementById('player-song-artist');
-const playerProgressBar = document.getElementById('player-progress-bar');
-const playerPrevBtn = document.getElementById('player-prev-btn');
-const playerToggleBtn = document.getElementById('player-toggle-btn');
-const playerNextBtn = document.getElementById('player-next-btn');
-let shuffleBtn = document.getElementById('player-shuffle-btn');
 
-let playerUpdateInterval = null;
-let currentlyPlayingUri = null;
+
+
+
+
 
 // 表情
 const toggleStickerPanelBtn = document.getElementById('toggle-sticker-panel-btn');
@@ -135,7 +123,7 @@ const rejectIncomingCallBtn = document.getElementById('reject-incoming-call-btn'
 const acceptIncomingCallBtn = document.getElementById('accept-incoming-call-btn');
 
 
-const notificationChannel = new BroadcastChannel('xphone_notifications');
+const notificationChannel = new BroadcastChannel('starchat_notifications');
 
 function toMillis(t) {
         return new Date(t).getTime();
@@ -237,7 +225,7 @@ async function init() {
         setupUI();
         renderMessages();
         setupEventListeners();
-        setupPlayerControls();
+
 
         const savedCallStateJSON = sessionStorage.getItem('activeCallState');
         if (savedCallStateJSON) {
@@ -1454,9 +1442,8 @@ async function setupEventListeners() {
         // Listener for the reply preview bar's cancel button
         document.getElementById('cancel-reply-btn').addEventListener('click', cancelReply);
 
-        // listener for music
-        listenTogetherBtn.addEventListener('click', openPlaylistPicker);
-        playlistCancelBtn.addEventListener('click', () => playlistModal.classList.remove('visible'));
+        
+
 
         let pressTimer = null;
         let pressEvent = null;
@@ -1987,49 +1974,11 @@ async function sendUserLinkShare() {
         document.getElementById('share-link-modal').classList.remove('visible');
 }
 
-async function openPlaylistPicker() {
-        if (!spotifyManager.isLoggedIn()) {
-                showToast('请先前往“音乐”App登录Spotify。', 'error');
-                return;
-        }
-        playlistSelectionContainer.innerHTML = '<p>正在加载您的歌单...</p>';
-        playlistModal.classList.add('visible');
 
-        const playlists = await spotifyManager.getUserPlaylists();
-        playlistSelectionContainer.innerHTML = ''; // 清空加载提示
 
-        if (playlists.length === 0) {
-                playlistSelectionContainer.innerHTML = '<p>您还没有创建任何歌单。</p>';
-                return;
-        }
 
-        playlists.forEach(playlist => {
-                const pEl = document.createElement('div');
-                pEl.className = 'p-2 border-b hover:bg-gray-100 cursor-pointer flex items-center gap-3';
-                pEl.innerHTML = `
-            <img src="${playlist.images[0]?.url || ''}" class="w-10 h-10 rounded">
-            <span>${playlist.name}</span>
-        `;
-                pEl.addEventListener('click', () => startListenTogetherSession(playlist));
-                playlistSelectionContainer.appendChild(pEl);
-        });
-}
 
-async function startListenTogetherSession(playlist) {
-        playlistModal.classList.remove('visible');
 
-        // 只发出播放指令，不获取数据
-        spotifyManager.playPlaylist(playlist.uri);
-
-        const visibleMessage = {
-                role: 'system',
-                type: 'system_message',
-                content: `你分享了歌单《${playlist.name}》，开始一起听歌`,
-                timestamp: Date.now()
-        };
-        // 只添加UI消息，AI的回应将由player_state_changed事件驱动
-        await addUserMessageToDb(visibleMessage, false);
-}
 
 function getDisplayName(id) {
         if (id === 'user') {
@@ -2195,16 +2144,7 @@ async function getAiResponse(charIdToTrigger = null) {
                         sessionStorage.removeItem('ai_last_call_failed');
                 }
 
-                let musicPromptSection = "";
                 const lastMessage = recentHistory.length > 0 ? recentHistory[recentHistory.length - 1] : null;
-
-                if (lastMessage && lastMessage.type === 'spotify_state_info' && lastMessage.content) {
-                        // 从系统提示中解析出歌曲信息
-                        const songMatch = lastMessage.content.match(/正在播放: (.+?)。/);
-                        if (songMatch && songMatch[1]) {
-                                musicPromptSection = `\n\n# 音乐播放状态\n你们正在一起听歌，当前播放的是: ${songMatch[1]}。`;
-                        }
-                }
 
                 let intelligencePromptSection = "";
 
@@ -2337,13 +2277,7 @@ async function getAiResponse(charIdToTrigger = null) {
         * **示例**: '{"type": "waimai_response", "target_timestamp": 1721382490123, "decision": "paid"}'
     * **后续对话**: 在使用指令后，你还【必须】紧接着发送一条或多条 'text' 消息，来对你的决定进行解释或表达，例如“没问题，已经帮你付啦！”或“抱歉，我现在手头有点紧...”。
 `,
-                        handleMusicControl: `
-# 音乐控制指南
-你们正在一起听歌。你可以像真人一样根据自身人设对当前歌曲发表评论，或使用以下音乐控制工具：
-- **暂停/播放**: {"type": "spotify_toggle_play"}
-- **下一首**: {"type": "spotify_next_track"}
-- **上一首**: {"type": "spotify_previous_track"}
-`
+
                 };
                 let injectedInstructions = [];
                 // 找到AI上一次回复的索引
@@ -2381,10 +2315,7 @@ async function getAiResponse(charIdToTrigger = null) {
                 // 将Set转换为数组并推入主指令数组
                 injectedInstructions.push(...instructionsToInject);
 
-                // 检查音乐播放状态
-                if (musicPlayerBar.style.display !== 'none' && !musicPlayerBar.classList.contains('hidden')) {
-                        injectedInstructions.push(instructions.handleMusicControl);
-                }
+
                 console.log("Injected instructions:", injectedInstructions);
 
 
@@ -3024,7 +2955,7 @@ ${guide}
 -发起视频通话: initiate_video_call()
 -发起转账: transfer(amount, note)
 -发起外卖代付: waimai_request(productInfo, amount)
--音乐控制: spotify_toggle_play() | spotify_next_track() | spotify_previous_track()
+
 -拉黑用户: block_user()
 -回应好友申请: friend_request_response(decision, reason)
             `;
@@ -3165,8 +3096,7 @@ ${intelligencePromptSection}
 ## 6.3 共同参与的群聊动态 (Shared Group Chat Activity)
 ${groupChatsContextForPrompt}
 
-## 6.4 当前音乐状态 (Current Music Status)
-${musicPromptSection}
+
 
 # PART 7 临时任务指南 (Contextual Task Guide)
 ${injectedInstructions.join('\n\n')} 
@@ -4026,17 +3956,7 @@ ${guide}
                                                 handleAiPat(actorName, action.target_name, action.suffix);
                                                 break;
 
-                                        case 'spotify_toggle_play':
-                                                spotifyManager.togglePlay();
-                                                break;
 
-                                        case 'spotify_next_track':
-                                                spotifyManager.nextTrack();
-                                                break;
-
-                                        case 'spotify_previous_track':
-                                                spotifyManager.previousTrack();
-                                                break;
 
                                         case 'send_sticker': {
                                                 // Get the desired sticker name from the AI's action.
@@ -4877,71 +4797,9 @@ async function deleteSelectedMessages() {
 }
 
 
-function setupPlayerControls() {
-        document.addEventListener('spotifyStateUpdate', ({ detail: state }) => {
-                if (playerUpdateInterval) clearInterval(playerUpdateInterval);
 
-                if (!state || !state.track_window.current_track) {
-                        musicPlayerBar.classList.add('hidden');
-                        currentlyPlayingUri = null; // 停止播放时重置
-                        return;
-                }
 
-                musicPlayerBar.classList.remove('hidden');
-                const { paused, duration, position, track_window, shuffle } = state; // 新增获取 shuffle 状态
-                const current_track = track_window.current_track;
-                currentShuffleState = shuffle;
 
-                playerSongTitle.textContent = current_track.name;
-                playerSongArtist.textContent = current_track.artists.map(a => a.name).join(', ');
-
-                const playIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/></svg>`;
-                const pauseIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-pause" viewBox="0 0 16 16"><path d="M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5m4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5"/></svg>`;
-                shuffleBtn.style.color = shuffle ? 'var(--accent-color)' : '#6b7280';
-
-                const newShuffleBtn = shuffleBtn.cloneNode(true);
-                shuffleBtn.parentNode.replaceChild(newShuffleBtn, shuffleBtn);
-                shuffleBtn = newShuffleBtn; // 更新对按钮的引用
-                shuffleBtn.addEventListener('click', () => spotifyManager.toggleShuffle(!currentShuffleState));
-
-                playerToggleBtn.innerHTML = paused ? playIcon : pauseIcon;
-
-                let currentPosition = position;
-                const updateProgress = () => {
-                        const progressPercent = (currentPosition / duration) * 100;
-                        playerProgressBar.style.width = `${progressPercent}%`;
-                };
-                updateProgress();
-
-                if (!paused) {
-                        playerUpdateInterval = setInterval(() => {
-                                currentPosition += 100;
-                                updateProgress();
-                                if (currentPosition >= duration) clearInterval(playerUpdateInterval);
-                        }, 100);
-                }
-
-                // ▼▼▼ 仅在歌曲切换时通知AI ▼▼▼
-                if (current_track.uri !== currentlyPlayingUri) {
-                        currentlyPlayingUri = current_track.uri; // 更新当前播放的歌曲ID
-
-                        const nextSongInfo = track_window.next_tracks.length > 0 ? `下一首是: ${track_window.next_tracks[0].name}` : '这是最后一首歌了。';
-                        const systemMessage = {
-                                role: 'system',
-                                type: 'spotify_state_info',
-                                content: `[系统提示：音乐状态已更新。正在播放: ${current_track.name} - ${current_track.artists.map(a => a.name).join(', ')}。${nextSongInfo}]`,
-                                timestamp: Date.now(),
-                                isHidden: true,
-                        };
-
-                        addUserMessageToDb(systemMessage, false, charId); // 只有新歌开始时才调用AI
-                }
-        });
-
-        playerPrevBtn.addEventListener('click', spotifyManager.previousTrack);
-        playerNextBtn.addEventListener('click', spotifyManager.nextTrack);
-        playerToggleBtn.addEventListener('click', spotifyManager.togglePlay);
-}
 
 // --- Sticker Panel Logic ---
 

@@ -262,20 +262,41 @@ document.addEventListener('DOMContentLoaded', () => {
                 const key = document.getElementById('api-key').value.trim();
                 const provider = document.getElementById('api-provider').value;
 
-
                 let fetchUrl;
                 let headers = { 'Content-Type': 'application/json' };
 
                 const fetchBtn = document.getElementById('fetch-models-btn');
+                
                 if (provider === 'gemini') {
+                        if (!key) {
+                                showToast('请填写Gemini API密钥', 'error');
+                                return;
+                        }
                         fetchUrl = `https://generativelanguage.googleapis.com/v1beta/models?key=${key}`;
                 } else {
                         if (!url) {
                                 showToast('请填写反代地址', 'error');
                                 return;
                         }
-                        fetchUrl = `${url}/v1/models`;
+                        if (!key) {
+                                showToast('请填写API密钥', 'error');
+                                return;
+                        }
+                        
+                        // URL格式验证和修正
+                        let cleanUrl = url;
+                        if (!cleanUrl.startsWith('http://') && !cleanUrl.startsWith('https://')) {
+                                cleanUrl = 'https://' + cleanUrl;
+                                showToast('已自动添加https://前缀', 'info');
+                        }
+                        
+                        // 移除末尾的斜杠和/v1路径
+                        cleanUrl = cleanUrl.replace(/\/+$/, '').replace(/\/v1\/?$/, '');
+                        
+                        fetchUrl = `${cleanUrl}/v1/models`;
                         headers['Authorization'] = `Bearer ${key}`;
+                        
+                        console.log('构建的API请求URL:', fetchUrl);
                 }
 
                 fetchBtn.textContent = '拉取中...';
@@ -284,8 +305,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 try {
                         const response = await fetch(fetchUrl, { headers });
                         if (!response.ok) {
-                                const errorData = await response.json();
-                                throw new Error(errorData?.error?.message || '无法获取模型列表');
+                                let errorMessage = '无法获取模型列表';
+                                try {
+                                        const errorData = await response.json();
+                                        errorMessage = errorData?.error?.message || errorMessage;
+                                        
+                                        // 提供更详细的错误说明
+                                        if (errorMessage.includes('Invalid URL')) {
+                                                errorMessage += '\n\n请检查反代地址格式:\n✅ 正确: https://api.example.com\n❌ 错误: api.example.com 或 https://api.example.com/v1';
+                                        } else if (response.status === 401) {
+                                                errorMessage = 'API密钥无效，请检查密钥是否正确';
+                                        } else if (response.status === 403) {
+                                                errorMessage = 'API访问被拒绝，请检查密钥权限';
+                                        } else if (response.status === 404) {
+                                                errorMessage = 'API地址不存在，请检查反代地址是否正确';
+                                        }
+                                } catch (e) {
+                                        console.error('解析错误响应失败:', e);
+                                }
+                                throw new Error(errorMessage);
                         }
                         const data = await response.json();
                         const modelSelect = document.getElementById('model-select');
@@ -310,7 +348,19 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                         showToast('模型列表已更新');
                 } catch (error) {
-                        showToast(`拉取模型失败: ${error.message}`, 'error');
+                        console.error('拉取模型失败:', error);
+                        
+                        let userFriendlyMessage = '拉取模型失败';
+                        
+                        if (error.message.includes('NetworkError') || error.message.includes('Failed to fetch')) {
+                                userFriendlyMessage = '网络连接失败，请检查:\n1. 反代地址是否正确\n2. 网络连接是否正常\n3. 防火墙是否阻拦请求';
+                        } else if (error.message.includes('Invalid URL')) {
+                                userFriendlyMessage = 'URL格式错误，请确保反代地址格式为: https://api.example.com';
+                        } else {
+                                userFriendlyMessage = error.message;
+                        }
+                        
+                        showToast(userFriendlyMessage, 'error');
                 } finally {
                         fetchBtn.textContent = '拉取';
                         fetchBtn.disabled = false;
@@ -346,7 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         );
 
                         // 定义哪些表是只包含单个对象的
-                        const singleObjectTables = ['globalSettings', 'musicLibrary', 'xzoneSettings'];
+                        const singleObjectTables = ['globalSettings', 'xzoneSettings'];
 
                         tableNames.forEach((name, i) => {
                                 if (singleObjectTables.includes(name)) {
@@ -365,7 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const url = URL.createObjectURL(blob);
                         const link = Object.assign(document.createElement('a'), {
                                 href: url,
-                                download: `XPhone-Backup-${new Date().toISOString().split('T')[0]}.json`
+                                download: `starchat-Backup-${new Date().toISOString().split('T')[0]}.json`
                         });
                         document.body.appendChild(link);
                         link.click();
@@ -537,7 +587,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const tableData = await Promise.all(
                         finalTableNames.map(name => db.table(name).toArray())
                 );
-                const singleObjectTables = ['globalSettings', 'musicLibrary', 'xzoneSettings'];
+                const singleObjectTables = ['globalSettings', 'xzoneSettings'];
                 tableNames.forEach((name, i) => {
                         if (singleObjectTables.includes(name)) {
                                 backupData[name] = tableData[i][0] || null;
@@ -585,7 +635,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 },
                                 body: JSON.stringify({
                                         files: {
-                                                'xphone_backup.json': { // 使用固定的文件名
+                                                'starchat_backup.json': { // 使用固定的文件名
                                                         content: content
                                                 }
                                         }
@@ -643,10 +693,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
 
                         const gistData = await response.json();
-                        const fileContent = gistData.files['xphone_backup.json']?.content;
+                        const fileContent = gistData.files['starchat_backup.json']?.content;
 
                         if (!fileContent) {
-                                throw new Error("在Gist中找不到 'xphone_backup.json' 文件。");
+                                throw new Error("在Gist中找不到 'starchat_backup.json' 文件。");
                         }
 
                         const backupData = JSON.parse(fileContent);

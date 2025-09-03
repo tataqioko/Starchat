@@ -1,6 +1,6 @@
 {
-  "name": "Xphone",
-  "short_name": "Xphone",
+  "name": "starchat",
+  "short_name": "starchat",
   "description": "A simulated phone interface application.",
   "start_url": "./index.html",
   "scope": "./",

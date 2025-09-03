@@ -6,7 +6,7 @@
         <script>
                 (function () {
                         try {
-                                const themeMode = localStorage.getItem('xphone-theme-mode');
+                                const themeMode = localStorage.getItem('starchat-theme-mode');
                                 const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
                                 if (themeMode === 'dark' || (themeMode === 'auto' && systemPrefersDark)) {
                                         document.documentElement.classList.add('dark');
@@ -20,7 +20,7 @@
 
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-        <meta name="apple-mobile-web-app-title" content="Xphone">
+        <meta name="apple-mobile-web-app-title" content="starchat">
         <meta name="theme-color" content="#3b82f6" />
         <link rel="apple-touch-icon" href="./icons/icon-192x192.png">
 
@@ -29,8 +29,7 @@
         <script src="https://unpkg.com/dexie/dist/dexie.js"></script>
         <link rel="stylesheet" href="sharedStyles.css">
         <script type="module" src="applyGlobalStyles.js" defer></script>
-        <script src="https://sdk.scdn.co/spotify-player.js"></script>
-        <script type="module" src="./spotifyManager.js" defer></script>
+        
         <style>
                 /* Basic article styling */
                 .article-content h1,

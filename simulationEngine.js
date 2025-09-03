@@ -1,5 +1,5 @@
 import { db, apiLock, getActiveApiProfile, callApi } from './db.js';
-const notificationChannel = new BroadcastChannel('xphone_notifications');
+const notificationChannel = new BroadcastChannel('starchat_notifications');
 
 
 
@@ -1107,7 +1107,7 @@ async function processAndNotify(chat, message, allChatsMap) {
         await db.chats.put(chat);
 
         // 发送跨页面通知
-        const notificationChannel = new BroadcastChannel('xphone_notifications');
+        const notificationChannel = new BroadcastChannel('starchat_notifications');
         notificationChannel.postMessage({ type: 'new_message', charId: chat.id });
 
         // 触发桌面通知
@@ -1134,7 +1134,7 @@ async function processAndNotify(chat, message, allChatsMap) {
                 const notificationOptions = {
                         body: notificationBody,
                         icon: senderChat?.settings?.aiAvatar || 'https://files.catbox.moe/kkll8p.svg',
-                        tag: `xphone-message-${chat.id}` // 使用tag可以防止同一角色的消息产生过多重复通知
+                        tag: `starchat-message-${chat.id}` // 使用tag可以防止同一角色的消息产生过多重复通知
                 };
                 new Notification(`${message.senderName}给你发来一条新消息`, notificationOptions);
         }

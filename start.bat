@@ -1,10 +1,10 @@
 @echo off
 chcp 65001 >nul
-title Xphone - AI角色扮演聊天应用启动器
+title starchat - AI角色扮演聊天应用启动器
 
 echo.
 echo ========================================
-echo    Xphone - AI角色扮演聊天应用
+echo    starchat - AI角色扮演聊天应用
 echo ========================================
 echo.
 echo 正在启动本地服务器...

@@ -13,7 +13,7 @@ db.version(33).stores({
     globalSettings: '&id, activeApiProfileId', // 增加一个字段用于存储当前激活的方案ID
     userStickers: '++id, &url, name, order',
     worldBooks: '&id, name',
-    musicLibrary: '&id',
+
     personaPresets: '++id, name, avatar, gender, birthday, persona', 
     xzoneSettings: '&id',
     xzonePosts: '++id, timestamp, authorId',
@@ -59,7 +59,7 @@ db.version(34).stores({
     globalSettings: '&id, activeApiProfileId',
     userStickers: '++id, &url, name, order',
     worldBooks: '&id, name',
-    musicLibrary: '&id',
+
     personaPresets: '++id, name, avatar, gender, birthday, persona', 
     xzoneSettings: '&id',
     xzonePosts: '++id, timestamp, authorId',
@@ -109,7 +109,7 @@ db.version(35).stores({
     globalSettings: '&id, activeApiProfileId',
     userStickers: '++id, &url, name, order',
     worldBooks: '&id, name',
-    musicLibrary: '&id',
+
     personaPresets: '++id, name, avatar, gender, birthday, persona', 
     xzoneSettings: '&id',
     xzonePosts: '++id, timestamp, authorId',
@@ -151,7 +151,7 @@ db.version(40).stores({
         globalSettings: '&id, activeApiProfileId',
         userStickers: '++id, &url, name, order',
         worldBooks: '&id, name, triggerType',
-        musicLibrary: '&id',
+    
         personaPresets: '++id, name, avatar, gender, birthday, persona',
         xzoneSettings: '&id',
         xzonePosts: '++id, timestamp, authorId',

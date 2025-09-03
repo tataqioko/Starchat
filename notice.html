@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>用户协议与免责声明 - 星链·Starchat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/dexie/dist/dexie.js"></script>
+    <link rel="stylesheet" href="sharedStyles.css">
+    <script type="module" src="applyGlobalStyles.js" defer></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body, html {
+            height: 100vh;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3a 25%, #2d1b69 50%, #1e1b4b 75%, #0f0f23 100%);
+            background-attachment: fixed;
+        }
+        
+        .phone-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            max-width: 100vw;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* 背景装饰 */
+        .phone-container::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .phone-content {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 0;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+        
+        .phone-content::-webkit-scrollbar {
+            display: none; /* Chrome, Safari and Opera */
+        }
+        
+        /* 自定义滚动指示器 */
+        .scroll-indicator {
+            position: fixed;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            z-index: 40;
+        }
+        
+        .scroll-thumb {
+            width: 100%;
+            background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* 顶部导航美化 */
+        .phone-header {
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 30;
+        }
+        
+        .status-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .back-btn {
+            @apply w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white transition-all duration-200;
+        }
+        
+        .back-btn:hover {
+            @apply bg-white/20 scale-110;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+        }
+        
+        .page-title {
+            @apply text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300;
+        }
+
+        /* 内容区域美化 */
+        .content-wrapper {
+            max-width: 420px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        /* 页面标题区域 */
+        .hero-section {
+            text-align: center;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .hero-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-icon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+            100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+        }
+        
+        .hero-title {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        /* 卡片式设计 */
+        .disclaimer-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .disclaimer-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .disclaimer-card:hover::before {
+            left: 100%;
+        }
+        
+        .disclaimer-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(102, 126, 234, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(102, 126, 234, 0.2);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            position: relative;
+        }
+        
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin: 0;
+        }
+        
+        .card-content {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+        
+        /* 特殊卡片样式 */
+        .welcome-card {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.15) 0%, rgba(255, 152, 0, 0.1) 100%);
+            border-color: rgba(255, 193, 7, 0.3);
+        }
+        
+        .welcome-card .card-icon {
+            background: linear-gradient(135deg, #ffc107, #ff9800);
+            box-shadow: 0 8px 16px rgba(255, 193, 7, 0.3);
+        }
+        
+        .service-card .card-icon {
+            background: linear-gradient(135deg, #2196f3, #21cbf3);
+            box-shadow: 0 8px 16px rgba(33, 150, 243, 0.3);
+        }
+        
+        .opensource-card .card-icon {
+            background: linear-gradient(135deg, #4caf50, #8bc34a);
+            box-shadow: 0 8px 16px rgba(76, 175, 80, 0.3);
+        }
+        
+        .terms-card .card-icon {
+            background: linear-gradient(135deg, #9c27b0, #e91e63);
+            box-shadow: 0 8px 16px rgba(156, 39, 176, 0.3);
+        }
+        
+        .disclaimer-card-main .card-icon {
+            background: linear-gradient(135deg, #f44336, #ff5722);
+            box-shadow: 0 8px 16px rgba(244, 67, 54, 0.3);
+        }
+        
+        .privacy-card .card-icon {
+            background: linear-gradient(135deg, #607d8b, #546e7a);
+            box-shadow: 0 8px 16px rgba(96, 125, 139, 0.3);
+        }
+        
+        .contact-card .card-icon {
+            background: linear-gradient(135deg, #795548, #8d6e63);
+            box-shadow: 0 8px 16px rgba(121, 85, 72, 0.3);
+        }
+
+        /* 列表美化 */
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-list li:hover {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            padding-left: 0.5rem;
+            margin: 0 -0.5rem;
+        }
+        
+        .feature-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+            margin-top: 0.1rem;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-size: 0.7rem;
+        }
+
+        /* 按钮美化 */
+        .agree-button {
+            width: 100%;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 16px;
+            border: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .agree-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .agree-button:hover::before {
+            left: 100%;
+        }
+        
+        .agree-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+        }
+        
+        .agree-button:active {
+            transform: translateY(-1px);
+        }
+        
+        .agree-button.agreed {
+            background: linear-gradient(135deg, #4caf50 0%, #8bc34a 100%);
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.4);
+        }
+        
+        .agree-button.agreed:hover {
+            box-shadow: 0 15px 40px rgba(76, 175, 80, 0.5);
+        }
+
+        /* 链接美化 */
+        .link-style {
+            color: #60a5fa;
+            text-decoration: none;
+            position: relative;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+        
+        .link-style::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #60a5fa, #a78bfa);
+            transition: width 0.3s ease;
+        }
+        
+        .link-style:hover {
+            color: #93c5fd;
+        }
+        
+        .link-style:hover::after {
+            width: 100%;
+        }
+
+        /* 进度条美化 */
+        #reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            z-index: 50;
+            transition: width 0.1s ease;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+        }
+
+        /* 动画效果 */
+        @keyframes slideInFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInFromRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .disclaimer-card:nth-child(odd) {
+            animation: slideInFromLeft 0.6s ease-out;
+        }
+        
+        .disclaimer-card:nth-child(even) {
+            animation: slideInFromRight 0.6s ease-out;
+        }
+        
+        .hero-section {
+            animation: fadeInScale 0.8s ease-out;
+        }
+        
+        .disclaimer-card:nth-child(1) { animation-delay: 0.1s; }
+        .disclaimer-card:nth-child(2) { animation-delay: 0.2s; }
+        .disclaimer-card:nth-child(3) { animation-delay: 0.3s; }
+        .disclaimer-card:nth-child(4) { animation-delay: 0.4s; }
+        .disclaimer-card:nth-child(5) { animation-delay: 0.5s; }
+        .disclaimer-card:nth-child(6) { animation-delay: 0.6s; }
+        .disclaimer-card:nth-child(7) { animation-delay: 0.7s; }
+        
+        /* 响应式优化 */
+        @media (max-width: 480px) {
+            .content-wrapper {
+                padding: 1rem;
+            }
+            
+            .disclaimer-card {
+                padding: 1.5rem;
+                margin-bottom: 1rem;
+            }
+            
+            .hero-section {
+                padding: 1.5rem 0;
+            }
+            
+            .hero-icon {
+                width: 64px;
+                height: 64px;
+            }
+            
+            .hero-title {
+                font-size: 1.75rem;
+            }
+        }
+        
+        /* 特殊效果 */
+        .glow-text {
+            text-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+        }
+        
+        .pulse-glow {
+            animation: pulseGlow 2s infinite;
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { 
+                box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            }
+            50% { 
+                box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <div class="phone-container">
+        <!-- 顶部导航 -->
+        <header class="phone-header">
+            <div class="status-bar">
+                <button onclick="history.back()" class="back-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6"/>
+                    </svg>
+                </button>
+                <h1 class="page-title">用户协议与免责声明</h1>
+                <div class="w-8"></div>
+            </div>
+        </header>
+
+        <!-- 主要内容 -->
+        <main class="phone-content">
+            <div class="content-wrapper">
+                <!-- 英雄区域 -->
+                <div class="hero-section">
+                    <div class="hero-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="text-white">
+                            <path d="M8 1a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v0.5a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5V1zM3 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4zm2.5 1a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 .5-.5v-8a.5.5 0 0 0-.5-.5h-5z"/>
+                        </svg>
+                    </div>
+                    <h1 class="hero-title">用户协议与免责声明</h1>
+                    <p class="hero-subtitle">为了您的权益，请仔细阅读以下条款</p>
+                </div>
+
+                <!-- 重要提示卡片 -->
+                <div class="disclaimer-card welcome-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="text-white">
+                                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                            </svg>
+                        </div>
+                        <h2 class="card-title glow-text">重要提示</h2>
+                    </div>
+                    <div class="card-content">
+                        <p class="text-lg leading-relaxed">
+                            在使用本平台服务前，请仔细阅读以下协议条款。<br>
+                            <strong class="text-yellow-200">继续使用本服务即表示您同意接受所有条款</strong>。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 项目开源卡片 - 突出显示 -->
+                <div class="disclaimer-card" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(139, 92, 246, 0.15) 100%); border-color: rgba(102, 126, 234, 0.4);">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #667eea, #764ba2); box-shadow: 0 12px 24px rgba(102, 126, 234, 0.4);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="text-white">
+                                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                            </svg>
+                        </div>
+                        <h2 class="card-title" style="background: linear-gradient(135deg, #667eea, #f093fb); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">开源项目</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="text-center mb-6">
+                            <div class="inline-flex items-center justify-center p-4 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-2xl border border-blue-400/30 mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="text-blue-300 mr-3">
+                                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                                </svg>
+                                <div class="text-left">
+                                    <h3 class="text-xl font-bold text-white mb-1">GitHub: tataqioko/Starchat</h3>
+                                    <p class="text-blue-200 text-sm">欢迎Star ⭐ 和提交PR优化项目</p>
+                                </div>
+                            </div>
+                            <a href="https://github.com/tataqioko/Starchat" target="_blank" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="mr-2">
+                                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                                </svg>
+                                访问GitHub仓库
+                            </a>
+                        </div>
+                        <div class="mt-6 p-4 bg-white/5 rounded-xl border border-white/10">
+                            <h4 class="font-semibold text-green-300 mb-3 text-center">🤝 欢迎贡献</h4>
+                            <ul class="feature-list">
+                                <li>
+                                    <div class="feature-icon">💡</div>
+                                    <div>提交<strong>Issue</strong>反馈问题和建议</div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">🔧</div>
+                                    <div>提交<strong>Pull Request</strong>优化代码和功能</div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">⭐</div>
+                                    <div>给项目<strong>Star</strong>支持开发者</div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">🚀</div>
+                                    <div>参与项目<strong>开发</strong>和功能扩展</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 服务说明卡片 -->
+                <div class="disclaimer-card service-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="text-white">
+                                <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+                            </svg>
+                        </div>
+                        <h2 class="card-title">服务说明</h2>
+                    </div>
+                    <div class="card-content">
+                        <p class="mb-4 text-lg">
+                            <strong>星链·Starchat</strong> 是一个AI角色扮演聊天平台，基于开源精神进行开发。
+                        </p>
+                        <p>
+                            本平台提供<strong>AI API Token服务</strong>，让您能够体验高质量的AI角色扮演聊天功能。我们致力于为用户提供安全、稳定的服务体验。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 技术说明卡片 -->
+                <div class="disclaimer-card opensource-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="text-white">
+                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                            </svg>
+                        </div>
+                        <h2 class="card-title">技术说明</h2>
+                    </div>
+                    <div class="card-content">
+                        <p class="mb-4 text-center text-gray-400 text-sm">
+                            本项目基于Xphone进行开发，遵循合理使用原则
+                        </p>
+                        <ul class="feature-list">
+                            <li>
+                                <div class="feature-icon">🎨</div>
+                                <div><strong>个性化定制</strong>：对界面和品牌标识进行了专属设计</div>
+                            </li>
+                            <li>
+                                <div class="feature-icon">⚙️</div>
+                                <div><strong>功能优化</strong>：保持核心功能的同时进行了性能优化</div>
+                            </li>
+                            <li>
+                                <div class="feature-icon">📦</div>
+                                <div><strong>依赖库合规</strong>：使用的第三方库（Dexie、TailwindCSS等）均为商用友好的开源库</div>
+                            </li>
+                            <li>
+                                <div class="feature-icon">🔧</div>
+                                <div><strong>持续维护</strong>：项目持续更新和维护，欢迎社区贡献</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 服务条款卡片 -->
+                <div class="disclaimer-card terms-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="text-white">
+                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                            </svg>
+                        </div>
+                        <h2 class="card-title">服务条款</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="font-semibold mb-3 text-purple-200 text-lg">🎯 服务范围</h3>
+                                <p class="leading-relaxed">
+                                    我们提供<strong>AI API Token销售服务</strong>和聊天平台使用权。用户可以通过购买Token来使用各种AI模型进行角色扮演聊天。
+                                </p>
+                            </div>
+                            
+                            <div>
+                                <h3 class="font-semibold mb-3 text-pink-200 text-lg">⚠️ 用户责任</h3>
+                                <ul class="feature-list">
+                                    <li>
+                                        <div class="feature-icon">⚖️</div>
+                                        <div>用户应<strong>合法合规</strong>使用本服务，不得用于违法用途</div>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">👤</div>
+                                        <div>用户对自己的<strong>聊天内容和使用行为负全部责任</strong></div>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">🚫</div>
+                                        <div>禁止使用本服务生成违法、有害、欺诈性内容</div>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">🔐</div>
+                                        <div>用户应保护好自己的账户信息和Token安全</div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h3 class="font-semibold mb-3 text-purple-200 text-lg">📊 服务限制</h3>
+                                <ul class="feature-list">
+                                    <li>
+                                        <div class="feature-icon">🌐</div>
+                                        <div>服务可用性取决于第三方AI服务商的稳定性</div>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">⏰</div>
+                                        <div>我们不保证服务100%无中断运行</div>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">💰</div>
+                                        <div>Token使用量以实际消耗为准，<strong>不可退换</strong></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 免责声明卡片 -->
+                <div class="disclaimer-card disclaimer-card-main">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="text-white">
+                                <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                            </svg>
+                        </div>
+                        <h2 class="card-title">免责声明</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="bg-gradient-to-r from-red-500/10 to-orange-500/10 border border-red-500/30 rounded-xl p-4 mb-6">
+                            <p class="text-red-200 leading-relaxed text-center">
+                                <strong>请仔细阅读以下免责条款</strong><br>
+                                使用本服务即表示您完全理解并同意这些条款
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-orange-500/10 to-red-500/10 border border-orange-500/40 rounded-xl p-4 mb-6">
+                            <div class="flex items-center justify-center mb-2">
+                                <div class="w-8 h-8 bg-orange-500/20 rounded-full flex items-center justify-center mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-orange-300">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                        <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+                                    </svg>
+                                </div>
+                                <span class="font-bold text-orange-200 text-lg">使用声明</span>
+                            </div>
+                            <p class="text-orange-100 leading-relaxed text-center">
+                                <strong>本项目仅供个人学习、测试、研究使用</strong><br>
+                                <span class="text-orange-200">使用者需自行承担所有法律责任，本平台不承担任何法律责任</span>
+                            </p>
+                        </div>
+                        
+                        <div class="space-y-5">
+                            <div>
+                                <h3 class="font-semibold mb-3 text-red-200 text-lg flex items-center">
+                                    <span class="w-6 h-6 bg-red-500/20 rounded-full flex items-center justify-center mr-2 text-sm">🔧</span>
+                                    技术免责
+                                </h3>
+                                <ul class="feature-list">
+                                    <li>
+                                        <div class="feature-icon">📂</div>
+                                        <div><strong>开源项目使用</strong>：本项目基于开源项目Xphone进行合理使用和改造，我们尊重原作者权益</div>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">📚</div>
+                                        <div><strong>第三方依赖</strong>：使用的开源库均为商用友好协议，我们依法合规使用</div>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">🤖</div>
+                                        <div><strong>AI内容风险</strong>：AI生成的内容可能存在不准确、偏见或不当表述，用户应独立判断</div>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">💾</div>
+                                        <div><strong>数据安全</strong>：用户数据主要存储在本地浏览器中，我们不对数据丢失承担责任</div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h3 class="font-semibold mb-3 text-red-200 text-lg flex items-center">
+                                    <span class="w-6 h-6 bg-red-500/20 rounded-full flex items-center justify-center mr-2 text-sm">⚖️</span>
+                                    法律免责
+                                </h3>
+                                <ul class="feature-list">
+                                    <li>
+                                        <div class="feature-icon">📝</div>
+                                        <div><strong>内容责任</strong>：用户对使用本服务产生的所有内容承担完全责任</div>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">🏛️</div>
+                                        <div><strong>合规使用</strong>：用户应确保使用方式符合当地法律法规</div>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">🤝</div>
+                                        <div><strong>第三方纠纷</strong>：因使用AI服务产生的任何第三方纠纷与本平台无关</div>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">💸</div>
+                                        <div><strong>损失赔偿</strong>：本平台不承担因服务使用导致的任何直接或间接损失</div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h3 class="font-semibold mb-3 text-red-200 text-lg flex items-center">
+                                    <span class="w-6 h-6 bg-red-500/20 rounded-full flex items-center justify-center mr-2 text-sm">📄</span>
+                                    知识产权
+                                </h3>
+                                <ul class="feature-list">
+                                    <li>
+                                        <div class="feature-icon">🎨</div>
+                                        <div><strong>原创内容</strong>：平台的个性化设计和品牌标识归本平台所有</div>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">🤝</div>
+                                        <div><strong>开源尊重</strong>：我们尊重并遵循所使用开源项目的相关条款</div>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">👥</div>
+                                        <div><strong>用户内容</strong>：用户创建的角色、对话等内容归用户所有</div>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">✅</div>
+                                        <div><strong>合理使用</strong>：本项目的使用完全符合开源软件合理使用原则</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 隐私政策卡片 -->
+                <div class="disclaimer-card privacy-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="text-white">
+                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                                <path d="M6.445 11.688V6.354h.633c.549 0 .935.53.935 1.155v3.948c0 .627-.386 1.155-.935 1.155H6.445zm4.44 0V6.354h.633c.549 0 .935.53.935 1.155v3.948c0 .627-.386 1.155-.935 1.155H10.885z"/>
+                            </svg>
+                        </div>
+                        <h2 class="card-title">隐私政策</h2>
+                    </div>
+                    <div class="card-content space-y-5">
+                        <div>
+                            <h3 class="font-semibold mb-3 text-gray-200 text-lg flex items-center">
+                                <span class="w-6 h-6 bg-blue-500/20 rounded-full flex items-center justify-center mr-2 text-sm">📊</span>
+                                数据收集与使用
+                            </h3>
+                            <ul class="feature-list">
+                                <li>
+                                    <div class="feature-icon">ℹ️</div>
+                                    <div>我们仅收集维护服务必要的基本信息</div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">💻</div>
+                                    <div>聊天数据主要存储在用户本地浏览器中</div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">🔍</div>
+                                    <div>我们不会主动收集或分析用户的对话内容</div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">📈</div>
+                                    <div>Token使用情况仅用于计费和服务优化</div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 class="font-semibold mb-3 text-gray-200 text-lg flex items-center">
+                                <span class="w-6 h-6 bg-green-500/20 rounded-full flex items-center justify-center mr-2 text-sm">🛡️</span>
+                                数据保护
+                            </h3>
+                            <ul class="feature-list">
+                                <li>
+                                    <div class="feature-icon">🔒</div>
+                                    <div>我们采用行业标准的安全措施保护用户数据</div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">🗑️</div>
+                                    <div>用户可以随时删除本地存储的数据</div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">🚫</div>
+                                    <div>我们不会向第三方出售或泄露用户信息</div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">📢</div>
+                                    <div>如发生数据泄露，我们将及时通知受影响用户</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 联系方式卡片 -->
+                <div class="disclaimer-card contact-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="text-white">
+                                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+                            </svg>
+                        </div>
+                        <h2 class="card-title">联系我们</h2>
+                    </div>
+                    <div class="card-content">
+                        <p class="mb-4 leading-relaxed">如有任何问题或建议，请通过以下方式联系我们：</p>
+                        <div class="space-y-4">
+                            <div class="flex items-center p-3 bg-white/5 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-200">
+                                <div class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center mr-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="text-white">
+                                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-white">GitHub</p>
+                                    <p class="text-gray-300 text-sm">
+                                        <a href="https://github.com/tataqioko" class="link-style" target="_blank">tataqioko</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex items-center p-3 bg-white/5 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-200">
+                                <div class="w-10 h-10 bg-red-500/20 rounded-full flex items-center justify-center mr-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="text-red-300">
+                                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-white">邮箱</p>
+                                    <p class="text-gray-300 text-sm">
+                                        <a href="mailto:zhong1355333@outlook.com" class="link-style">zhong1355333@outlook.com</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 确认按钮区域 -->
+                <div class="mt-8 mb-6">
+                    <div class="bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/20">
+                        <button id="agree-btn" class="agree-button pulse-glow">
+                            <div class="flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" class="mr-3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/>
+                                </svg>
+                                我已阅读并同意以上条款
+                            </div>
+                        </button>
+                        <p class="text-center text-gray-400 text-xs mt-3">
+                            点击按钮即表示您已完全理解并同意遵守所有条款
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 项目信息卡片 -->
+                <div class="disclaimer-card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="text-white">
+                                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                            </svg>
+                        </div>
+                        <h2 class="card-title">项目信息</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="text-center space-y-4">
+                            <div class="grid grid-cols-1 gap-4">
+                                <div class="bg-white/5 rounded-xl p-4 border border-white/10">
+                                    <h4 class="font-semibold text-blue-300 mb-2">📅 最后更新</h4>
+                                    <p id="last-update" class="text-white">2024年12月</p>
+                                </div>
+                                <div class="bg-white/5 rounded-xl p-4 border border-white/10">
+                                    <h4 class="font-semibold text-gray-400 mb-2">📄 技术基础</h4>
+                                    <p class="text-gray-400 text-sm">
+                                        基于starchat合理使用改造
+                                    </p>
+                                </div>
+                                <div class="bg-white/5 rounded-xl p-4 border border-white/10">
+                                    <h4 class="font-semibold text-purple-300 mb-2">🚀 改造项目</h4>
+                                    <p class="text-gray-300">
+                                        <a href="https://github.com/tataqioko/Starchat" class="link-style" target="_blank">GitHub: tataqioko/Starchat</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="mt-6 pt-4 border-t border-white/10">
+                                <p class="text-gray-400 text-sm">
+                                    <span class="text-blue-300 font-medium">星链·Starchat</span> v1.0
+                                </p>
+                                <p class="text-gray-500 text-xs mt-1">
+                                    基于开源精神，合理使用，致敬原作
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- 阅读进度指示器 -->
+        <div id="reading-progress" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 z-50 transition-all duration-300" style="width: 0%"></div>
+        
+        <!-- 自定义滚动指示器 -->
+        <div class="scroll-indicator">
+            <div id="scroll-thumb" class="scroll-thumb" style="height: 10%;"></div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { db } from './db.js';
+
+        class DisclaimerManager {
+            constructor() {
+                this.init();
+            }
+
+            async init() {
+                this.updateLastUpdateTime();
+                this.setupEventListeners();
+                await this.checkAgreementStatus();
+            }
+
+            // 更新最后更新时间
+            updateLastUpdateTime() {
+                const lastUpdateEl = document.getElementById('last-update');
+                if (lastUpdateEl) {
+                    const now = new Date();
+                    lastUpdateEl.textContent = now.toLocaleDateString('zh-CN', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                }
+            }
+
+            // 设置事件监听器
+            setupEventListeners() {
+                const agreeBtn = document.getElementById('agree-btn');
+                if (agreeBtn) {
+                    agreeBtn.addEventListener('click', () => {
+                        this.handleAgreement();
+                    });
+                }
+
+                // 设置阅读进度指示器
+                this.setupReadingProgress();
+                
+                // 设置平滑滚动
+                this.setupSmoothScrolling();
+            }
+
+            // 设置阅读进度指示器
+            setupReadingProgress() {
+                const progressBar = document.getElementById('reading-progress');
+                const scrollThumb = document.getElementById('scroll-thumb');
+                const content = document.querySelector('.phone-content');
+                
+                if (!progressBar || !content) return;
+
+                content.addEventListener('scroll', () => {
+                    const scrollTop = content.scrollTop;
+                    const scrollHeight = content.scrollHeight - content.clientHeight;
+                    const progress = Math.min((scrollTop / scrollHeight) * 100, 100);
+                    
+                    // 更新顶部进度条
+                    progressBar.style.width = `${progress}%`;
+                    
+                    // 更新侧边滚动指示器
+                    if (scrollThumb) {
+                        const thumbHeight = Math.max(10, 100 - progress);
+                        const thumbPosition = (progress / 100) * (100 - thumbHeight);
+                        scrollThumb.style.height = `${thumbHeight}%`;
+                        scrollThumb.style.transform = `translateY(${thumbPosition * 1}px)`;
+                    }
+                    
+                    // 当用户滚动到70%时，启用同意按钮的特殊效果
+                    const agreeBtn = document.getElementById('agree-btn');
+                    if (progress > 70 && agreeBtn && !agreeBtn.classList.contains('agreed')) {
+                        agreeBtn.classList.add('pulse-glow');
+                        agreeBtn.style.animation = 'pulseGlow 2s infinite';
+                    }
+                    
+                    // 为卡片添加视差效果
+                    const cards = document.querySelectorAll('.disclaimer-card');
+                    cards.forEach((card, index) => {
+                        const rect = card.getBoundingClientRect();
+                        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+                        
+                        if (isVisible) {
+                            const scrollPercent = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+                            const translateY = (scrollPercent - 0.5) * 10;
+                            card.style.transform = `translateY(${translateY}px)`;
+                        }
+                    });
+                });
+            }
+
+            // 设置平滑滚动
+            setupSmoothScrolling() {
+                const content = document.querySelector('.phone-content');
+                if (!content) return;
+
+                // 添加触摸滚动优化
+                content.style.webkitOverflowScrolling = 'touch';
+                content.style.scrollBehavior = 'smooth';
+            }
+
+            // 检查用户是否已同意协议
+            async checkAgreementStatus() {
+                try {
+                    const agreement = await db.globalSettings.get('userAgreement');
+                    const agreeBtn = document.getElementById('agree-btn');
+                    
+                    if (agreement && agreement.agreed) {
+                        if (agreeBtn) {
+                            agreeBtn.innerHTML = `
+                                <div class="flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="mr-2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/>
+                                        <circle cx="12" cy="12" r="10"/>
+                                    </svg>
+                                    已同意协议条款
+                                </div>
+                            `;
+                            agreeBtn.className = agreeBtn.className.replace('from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700', 'from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700');
+                            agreeBtn.classList.add('agreed');
+                        }
+                    }
+                } catch (error) {
+                    console.error('检查协议状态失败:', error);
+                }
+            }
+
+            // 处理用户同意协议
+            async handleAgreement() {
+                try {
+                    // 保存用户同意状态
+                    await db.globalSettings.put({
+                        id: 'userAgreement',
+                        agreed: true,
+                        agreedAt: new Date().toISOString(),
+                        version: '1.0'
+                    });
+
+                    // 更新按钮状态
+                    const agreeBtn = document.getElementById('agree-btn');
+                    if (agreeBtn) {
+                        agreeBtn.innerHTML = `
+                            <div class="flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="mr-2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/>
+                                    <circle cx="12" cy="12" r="10"/>
+                                </svg>
+                                已同意协议条款
+                            </div>
+                        `;
+                        agreeBtn.className = agreeBtn.className.replace('from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700', 'from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700');
+                        agreeBtn.classList.add('agreed');
+                    }
+
+                    this.showToast('感谢您同意我们的服务条款！', 'success');
+                    
+                    // 3秒后自动返回
+                    setTimeout(() => {
+                        history.back();
+                    }, 3000);
+
+                } catch (error) {
+                    console.error('保存协议状态失败:', error);
+                    this.showToast('保存失败，请重试', 'error');
+                }
+            }
+
+            // 显示提示信息
+            showToast(message, type = 'info') {
+                const toast = document.createElement('div');
+                toast.className = `fixed top-20 left-1/2 transform -translate-x-1/2 z-50 px-4 py-2 rounded-lg text-white text-sm font-medium transition-all duration-300`;
+                
+                const colors = {
+                    'success': 'bg-green-500',
+                    'error': 'bg-red-500',
+                    'warning': 'bg-yellow-500',
+                    'info': 'bg-blue-500'
+                };
+                toast.className += ` ${colors[type] || colors.info}`;
+                
+                toast.textContent = message;
+                document.body.appendChild(toast);
+
+                setTimeout(() => {
+                    toast.style.opacity = '1';
+                    toast.style.transform = 'translateX(-50%) translateY(0)';
+                }, 100);
+
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateX(-50%) translateY(-20px)';
+                    setTimeout(() => {
+                        if (toast.parentNode) {
+                            toast.parentNode.removeChild(toast);
+                        }
+                    }, 300);
+                }, 3000);
+            }
+        }
+
+        // 初始化免责声明管理器
+        document.addEventListener('DOMContentLoaded', () => {
+            new DisclaimerManager();
+        });
+    </script>
+</body>
+</html>
