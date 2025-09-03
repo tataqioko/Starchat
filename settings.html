@@ -41,279 +41,702 @@
             /* 默认主题色，会被JS覆盖 */
             --theme-color: #3b82f6; 
             --theme-color-hover: #2563eb;
+            --theme-color-light: #dbeafe;
+            --gradient-primary: linear-gradient(135deg, var(--theme-color), #6366f1);
+            --shadow-elevated: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
         }
+        
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            min-height: 100vh;
         }
-        /* 动态主题色应用 */
+
+        /* 增强的设置卡片样式 */
+        .settings-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .settings-card:hover {
+            box-shadow: var(--shadow-elevated);
+            transform: translateY(-2px);
+        }
+
+        /* 增强的头部样式 */
+        .enhanced-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .section-icon {
+            width: 24px;
+            height: 24px;
+            padding: 8px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section-icon svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* 增强的表单样式 */
+        .form-input {
+            transition: all 0.2s ease;
+            border: 1.5px solid #e2e8f0;
+        }
+
+        .form-input:focus {
+            border-color: var(--theme-color) !important;
+            box-shadow: 0 0 0 3px var(--theme-color-light) !important;
+            outline: none;
+            transform: translateY(-1px);
+        }
+
+        .form-input:hover {
+            border-color: #cbd5e1;
+        }
+
+        /* 增强的按钮样式 */
+        .primary-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-elevated);
+        }
+
+        .secondary-btn {
+            transition: all 0.3s ease;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
         .secondary-btn:hover {
             border-color: var(--theme-color);
             color: var(--theme-color);
-        }
-        .form-input:focus {
-            border-color: var(--theme-color) !important;
-            box-shadow: 0 0 0 1px var(--theme-color) !important;
-            outline: none;
-        }
-        input[type="checkbox"]:checked {
-            background-color: var(--theme-color);
-            border-color: var(--theme-color);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-soft);
         }
 
-        .header-btn {
-        color: #888888; /* 默认灰色 */
-            transition: color 0.2s ease-in-out;
+        /* 危险按钮样式 */
+        .danger-btn {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            border: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
         }
 
-        .header-btn:hover {
-            color: var(--theme-color); /* 鼠标悬停时显示主题色 */
+        .danger-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px -8px rgba(239, 68, 68, 0.4);
         }
-        .header-btn.active {
-            color: var(--theme-color);
-        }
+
+        /* 滑块增强样式 */
         input[type="range"] {
             accent-color: var(--theme-color);
+            height: 6px;
+            border-radius: 3px;
+            background: #e2e8f0;
         }
 
         input[type="checkbox"] {
             accent-color: var(--theme-color);
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+        }
+
+        /* 提示信息样式 */
+        .info-tip {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border: 1px solid #bae6fd;
+            border-radius: 10px;
+            padding: 12px;
+            margin-top: 8px;
+        }
+
+        .warning-tip {
+            background: linear-gradient(135deg, #fefce8, #fef3c7);
+            border: 1px solid #fde047;
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        /* 网格布局增强 */
+        .enhanced-grid {
+            display: grid;
+            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        /* 头部按钮样式 */
+        .header-btn {
+            color: #64748b;
+            transition: all 0.2s ease;
+            border-radius: 8px;
+            padding: 8px 12px;
+        }
+
+        .header-btn:hover {
+            color: var(--theme-color);
+            background: var(--theme-color-light);
+        }
+
+        .save-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .save-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        /* 特殊提示框样式 */
+        .feature-highlight {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 1px solid #7dd3fc;
+            border-radius: 12px;
+            padding: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-highlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
         }
     </style>
 </head>
 <body>
-    <div class="w-full h-full mx-auto flex flex-col bg-gray-50">
+    <div class="w-full h-full mx-auto flex flex-col" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);">
         <!-- 头部 -->
-        <header class="app-header">
+        <header class="app-header enhanced-header">
             <div class="flex items-center justify-between">
-                <a href="index.html" class="header-btn p-1.5 -ml-1.5 rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <a href="index.html" class="header-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                     </svg>
                 </a>
                 
-                <h1 class="text-base font-semibold text-gray-800">设置</h1>
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="white">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                    </div>
+                    <h1 class="text-lg font-bold text-gray-800">系统设置</h1>
+                </div>
                 
-                <button id="save-all-settings-btn" class="header-btn text-sm font-semibold px-2 py-1">保存</button>
+                <button id="save-all-settings-btn" class="save-btn text-sm px-4 py-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="inline mr-1">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                    </svg>
+                    保存
+                </button>
             </div>
         </header>
 
         <!-- 设置内容区 -->
         <main class="flex-grow main-content overflow-y-auto">
-            <div class="space-y-6">
+            <div class="max-w-4xl mx-auto space-y-8 px-4">
 
                 <!-- API 设置 -->
-                <section class="bg-white p-4 rounded-xl shadow-sm">
-                    <h2 class="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-3 mb-4">API 连接</h2>
-                    <div class="space-y-4">
+                <section class="settings-card p-6">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z" />
+                            </svg>
+                        </div>
                         <div>
-                            <label for="profile-selector" class="block text-sm font-medium text-gray-700 mb-1">当前方案</label>
-                            <div class="flex items-center gap-2">
-                                <select id="profile-selector" class="form-input block w-full rounded-md border-gray-300 p-2 shadow-sm"></select>
-                                <button id="add-profile-btn" class="secondary-btn flex-shrink-0 whitespace-nowrap bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-4 border border-gray-300 rounded-md shadow-sm transition-colors">新增方案</button>
+                            <h2 class="text-xl font-bold text-gray-900">AI API 连接</h2>
+                            <p class="text-sm text-gray-500 mt-1">配置您的AI服务提供商和模型设置</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="feature-highlight">
+                            <div class="flex items-center gap-2 mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="text-blue-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.847a4.5 4.5 0 003.09 3.09L15.75 12l-2.847.813a4.5 4.5 0 00-3.09 3.091zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423L16.5 15.75l.394 1.183a2.25 2.25 0 001.423 1.423L19.5 18.75l-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+                                </svg>
+                                <span class="font-semibold text-blue-900">方案管理</span>
+                            </div>
+                            <p class="text-sm text-blue-700">支持多套API配置方案，方便您在不同服务商之间快速切换</p>
+                        </div>
+
+                        <div>
+                            <label for="profile-selector" class="block text-sm font-semibold text-gray-700 mb-2">🎯 当前方案</label>
+                            <div class="flex items-center gap-3">
+                                <select id="profile-selector" class="form-input block w-full rounded-lg border-gray-300 p-3 shadow-sm text-sm"></select>
+                                <button id="add-profile-btn" class="secondary-btn flex-shrink-0 whitespace-nowrap bg-gradient-to-r from-green-50 to-emerald-50 hover:from-green-100 hover:to-emerald-100 text-green-700 font-semibold py-3 px-4 border border-green-200 rounded-lg shadow-sm transition-all">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="inline mr-1">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                    </svg>
+                                    新增方案
+                                </button>
                             </div>
                         </div>
                         
-                        <div class="space-y-4 pt-4 border-t" id="profile-editor-container">
+                        <div class="space-y-5 pt-4 border-t border-gray-100" id="profile-editor-container">
                             <div>
-                                <label for="profile-name-input" class="block text-sm font-medium text-gray-700 mb-1">方案名称</label>
-                                <input type="text" id="profile-name-input" class="form-input block w-full p-2">
+                                <label for="profile-name-input" class="block text-sm font-semibold text-gray-700 mb-2">📝 方案名称</label>
+                                <input type="text" id="profile-name-input" class="form-input block w-full p-3 rounded-lg" placeholder="为您的配置起个名字...">
                             </div>
+                            
                             <div>
-                                <label for="api-provider" class="block text-sm font-medium text-gray-700 mb-1">API 服务商</label>
-                                <select id="api-provider" class="form-input block w-full rounded-md border-gray-300 shadow-sm sm:text-sm p-2">
-                                    <option value="default">默认/其他反代</option>
-                                    <option value="gemini">Google Gemini</option>
+                                <label for="api-provider" class="block text-sm font-semibold text-gray-700 mb-2">🏢 API 服务商</label>
+                                <select id="api-provider" class="form-input block w-full rounded-lg border-gray-300 shadow-sm p-3">
+                                    <option value="default">🔗 默认/其他反代</option>
+                                    <option value="gemini">🤖 Google Gemini</option>
                                 </select>
                             </div>
+                            
                             <div>
-                                <label for="proxy-url" class="block text-sm font-medium text-gray-700 mb-1">AI API 地址 (反代)</label>
-                                <input type="text" id="proxy-url" class="form-input block w-full rounded-md border-gray-300 shadow-sm sm:text-sm p-2">
-                            </div>
-                            <div>
-                                <label for="api-key" class="block text-sm font-medium text-gray-700 mb-1">AI API 密钥</label>
-                                <input type="password" id="api-key" class="form-input block w-full rounded-md border-gray-300 shadow-sm sm:text-sm p-2" placeholder="sk-...">
-                            </div>
-                            <div>
-                                <label for="model-select" class="block text-sm font-medium text-gray-700 mb-1">AI 模型</label>
-                                <div class="flex gap-2">
-                                    <select id="model-select" class="form-input block w-full rounded-md border-gray-300 shadow-sm sm:text-sm p-2"></select>
-                                    <button id="fetch-models-btn" class="secondary-btn flex-shrink-0 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-4 border border-gray-300 rounded-md shadow-sm transition-colors">拉取</button>
+                                <label for="proxy-url" class="block text-sm font-semibold text-gray-700 mb-2">🌐 AI API 地址 (反代)</label>
+                                <input type="text" id="proxy-url" class="form-input block w-full rounded-lg border-gray-300 shadow-sm p-3" placeholder="https://api.example.com">
+                                <div class="info-tip">
+                                    <div class="flex items-start gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="text-blue-600 mt-0.5 flex-shrink-0">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+                                        </svg>
+                                        <div>
+                                            <p class="text-sm font-medium text-blue-800">获取API地址</p>
+                                            <p class="text-xs text-blue-600 mt-1">访问 <a href="https://starchat.top/" target="_blank" class="font-semibold underline hover:text-blue-800 transition-colors">https://starchat.top/</a> 获取最新的可用API地址与使用指南</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="pt-4 border-t mt-2">
-                                 <button id="delete-profile-btn" class="w-full font-semibold py-2 px-4 border rounded-md shadow-sm transition-colors bg-red-50 border-red-300 text-red-700 hover:bg-red-100">删除此方案</button>
+                            
+                            <div>
+                                <label for="api-key" class="block text-sm font-semibold text-gray-700 mb-2">🔑 AI API 密钥</label>
+                                <input type="password" id="api-key" class="form-input block w-full rounded-lg border-gray-300 shadow-sm p-3" placeholder="sk-... 或您的API密钥">
+                                <p class="mt-2 text-xs text-gray-500">💡 您的密钥将安全存储在本地，不会上传到任何服务器</p>
+                            </div>
+                            
+                            <div>
+                                <label for="model-select" class="block text-sm font-semibold text-gray-700 mb-2">🧠 AI 模型</label>
+                                <div class="flex gap-3">
+                                    <select id="model-select" class="form-input block w-full rounded-lg border-gray-300 shadow-sm p-3"></select>
+                                    <button id="fetch-models-btn" class="secondary-btn flex-shrink-0 bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 text-blue-700 font-semibold py-3 px-4 border border-blue-200 rounded-lg shadow-sm transition-all">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="inline mr-1">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                                        </svg>
+                                        拉取模型
+                                    </button>
+                                </div>
+                                <p class="mt-2 text-xs text-gray-500">🔄 点击拉取按钮从您的API服务商获取可用模型列表</p>
+                            </div>
+                            
+                            <div class="pt-4 border-t border-gray-100 mt-4">
+                                 <button id="delete-profile-btn" class="danger-btn w-full font-semibold py-3 px-4 text-white rounded-lg shadow-sm transition-all">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="inline mr-1">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                    </svg>
+                                    删除此方案
+                                </button>
                             </div>
                         </div>
                     </div>
                 </section>
-                <section class="bg-white p-4 rounded-xl shadow-sm">
-                        <h2 class="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-3 mb-4">TTS 语音服务 (ElevenLabs)</h2>
-                        <div class="space-y-4">
-                                <div>
-                                        <label for="tts-profile-selector"
-                                                class="block text-sm font-medium text-gray-700 mb-1">当前方案</label>
-                                        <div class="flex items-center gap-2">
-                                                <select id="tts-profile-selector"
-                                                        class="form-input block w-full rounded-md border-gray-300 p-2 shadow-sm"></select>
-                                                <button id="add-tts-profile-btn"
-                                                        class="secondary-btn flex-shrink-0 whitespace-nowrap bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-4 border border-gray-300 rounded-md shadow-sm transition-colors">新增方案</button>
-                                        </div>
-                                </div>
-                
-                                <div class="space-y-4 pt-4 border-t" id="tts-profile-editor-container">
-                                        <div>
-                                                <label for="tts-profile-name-input"
-                                                        class="block text-sm font-medium text-gray-700 mb-1">方案名称</label>
-                                                <input type="text" id="tts-profile-name-input" class="form-input block w-full p-2">
-                                        </div>
-                                        <div>
-                                                <label for="tts-api-key" class="block text-sm font-medium text-gray-700 mb-1">ElevenLabs
-                                                        API 密钥</label>
-                                                <input type="password" id="tts-api-key"
-                                                        class="form-input block w-full rounded-md border-gray-300 shadow-sm sm:text-sm p-2"
-                                                        placeholder="输入你的 ElevenLabs API Key">
-                                        </div>
-                                        <div class="pt-4 border-t mt-2">
-                                                <button id="delete-tts-profile-btn"
-                                                        class="w-full font-semibold py-2 px-4 border rounded-md shadow-sm transition-colors bg-red-50 border-red-300 text-red-700 hover:bg-red-100">删除此方案</button>
-                                        </div>
-                                </div>
+                <section class="settings-card p-6">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.59-.79-1.59-1.75V9.99c0-.97.71-1.75 1.59-1.75H6.75z" />
+                            </svg>
                         </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-gray-900">TTS 语音服务</h2>
+                            <p class="text-sm text-gray-500 mt-1">配置ElevenLabs语音合成，让AI角色拥有真实声音</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="feature-highlight">
+                            <div class="flex items-center gap-2 mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="text-blue-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
+                                </svg>
+                                <span class="font-semibold text-blue-900">高质量语音合成</span>
+                            </div>
+                            <p class="text-sm text-blue-700">使用ElevenLabs先进的AI语音技术，为您的角色生成自然流畅的语音</p>
+                        </div>
+
+                        <div>
+                            <label for="tts-profile-selector" class="block text-sm font-semibold text-gray-700 mb-2">🎤 当前语音方案</label>
+                            <div class="flex items-center gap-3">
+                                <select id="tts-profile-selector" class="form-input block w-full rounded-lg border-gray-300 p-3 shadow-sm"></select>
+                                <button id="add-tts-profile-btn" class="secondary-btn flex-shrink-0 whitespace-nowrap bg-gradient-to-r from-purple-50 to-pink-50 hover:from-purple-100 hover:to-pink-100 text-purple-700 font-semibold py-3 px-4 border border-purple-200 rounded-lg shadow-sm transition-all">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="inline mr-1">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                    </svg>
+                                    新增方案
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="space-y-5 pt-4 border-t border-gray-100" id="tts-profile-editor-container">
+                            <div>
+                                <label for="tts-profile-name-input" class="block text-sm font-semibold text-gray-700 mb-2">📝 方案名称</label>
+                                <input type="text" id="tts-profile-name-input" class="form-input block w-full p-3 rounded-lg" placeholder="为您的语音方案起个名字...">
+                            </div>
+                            
+                            <div>
+                                <label for="tts-api-key" class="block text-sm font-semibold text-gray-700 mb-2">🔐 ElevenLabs API 密钥</label>
+                                <input type="password" id="tts-api-key" class="form-input block w-full rounded-lg border-gray-300 shadow-sm p-3" placeholder="输入您的 ElevenLabs API Key">
+                                <div class="info-tip">
+                                    <div class="flex items-start gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="text-blue-600 mt-0.5 flex-shrink-0">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                                        </svg>
+                                        <div>
+                                            <p class="text-sm font-medium text-blue-800">获取API密钥</p>
+                                            <p class="text-xs text-blue-600 mt-1">访问 <a href="https://elevenlabs.io/" target="_blank" class="font-semibold underline hover:text-blue-800 transition-colors">ElevenLabs官网</a> 注册账户并获取免费的API密钥</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="pt-4 border-t border-gray-100 mt-4">
+                                <button id="delete-tts-profile-btn" class="danger-btn w-full font-semibold py-3 px-4 text-white rounded-lg shadow-sm transition-all">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="inline mr-1">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                    </svg>
+                                    删除此方案
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </section>
 
-                    <section class="bg-white p-4 rounded-xl shadow-sm">
-                        <h2 class="text-md font-semibold text-gray-800 mb-2">图片上传服务 (Cloudinary)</h2>                            
-                        <div class="pt-4 border-t">
-                            <p class="text-xs text-gray-500 mb-3">为了使用本地图片上传功能，你需要一个免费的<a href="https://cloudinary.com/invites/lpov9zyyucivvxsnalc5/orc1c6zjhbvdfn6e1xyb?t=default" target="_blank" class="text-blue-500">Cloudinary账户</a>。请前往Cloudinary官网注册，并在设置中创建一个<b class="text-red-500">无签名 (Unsigned)</b>的上传预设。</p>
-                            <div>
-                                <label for="cloudinary-cloud-name" class="block text-sm font-medium text-gray-700 mb-1">Cloud Name</label>
-                                <input type="text" id="cloudinary-cloud-name" class="form-input block w-full rounded-md border-gray-300 shadow-sm sm:text-sm p-2" placeholder="在Dashboard页面查找">
+                <section class="settings-card p-6">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-gray-900">图片上传服务</h2>
+                            <p class="text-sm text-gray-500 mt-1">配置Cloudinary云存储，支持本地图片上传功能</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="feature-highlight">
+                            <div class="flex items-center gap-2 mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="text-blue-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25z" />
+                                </svg>
+                                <span class="font-semibold text-blue-900">免费云存储</span>
                             </div>
+                            <p class="text-sm text-blue-700">需要注册免费的 <a href="https://cloudinary.com/invites/lpov9zyyucivvxsnalc5/orc1c6zjhbvdfn6e1xyb?t=default" target="_blank" class="font-semibold underline hover:text-blue-800 transition-colors">Cloudinary账户</a>，并创建<span class="font-semibold text-red-600">无签名 (Unsigned)</span>上传预设</p>
+                        </div>
+
+                        <div class="space-y-5">
                             <div>
-                                <label for="cloudinary-upload-preset" class="block text-sm font-medium text-gray-700 mb-1">Upload Preset</label>
-                                <input type="text" id="cloudinary-upload-preset" class="form-input block w-full rounded-md border-gray-300 shadow-sm sm:text-sm p-2" placeholder="在“上传”设置中创建">
+                                <label for="cloudinary-cloud-name" class="block text-sm font-semibold text-gray-700 mb-2">☁️ Cloud Name</label>
+                                <input type="text" id="cloudinary-cloud-name" class="form-input block w-full rounded-lg border-gray-300 shadow-sm p-3" placeholder="在Dashboard页面查找您的Cloud Name">
+                                <p class="mt-2 text-xs text-gray-500">📍 在Cloudinary控制台的Dashboard页面顶部可以找到</p>
+                            </div>
+                            
+                            <div>
+                                <label for="cloudinary-upload-preset" class="block text-sm font-semibold text-gray-700 mb-2">⚙️ Upload Preset</label>
+                                <input type="text" id="cloudinary-upload-preset" class="form-input block w-full rounded-lg border-gray-300 shadow-sm p-3" placeholder="在"上传"设置中创建的预设名称">
+                                <div class="warning-tip">
+                                    <div class="flex items-start gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="text-amber-600 mt-0.5 flex-shrink-0">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                                        </svg>
+                                        <div>
+                                            <p class="text-sm font-medium text-amber-800">重要提醒</p>
+                                            <p class="text-xs text-amber-700 mt-1">必须创建<span class="font-bold">无签名 (Unsigned)</span>类型的上传预设，否则图片上传功能无法正常工作</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                   
+                    </div>
                 </section>
 
                 <!-- 后台活动设置 -->
-                <section class="bg-white p-4 rounded-xl shadow-sm">
-                    <h2 class="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-3 mb-4">后台活动</h2>
-                    <div class="space-y-4">
-                        <div class="relative flex items-start">
-                            <div class="flex h-6 items-center">
-                                <input id="background-activity-switch" type="checkbox" class="h-4 w-4 rounded border-gray-300">
-                            </div>
-                            <div class="ml-3 text-sm leading-6">
-                                <label for="background-activity-switch" class="font-medium text-gray-900">启用后台角色活动</label>
-                                <p class="text-xs text-theme">警告：此功能会显著增加API调用和费用！</p>
-                            </div>
+                <section class="settings-card p-6">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-2.25-1.313L16.5 7.5m0 2.25L18.75 8.437 21 7.5M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+                            </svg>
                         </div>
                         <div>
-                            <label for="background-interval-input" class="block text-sm font-medium text-gray-700">后台活动检测间隔 (秒)</label>
-                            <input type="number" id="background-interval-input" value="60" min="30" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm p-2">
-                            <p class="mt-2 text-xs text-gray-500">建议值 60-300。值越大，费用越低，但角色反应越慢。</p>
+                            <h2 class="text-xl font-bold text-gray-900">智能后台活动</h2>
+                            <p class="text-sm text-gray-500 mt-1">让AI角色在后台保持活跃，主动思考和互动</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="warning-tip">
+                            <div class="flex items-start gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="text-amber-600 mt-0.5 flex-shrink-0">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                                </svg>
+                                <div>
+                                    <p class="text-sm font-bold text-amber-800">⚠️ 费用提醒</p>
+                                    <p class="text-xs text-amber-700 mt-1">启用后台活动会自动调用AI API，根据设置频率可能显著增加使用费用</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-lg p-4">
+                            <div class="relative flex items-start">
+                                <div class="flex h-6 items-center">
+                                    <input id="background-activity-switch" type="checkbox" class="h-5 w-5 rounded border-gray-300">
+                                </div>
+                                <div class="ml-4 text-sm leading-6">
+                                    <label for="background-activity-switch" class="font-bold text-gray-900 text-base">🚀 启用后台角色活动</label>
+                                    <p class="text-sm text-gray-600 mt-1">让AI角色在您不聊天时也能独立思考、主动发消息和进行社交互动</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="background-interval-input" class="block text-sm font-semibold text-gray-700 mb-2">⏱️ 检测间隔 (秒)</label>
+                                <input type="number" id="background-interval-input" value="60" min="30" class="form-input block w-full rounded-lg border-gray-300 shadow-sm p-3">
+                                <p class="mt-2 text-xs text-gray-500">💡 建议值 60-300，间隔越大费用越低但反应越慢</p>
+                            </div>
+                            
+                            <div>
+                                <label for="summary-trigger-count-input" class="block text-sm font-semibold text-gray-700 mb-2">📝 总结触发轮数</label>
+                                <input type="number" id="summary-trigger-count-input" value="25" min="10" class="form-input block w-full rounded-lg border-gray-300 shadow-sm p-3">
+                                <p class="mt-2 text-xs text-gray-500">💭 对话达到此轮数时自动生成记忆摘要</p>
+                            </div>
                         </div>
                         
-                        <div>
-                            <label for="private-chat-prob-slider" class="block text-sm font-medium text-gray-700">私聊活动概率 (<span id="private-chat-prob-display">30</span>%)</label>
-                            <input type="range" id="private-chat-prob-slider" min="0" max="100" value="30" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
-                            <p class="mt-2 text-xs text-gray-500">每次检测时，单个私聊角色有多大概率进行独立思考和行动。</p>
-                        </div>
-                        <div>
-                            <label for="group-chat-prob-slider" class="block text-sm font-medium text-gray-700">群聊活动概率 (<span id="group-chat-prob-display">15</span>%)</label>
-                            <input type="range" id="group-chat-prob-slider" min="0" max="100" value="15" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
-                            <p class="mt-2 text-xs text-gray-500">每次检测时，单个群聊有多大概率发生一件群内事件。</p>
-                        </div>
-                        <div>
-                            <label for="block-cooldown-input" class="block text-sm font-medium text-gray-700">AI被拉黑后冷静期 (小时)</label>
-                            <input type="number" id="block-cooldown-input" value="1" min="0.1" step="0.1" class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm p-2">
-                            <p class="mt-2 text-xs text-gray-500">被拉黑超过这个时间后，AI才有几率重新申请好友。</p>
-                        </div>
-                        <div >
-                                <label for="summary-trigger-count-input" class="block text-sm font-medium text-gray-700">聊天总结触发轮数</label>
-                                <input type="number" id="summary-trigger-count-input" value="25" min="10"
-                                        class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm p-2">
-                                <p class="mt-2 text-xs text-gray-500">当一个对话中，未被总结的新消息轮数超过此数量时，后台将尝试为其生成一份记忆摘要。数值越小，总结越频繁，API消耗越高。</p>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <label for="private-chat-prob-slider" class="text-sm font-semibold text-gray-700">💬 私聊活动概率</label>
+                                    <span class="text-lg font-bold text-blue-600"><span id="private-chat-prob-display">30</span>%</span>
+                                </div>
+                                <input type="range" id="private-chat-prob-slider" min="0" max="100" value="30" class="w-full h-3 bg-gradient-to-r from-blue-100 to-blue-200 rounded-lg appearance-none cursor-pointer">
+                                <p class="mt-2 text-xs text-gray-500">🎯 每次检测时，单个私聊角色进行独立思考和行动的概率</p>
+                            </div>
+                            
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <label for="group-chat-prob-slider" class="text-sm font-semibold text-gray-700">👥 群聊活动概率</label>
+                                    <span class="text-lg font-bold text-purple-600"><span id="group-chat-prob-display">15</span>%</span>
+                                </div>
+                                <input type="range" id="group-chat-prob-slider" min="0" max="100" value="15" class="w-full h-3 bg-gradient-to-r from-purple-100 to-purple-200 rounded-lg appearance-none cursor-pointer">
+                                <p class="mt-2 text-xs text-gray-500">🎪 每次检测时，单个群聊发生群内事件的概率</p>
+                            </div>
+                            
+                            <div>
+                                <label for="block-cooldown-input" class="block text-sm font-semibold text-gray-700 mb-2">❄️ AI冷静期 (小时)</label>
+                                <input type="number" id="block-cooldown-input" value="1" min="0.1" step="0.1" class="form-input block w-full rounded-lg border-gray-300 shadow-sm p-3">
+                                <p class="mt-2 text-xs text-gray-500">🚫 被拉黑后需要等待多久才能重新申请好友</p>
+                            </div>
                         </div>
                     </div>
                 </section>
-                <section class="bg-white p-4 rounded-xl shadow-sm">
-                    <h2 class="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-3 mb-4">通知</h2>
-                    <div class="space-y-4">
-                       <button id="enable-notifications-btn" class="secondary-btn w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-4 border border-gray-300 rounded-md shadow-sm transition-colors">启用桌面通知</button>
-                        <p class="mt-2 text-xs text-gray-500">当角色在后台主动给您发消息时，您会收到类似手机的推送通知。需要您的浏览器授权。</p>
+                <section class="settings-card p-6">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-gray-900">消息通知</h2>
+                            <p class="text-sm text-gray-500 mt-1">配置桌面推送通知，及时获取AI角色的消息</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="feature-highlight">
+                            <div class="flex items-center gap-2 mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="text-blue-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 110-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 01-1.44-4.282m3.102.069a18.03 18.03 0 01-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 018.835 2.535M10.34 6.66a23.847 23.847 0 008.835-2.535m0 0A23.74 23.74 0 0018.795 3m.38 1.125a23.91 23.91 0 011.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 001.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 010 3.46" />
+                                </svg>
+                                <span class="font-semibold text-blue-900">实时推送提醒</span>
+                            </div>
+                            <p class="text-sm text-blue-700">当AI角色主动发送消息时，您将收到类似手机的桌面推送通知</p>
+                        </div>
+
+                        <div class="text-center">
+                            <button id="enable-notifications-btn" class="primary-btn w-full py-4 px-6 text-lg font-bold rounded-lg shadow-lg transition-all transform hover:scale-105">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="inline mr-2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0M9 11.25v.008H9V11.25z" />
+                                </svg>
+                                🔔 启用桌面通知
+                            </button>
+                            <p class="mt-3 text-sm text-gray-500">📱 需要您的浏览器授权才能接收推送通知</p>
+                        </div>
                     </div>
                 </section>
 
                 <!-- 数据管理 -->
-<section class="bg-white p-4 rounded-xl shadow-sm">
-        <h2 class="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-3 mb-4">数据管理</h2>
+                <section class="settings-card p-6">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-gray-900">数据管理</h2>
+                            <p class="text-sm text-gray-500 mt-1">备份、导入数据以及多设备云同步功能</p>
+                        </div>
+                    </div>
 
-        <div class="relative flex items-start mb-4">
-                <div class="flex h-6 items-center">
-                        <input id="include-cache-switch" name="include-cache" type="checkbox"
-                                class="h-4 w-4 rounded border-gray-300">
-                </div>
-                <div class="ml-3 text-sm leading-6">
-                        <label for="include-cache-switch" class="font-medium text-gray-900">在备份中包含缓存</label>
-                        <p class="text-xs text-gray-500">包含由AI生成的链接页面(linkPages)等缓存数据。取消勾选可以显著减小备份文件体积。</p>
-                </div>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <button id="export-data-btn"
-                        class="secondary-btn w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-4 border border-gray-300 rounded-md shadow-sm transition-colors">导出备份</button>
-                <button id="import-btn"
-                        class="secondary-btn w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-4 border border-gray-300 rounded-md shadow-sm transition-colors">导入备份</button>
-                <input id="import-data-input" type="file" accept="application/json" class="hidden">
-        </div>
+                    <div class="space-y-6">
+                        <!-- 备份选项 -->
+                        <div class="bg-gradient-to-r from-gray-50 to-slate-50 border border-gray-200 rounded-lg p-4">
+                            <div class="relative flex items-start">
+                                <div class="flex h-6 items-center">
+                                    <input id="include-cache-switch" name="include-cache" type="checkbox" class="h-5 w-5 rounded border-gray-300">
+                                </div>
+                                <div class="ml-4 text-sm leading-6">
+                                    <label for="include-cache-switch" class="font-bold text-gray-900">🗂️ 在备份中包含缓存</label>
+                                    <p class="text-sm text-gray-600 mt-1">包含AI生成的链接页面等缓存数据，取消可显著减小备份文件体积</p>
+                                </div>
+                            </div>
+                        </div>
 
-        <div class="pt-4 mt-4 border-t">
-                <h3 class="text-md font-semibold text-gray-800 mb-2">云同步 (GitHub Gist)</h3>
-                <p class="text-xs text-gray-500 mb-3">
-                        使用 <a href="https://gist.github.com/" target="_blank" class="text-blue-500 underline">GitHub
-                                Gist</a> 实现多设备数据同步。
-                        请按指引创建 Personal Access Token (PAT) 和 Secret Gist。
-                </p>
-                <div>
-                        <label for="sync-github-token" class="block text-sm font-medium text-gray-700 mb-1">GitHub
-                                Personal Access Token</label>
-                        <input type="password" id="sync-github-token"
-                                class="form-input block w-full rounded-md border-gray-300 shadow-sm sm:text-sm p-2"
-                                placeholder="粘贴您的 PAT (需要 gist 权限)">
-                </div>
-                <div class="mt-4">
-                        <label for="sync-gist-id" class="block text-sm font-medium text-gray-700 mb-1">Gist ID</label>
-                        <input type="text" id="sync-gist-id"
-                                class="form-input block w-full rounded-md border-gray-300 shadow-sm sm:text-sm p-2"
-                                placeholder="粘贴您的 Gist ID">
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
-                        <button id="upload-data-btn"
-                                class="secondary-btn w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-4 border border-gray-300 rounded-md shadow-sm transition-colors flex items-center justify-center gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="size-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+                        <!-- 本地备份 -->
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="text-indigo-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 3.75H6.912a2.25 2.25 0 00-2.15 1.588L2.35 13.177a2.25 2.25 0 00-.1.661V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 00-2.15-1.588H15M9 3.75v4.5a.75.75 0 01-.75.75h-4.5M9 3.75h6.75a.75.75 0 01.75.75v4.5a.75.75 0 01-.75.75h-6.75z" />
                                 </svg>
-                                上传数据
-                        </button>
-                        <button id="download-data-btn"
-                                class="secondary-btn w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-4 border border-gray-300 rounded-md shadow-sm transition-colors flex items-center justify-center gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="size-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                                </svg>
-                                下载数据
-                        </button>
-                </div>
-        </div>
-</section>
+                                💾 本地备份
+                            </h3>
+                            <div class="enhanced-grid">
+                                <button id="export-data-btn" class="secondary-btn w-full bg-gradient-to-r from-green-50 to-emerald-50 hover:from-green-100 hover:to-emerald-100 text-green-700 font-semibold py-4 px-6 border border-green-200 rounded-lg shadow-sm transition-all flex items-center justify-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+                                    </svg>
+                                    📤 导出备份
+                                </button>
+                                <button id="import-btn" class="secondary-btn w-full bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 text-blue-700 font-semibold py-4 px-6 border border-blue-200 rounded-lg shadow-sm transition-all flex items-center justify-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                    </svg>
+                                    📥 导入备份
+                                </button>
+                                <input id="import-data-input" type="file" accept="application/json" class="hidden">
+                            </div>
+                        </div>
+
+                        <!-- 云同步 -->
+                        <div class="pt-6 border-t border-gray-100">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
+                                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-gray-800">☁️ 云同步 (GitHub Gist)</h3>
+                                    <p class="text-sm text-gray-500">使用GitHub Gist实现多设备数据同步</p>
+                                </div>
+                            </div>
+                            
+                            <div class="feature-highlight mb-4">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="text-blue-600">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                                    </svg>
+                                    <span class="font-semibold text-blue-900">设置说明</span>
+                                </div>
+                                <p class="text-sm text-blue-700">需要创建 <a href="https://gist.github.com/" target="_blank" class="font-semibold underline hover:text-blue-800 transition-colors">GitHub Gist</a> 和 Personal Access Token (PAT)，详细步骤请参考帮助文档</p>
+                            </div>
+                            
+                            <div class="space-y-5">
+                                <div>
+                                    <label for="sync-github-token" class="block text-sm font-semibold text-gray-700 mb-2">🔑 GitHub Personal Access Token</label>
+                                    <input type="password" id="sync-github-token" class="form-input block w-full rounded-lg border-gray-300 shadow-sm p-3" placeholder="粘贴您的 PAT (需要 gist 权限)">
+                                    <p class="mt-2 text-xs text-gray-500">🔐 Token需要具备gist权限，用于读写您的私密Gist</p>
+                                </div>
+                                
+                                <div>
+                                    <label for="sync-gist-id" class="block text-sm font-semibold text-gray-700 mb-2">🆔 Gist ID</label>
+                                    <input type="text" id="sync-gist-id" class="form-input block w-full rounded-lg border-gray-300 shadow-sm p-3" placeholder="粘贴您的 Secret Gist ID">
+                                    <p class="mt-2 text-xs text-gray-500">📝 请使用私密(Secret)类型的Gist来保护您的数据安全</p>
+                                </div>
+                            </div>
+                            
+                            <div class="enhanced-grid mt-6">
+                                <button id="upload-data-btn" class="secondary-btn w-full bg-gradient-to-r from-orange-50 to-red-50 hover:from-orange-100 hover:to-red-100 text-orange-700 font-semibold py-4 px-6 border border-orange-200 rounded-lg shadow-sm transition-all flex items-center justify-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+                                    </svg>
+                                    ☁️ 上传到云端
+                                </button>
+                                <button id="download-data-btn" class="secondary-btn w-full bg-gradient-to-r from-cyan-50 to-blue-50 hover:from-cyan-100 hover:to-blue-100 text-cyan-700 font-semibold py-4 px-6 border border-cyan-200 rounded-lg shadow-sm transition-all flex items-center justify-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                    </svg>
+                                    ☁️ 从云端下载
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
-             </div>
+            
+            <!-- 页面底部信息 -->
+            <div class="text-center py-8 px-4">
+                <div class="max-w-2xl mx-auto">
+                    <p class="text-sm text-gray-400 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="inline mr-1">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.847a4.5 4.5 0 003.09 3.09L15.75 12l-2.847.813a4.5 4.5 0 00-3.09 3.091z" />
+                        StarChat - 让AI角色更加生动有趣
+                    </p>
+                    <p class="text-xs text-gray-400">所有设置数据仅存储在您的本地设备，确保隐私安全</p>
+                </div>
+            </div>
         </main>
     </div>
 
