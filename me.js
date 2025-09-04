@@ -1,4 +1,4 @@
-import { db, uploadImage } from './db.js'; 
+import { db, saveLocalImageAsDataURL } from './db.js'; 
 import { showUploadChoiceModal, showImagePickerModal } from './ui-helpers.js';
 import { showToast, showConfirmModal } from './ui-helpers.js';
 
@@ -304,14 +304,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let imageUrl = null;
         if (choice.type === 'local') {
-            const apiConfig = await db.globalSettings.get('main');
-            if (!apiConfig?.cloudinaryCloudName || !apiConfig?.cloudinaryUploadPreset) {
-                showToast("请先在“设置”页面配置 Cloudinary！", 'error');
+            // 修改：直接转换为Base64，不使用Cloudinary
+            try {
+                imageUrl = await saveLocalImageAsDataURL(choice.value);
+            } catch (error) {
+                showToast(error.message, 'error');
                 return;
             }
-            try {
-                imageUrl = await uploadImage(choice.value);
-            } catch (error) { return; }
         } else {
             imageUrl = choice.value;
         }

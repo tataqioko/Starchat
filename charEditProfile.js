@@ -1,6 +1,6 @@
 // settings.js
 // Import the shared database instance from db.js
-import { db, uploadImage, getActiveApiProfile, callApi } from './db.js'; 
+import { db, saveLocalImageAsDataURL, getActiveApiProfile, callApi } from './db.js'; 
 import { showUploadChoiceModal, showImagePickerModal, showAlbumPickerModal, promptForInput } from './ui-helpers.js'; // 导入三个助手
 import { showToast, showToastOnNextPage, showConfirmModal } from './ui-helpers.js';
 import { formatRelativeTime } from './simulationEngine.js'; 
@@ -567,13 +567,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         let imageUrl = null;
         if (choice.type === 'local') {
-            const apiConfig = await db.globalSettings.get('main');
-            if (!apiConfig?.cloudinaryCloudName || !apiConfig?.cloudinaryUploadPreset) {
-                showToast("请先在“设置”页面配置 Cloudinary！", 'error');
-                return;
-            }
+            // 修改：直接转换为Base64，不使用Cloudinary
             try {
-                imageUrl = await uploadImage(choice.value);
+                imageUrl = await saveLocalImageAsDataURL(choice.value);
             } catch (error) {
                 showToast(error.message, 'error');
                 return;

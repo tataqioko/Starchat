@@ -1,4 +1,6 @@
-const CACHE_NAME = 'starchat-cache-v1';
+// 将版本号与代码版本绑定
+const APP_VERSION = '2.2.0'; // 或从package.json读取
+const CACHE_NAME = `starchat-cache-${APP_VERSION}`;
 const urlsToCache = [
   './',
   './index.html',

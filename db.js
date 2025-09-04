@@ -254,6 +254,36 @@ export const apiLock = {
 
 
 /**
+ * 将本地图片文件转换为Base64 Data URL格式，用于头像本地存储
+ * @param {File} file 要处理的图片文件
+ * @returns {Promise<string>} 返回Base64格式的Data URL
+ */
+export async function saveLocalImageAsDataURL(file) {
+    // 检查文件大小（建议头像不超过2MB）
+    const maxSize = 2 * 1024 * 1024; // 2MB
+    if (file.size > maxSize) {
+        throw new Error("头像文件太大，请选择小于2MB的图片。");
+    }
+
+    // 检查文件类型
+    if (!file.type.startsWith('image/')) {
+        throw new Error("请选择有效的图片文件。");
+    }
+
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            // reader.result 就是 "data:image/jpeg;base64,xxxx..." 格式
+            resolve(reader.result);
+        };
+        reader.onerror = () => {
+            reject(new Error("图片读取失败，请重试。"));
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
+/**
  * 将图片文件上传到 Cloudinary 并返回直接链接。
  * 此函数会自动从数据库读取用户的 Cloudinary 配置。
  * @param {File} file 要上传的图片文件。
