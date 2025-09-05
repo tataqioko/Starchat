@@ -38,3 +38,44 @@ starchat 是一个模拟手机操作系统的 Web 应用，旨在提供一个沉
 * **本地数据存储**: Dexie.js (基于 IndexedDB)
 * **合规框架**: 用户协议与免责声明系统
 * **UI 交互**: 原生 JavaScript
+
+## 📄 基于开源项目
+
+本项目基于 [Xphone](https://github.com/il057/Xphone) 开发，感谢原作者 @il057 。
+
+### 主要改进
+- 🔧 增强的API管理功能
+- 🎨 改进的用户界面设计
+- 📊 新增数据分析功能
+- 🔒 完善的安全性措施
+- 🚀 性能优化和稳定性提升
+
+## 📜 许可证
+
+本项目采用自定义许可证，详见 [LICENSE](./LICENSE) 文件。
+
+- ✅ 个人学习和研究使用
+- ✅ 教育和学术用途
+- ❌ 未经授权的商业使用
+
+如需商业许可，请联系项目维护者。
+
+## 🤝 贡献
+
+欢迎提交 Issue 和 Pull Request！
+
+1. Fork 本项目
+2. 创建您的特性分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交您的更改 (`git commit -m 'Add some AmazingFeature'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 打开一个 Pull Request
+
+## ⚠️ 免责声明
+
+本软件仅供学习和研究使用。使用者需自行承担使用风险，开发者不对任何直接或间接损失负责。
+
+## 📞 联系方式
+
+如有问题或商业合作，请通过以下方式联系：
+- 📧 邮箱: [zhong1355333@outlook.com]
+- 🐛 Issues: [GitHub Issues页面]

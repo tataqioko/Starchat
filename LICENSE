@@ -1,0 +1,69 @@
+Starchat Custom License
+
+Copyright (c) 2024 Starchat Project
+
+## 项目声明
+
+本项目基于 Xphone (https://github.com/il057/Xphone) 进行开发和改进。
+原项目部分的版权归原作者 il057 所有。
+
+## 许可范围
+
+### 允许的使用
+✅ 个人学习和研究
+✅ 教育用途和学术研究
+✅ 非营利组织使用
+✅ 开源项目贡献
+
+### 限制的使用
+❌ 商业销售或盈利目的
+❌ 提供基于本软件的付费服务
+❌ 将本软件集成到商业产品中进行销售
+❌ 未经授权的API服务分发
+
+## 商业许可
+
+如需将本软件用于商业目的，包括但不限于：
+- 提供付费服务
+- 集成到商业产品
+- API服务分发
+- 其他盈利性用途
+
+请联系版权所有者获得商业许可证：
+📧 联系邮箱: [zhong1355333@outlook.com]
+
+## 贡献条款
+
+1. 向本项目提交代码即表示同意将贡献内容按本许可证条款授权
+2. 贡献者保证其拥有所贡献代码的合法权利
+3. 所有贡献将成为项目的一部分，受本许可证约束
+
+## 免责声明
+
+本软件按"现状"提供，不提供任何形式的明示或暗示担保，包括但不限于：
+- 适销性担保
+- 特定用途适用性担保
+- 非侵权担保
+
+在任何情况下，版权所有者或贡献者均不对因使用本软件而产生的任何直接、间接、偶然、特殊、惩罚性或后果性损害承担责任。
+
+## 第三方组件
+
+本项目使用了以下第三方组件，这些组件受其各自许可证约束：
+- TailwindCSS (MIT License)
+- Dexie.js (Apache 2.0 License)
+- 其他依赖项详见项目文件
+
+## 许可证更新
+
+本许可证可能会不时更新。继续使用本软件即表示接受最新版本的许可证条款。
+
+---
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
