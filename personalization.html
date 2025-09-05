@@ -45,57 +45,291 @@
                         /* 默认主题色，会被JS覆盖 */
                         --theme-color: #3b82f6;
                         --theme-color-hover: #2563eb;
+                        --theme-color-light: rgba(59, 130, 246, 0.1);
+                        --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+                        --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+                        --shadow-large: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+                        --gradient-bg: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
                 }
 
                 body {
                         font-family: 'Inter', sans-serif;
-                        background-color: #f3f4f6;
+                        background: var(--gradient-bg);
+                        min-height: 100vh;
+                }
+
+                /* 增强的卡片样式 */
+                .enhanced-card {
+                        background: white;
+                        border-radius: 20px;
+                        box-shadow: var(--shadow-soft);
+                        border: 1px solid rgba(0, 0, 0, 0.06);
+                        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                        overflow: hidden;
+                }
+
+                .enhanced-card:hover {
+                        box-shadow: var(--shadow-medium);
+                        transform: translateY(-2px);
+                }
+
+                /* 现代化的区块标题 */
+                .section-title {
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                        font-size: 1.125rem;
+                        font-weight: 600;
+                        color: #1f2937;
+                        margin-bottom: 20px;
+                        padding-bottom: 12px;
+                        border-bottom: 2px solid #f1f5f9;
+                }
+
+                .section-icon {
+                        width: 32px;
+                        height: 32px;
+                        background: linear-gradient(135deg, var(--theme-color), #6366f1);
+                        border-radius: 10px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: white;
+                        box-shadow: var(--shadow-soft);
                 }
 
                 /* --- Header 统一风格 CSS --- */
                 .header-btn {
-                        color: #888888;
-                        /* 默认灰色 */
-                        transition: color 0.2s ease-in-out;
+                        color: #6b7280;
+                        transition: all 0.2s ease-in-out;
+                        border-radius: 12px;
+                        padding: 8px 12px;
                 }
 
                 .header-btn:hover {
                         color: var(--theme-color);
-                        /* 鼠标悬停时显示主题色 */
+                        background-color: var(--theme-color-light);
                 }
 
-                /* 用于 chat.html 的+号按钮，在下拉菜单显示时保持高亮 */
                 .header-btn.active {
                         color: var(--theme-color);
+                        background-color: var(--theme-color-light);
                 }
 
+                /* 增强的壁纸预览区域 */
                 #wallpaper-preview {
+                        width: 100%;
+                        height: 200px;
+                        border-radius: 16px;
+                        box-shadow: var(--shadow-medium);
+                        margin-bottom: 24px;
+                        border: 3px solid #ffffff;
                         background-image: var(--preview-bg-image);
                         background-color: var(--preview-bg-color);
                         background-size: cover;
                         background-position: center;
+                        position: relative;
+                        overflow: hidden;
                 }
 
+                #wallpaper-preview::after {
+                        content: '';
+                        position: absolute;
+                        inset: 0;
+                        border-radius: 13px;
+                        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+                        pointer-events: none;
+                }
+
+                /* 现代化的模式选择器 */
+                .mode-selector {
+                        background: #f8fafc;
+                        border: 2px solid #e2e8f0;
+                        border-radius: 16px;
+                        padding: 4px;
+                        display: flex;
+                        gap: 4px;
+                }
+
+                .mode-selector label {
+                        flex: 1;
+                        text-align: center;
+                        padding: 12px 16px;
+                        border-radius: 12px;
+                        cursor: pointer;
+                        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                        font-weight: 500;
+                        color: #64748b;
+                        position: relative;
+                        overflow: hidden;
+                }
+
+                .mode-selector label:hover {
+                        color: var(--theme-color);
+                        background-color: rgba(59, 130, 246, 0.05);
+                }
+
+                .mode-selector input:checked + span {
+                        background: white !important;
+                        color: var(--theme-color) !important;
+                        box-shadow: var(--shadow-soft);
+                        transform: scale(1.02);
+                }
+
+                /* 增强的按钮样式 */
+                .btn-enhanced {
+                        background: linear-gradient(135deg, var(--theme-color), #6366f1);
+                        color: white;
+                        border: none;
+                        border-radius: 12px;
+                        padding: 12px 24px;
+                        font-weight: 600;
+                        font-size: 14px;
+                        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                        box-shadow: var(--shadow-soft);
+                        cursor: pointer;
+                        position: relative;
+                        overflow: hidden;
+                }
+
+                .btn-enhanced:hover {
+                        transform: translateY(-2px);
+                        box-shadow: var(--shadow-large);
+                }
+
+                .btn-enhanced:active {
+                        transform: translateY(0);
+                        box-shadow: var(--shadow-soft);
+                }
+
+                .btn-secondary-enhanced {
+                        background: #f8fafc;
+                        color: #64748b;
+                        border: 2px solid #e2e8f0;
+                        border-radius: 12px;
+                        padding: 12px 24px;
+                        font-weight: 600;
+                        font-size: 14px;
+                        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                        cursor: pointer;
+                }
+
+                .btn-secondary-enhanced:hover {
+                        background: white;
+                        border-color: var(--theme-color);
+                        color: var(--theme-color);
+                        transform: translateY(-1px);
+                        box-shadow: var(--shadow-soft);
+                }
+
+                /* 增强的输入框样式 */
+                .input-enhanced {
+                        width: 100%;
+                        padding: 14px 16px;
+                        border: 2px solid #e2e8f0;
+                        border-radius: 12px;
+                        background: #fafbfc;
+                        font-size: 14px;
+                        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                }
+
+                .input-enhanced:focus {
+                        outline: none;
+                        border-color: var(--theme-color);
+                        background: white;
+                        box-shadow: 0 0 0 3px var(--theme-color-light);
+                }
+
+                /* 颜色选择器组 */
+                .color-picker-group {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                        gap: 20px;
+                        padding: 20px;
+                        background: #fafbfc;
+                        border-radius: 16px;
+                        border: 2px solid #e2e8f0;
+                }
+
+                .color-picker-item {
+                        text-align: center;
+                }
+
+                .color-picker-item label {
+                        display: block;
+                        font-size: 12px;
+                        font-weight: 600;
+                        color: #64748b;
+                        margin-bottom: 8px;
+                        text-transform: uppercase;
+                        letter-spacing: 0.5px;
+                }
+
+                .color-picker-item input[type="color"] {
+                        width: 60px;
+                        height: 60px;
+                        border: 3px solid white;
+                        border-radius: 16px;
+                        cursor: pointer;
+                        box-shadow: var(--shadow-soft);
+                        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                        background: none;
+                }
+
+                .color-picker-item input[type="color"]:hover {
+                        transform: scale(1.1);
+                        box-shadow: var(--shadow-medium);
+                }
+
+                /* 字体预览增强 */
+                #font-preview {
+                        background: linear-gradient(135deg, #fafbfc, #f1f5f9);
+                        border: 2px solid #e2e8f0;
+                        border-radius: 16px;
+                        padding: 24px;
+                        transition: all 0.3s ease;
+                        position: relative;
+                        overflow: hidden;
+                }
+
+                #font-preview::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        height: 4px;
+                        background: linear-gradient(90deg, var(--theme-color), #6366f1);
+                        border-radius: 16px 16px 0 0;
+                }
+
+                /* 删除按钮增强 */
                 .delete-btn {
                         display: none;
                         position: absolute;
                         top: -8px;
-                        right: -12px;
-                        width: 24px;
-                        height: 24px;
-                        color: rgb(255, 0, 0);
-                        line-height: 20px;
+                        right: -8px;
+                        width: 28px;
+                        height: 28px;
+                        background: #ef4444;
+                        color: white;
+                        border-radius: 50%;
                         cursor: pointer;
-
-                        transition: transform 0.2s;
+                        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        box-shadow: var(--shadow-soft);
                 }
 
                 .delete-btn:hover {
                         transform: scale(1.1);
+                        background: #dc2626;
+                        box-shadow: var(--shadow-medium);
                 }
 
                 .edit-mode .delete-btn {
-                        display: block;
+                        display: flex;
                 }
 
                 /* 动态主题色应用 */
@@ -111,59 +345,207 @@
                 .swatch:hover,
                 .custom-btn:hover {
                         border-color: var(--theme-color);
+                        transform: translateY(-2px);
+                        box-shadow: var(--shadow-medium);
                 }
 
                 .active-swatch {
                         border-color: var(--theme-color) !important;
-                        box-shadow: 0 0 0 2px var(--theme-color);
+                        box-shadow: 0 0 0 3px var(--theme-color-light), var(--shadow-medium);
+                        transform: scale(1.05);
                 }
 
                 .primary-btn {
-                        background-color: var(--theme-color);
+                        background: linear-gradient(135deg, var(--theme-color), #6366f1);
                 }
 
                 .primary-btn:hover {
-                        background-color: var(--theme-color-hover);
+                        background: linear-gradient(135deg, var(--theme-color-hover), #5b21b6);
                 }
 
-                #font-preview {
-                        transition: font-family 0.3s ease;
+                /* 壁纸模式选择器：将选中项的文字颜色应用为主题色 */
+                input[name="wallpaper-mode"].peer:checked + span {
+                        color: var(--theme-color) !important;
                 }
 
-                /* 确保 Vanta 预览区域有明确的尺寸 */
-                #wallpaper-preview {
-                        width: 100%;
-                        height: 12rem;
-                        /* 192px */
-                        border-radius: 0.75rem;
-                        box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
-                        margin-bottom: 1rem;
-                        border: 1px solid #e5e7eb;
-                }
-                /* 1. 壁纸模式选择器：将选中项的文字颜色应用为主题色 */
-                input[name="wallpaper-mode"].peer:checked+span {
-                        color: var(--theme-color);
-                }
-
-                /* 2. 外观主题模式：将单选框的选中颜色应用为主题色 */
+                /* 外观主题模式：将单选框的选中颜色应用为主题色 */
                 input[name="theme-mode"].form-radio {
                         accent-color: var(--theme-color);
                 }
 
-                /* 3. 恢复默认字体按钮：鼠标悬停时文字颜色应用为主题色 */
-                #reset-font-btn:hover {
+                /* 深色模式适配 */
+                html.dark .enhanced-card {
+                        background: var(--content-bg-color-dark);
+                        border-color: var(--border-color-dark);
+                }
+
+                html.dark .section-title {
+                        color: var(--text-color-primary-dark);
+                        border-color: var(--border-color-dark);
+                }
+
+                html.dark .mode-selector {
+                        background: var(--background-color-dark);
+                        border-color: var(--border-color-dark);
+                }
+
+                html.dark .mode-selector label {
+                        color: var(--text-color-secondary-dark);
+                }
+
+                html.dark .mode-selector input:checked + span {
+                        background: var(--content-bg-color-dark) !important;
+                        color: var(--theme-color) !important;
+                }
+
+                html.dark .input-enhanced {
+                        background: var(--background-color-dark);
+                        border-color: var(--border-color-dark);
+                        color: var(--text-color-primary-dark);
+                }
+
+                html.dark .input-enhanced:focus {
+                        background: var(--content-bg-color-dark);
+                }
+
+                html.dark .color-picker-group {
+                        background: var(--background-color-dark);
+                        border-color: var(--border-color-dark);
+                }
+
+                html.dark #font-preview {
+                        background: var(--background-color-dark);
+                        border-color: var(--border-color-dark);
+                        color: var(--text-color-primary-dark);
+                }
+
+                /* 深色模式下的按钮兼容性 */
+                html.dark .btn-apply,
+                html.dark .btn-primary,
+                html.dark .btn-enhanced {
+                        background: linear-gradient(135deg, var(--theme-color), #6366f1);
+                }
+
+                html.dark .btn-secondary,
+                html.dark .btn-secondary-enhanced {
+                        background: var(--content-bg-color-dark);
+                        border-color: var(--border-color-dark);
+                        color: var(--text-color-primary-dark);
+                }
+
+                html.dark .btn-secondary:hover,
+                html.dark .btn-secondary-enhanced:hover {
+                        background: var(--hover-bg-color-dark);
+                        border-color: var(--theme-color);
                         color: var(--theme-color);
                 }
 
-                /* 深色模式下修复字体按钮的背景和边框，以获得更好效果 */
-                html.dark #reset-font-btn {
-                        background-color: var(--content-bg-color-dark);
+                html.dark .form-input,
+                html.dark .input-enhanced {
+                        background: var(--background-color-dark);
                         border-color: var(--border-color-dark);
+                        color: var(--text-color-primary-dark);
                 }
-                html.dark #reset-font-btn:hover {
-                        background-color: var(--hover-bg-color-dark);
+
+                html.dark .form-input:focus,
+                html.dark .input-enhanced:focus {
+                        background: var(--content-bg-color-dark);
+                        border-color: var(--theme-color);
                 }
-                
+
+                /* 兼容性：为可能缺失的原有样式提供后备定义 */
+                .btn-apply {
+                        background: linear-gradient(135deg, var(--theme-color), #6366f1);
+                        color: white;
+                        border: none;
+                        border-radius: 0 12px 12px 0;
+                        padding: 14px 20px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                }
+
+                .btn-apply:hover {
+                        background: linear-gradient(135deg, var(--theme-color-hover), #5b21b6);
+                        transform: translateY(-1px);
+                        box-shadow: var(--shadow-soft);
+                }
+
+                .btn-secondary {
+                        background: #f8fafc;
+                        color: #64748b;
+                        border: 2px solid #e2e8f0;
+                        border-radius: 12px;
+                        padding: 12px 24px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                }
+
+                .btn-secondary:hover {
+                        background: white;
+                        border-color: var(--theme-color);
+                        color: var(--theme-color);
+                        box-shadow: var(--shadow-soft);
+                }
+
+                .btn-primary {
+                        background: linear-gradient(135deg, var(--theme-color), #6366f1);
+                        color: white;
+                        border: none;
+                        border-radius: 12px;
+                        padding: 12px 24px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        box-shadow: var(--shadow-soft);
+                }
+
+                .btn-primary:hover {
+                        background: linear-gradient(135deg, var(--theme-color-hover), #5b21b6);
+                        transform: translateY(-2px);
+                        box-shadow: var(--shadow-large);
+                }
+
+                /* 表单输入框的兼容性样式 */
+                .form-input {
+                        width: 100%;
+                        padding: 12px 16px;
+                        border: 2px solid #e2e8f0;
+                        border-radius: 8px;
+                        background: #fafbfc;
+                        transition: all 0.3s ease;
+                }
+
+                .form-input:focus {
+                        outline: none;
+                        border-color: var(--theme-color);
+                        background: white;
+                        box-shadow: 0 0 0 3px var(--theme-color-light);
+                }
+
+                /* 响应式优化 */
+                @media (max-width: 640px) {
+                        .color-picker-group {
+                                grid-template-columns: repeat(3, 1fr);
+                                gap: 16px;
+                                padding: 16px;
+                        }
+                        
+                        .color-picker-item input[type="color"] {
+                                width: 50px;
+                                height: 50px;
+                        }
+                        
+                        #wallpaper-preview {
+                                height: 160px;
+                        }
+                        
+                        .section-icon {
+                                width: 28px;
+                                height: 28px;
+                        }
+                }
         </style>
 </head>
 
@@ -185,174 +567,225 @@
                         </div>
                 </header>
 
-                <main class="flex-grow main-content overflow-y-auto">
-                        <div class="space-y-6">
-                                <section class="bg-white p-4 rounded-xl shadow-sm">
-                                        <h2 class="text-lg font-semibold text-gray-900 mb-3">壁纸与主题</h2>
+                <main class="flex-grow main-content overflow-y-auto px-4 py-6">
+                        <div class="space-y-8 max-w-4xl mx-auto">
+                                <section class="enhanced-card p-6">
+                                        <div class="section-title">
+                                                <div class="section-icon">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                        </svg>
+                                                </div>
+                                                <span>壁纸与主题</span>
+                                        </div>
 
                                         <div id="wallpaper-preview">
                                         </div>
 
-                                        <div class="mb-4">
-                                                <label
-                                                        class="block text-sm font-medium text-gray-700 mb-2">选择壁纸模式</label>
-                                                <div
-                                                        class="flex items-center justify-around p-1 bg-gray-100 rounded-lg">
-                                                        <label
-                                                                class="flex-1 text-center p-2 rounded-md cursor-pointer transition-colors">
-                                                                <input type="radio" name="wallpaper-mode" value="image"
-                                                                        class="sr-only peer">
-                                                                <span
-                                                                        class="peer-checked:bg-white peer-checked:text-blue-600 peer-checked:shadow text-gray-600 font-medium block w-full h-full p-1 rounded">图片</span>
+                                        <div class="mb-6">
+                                                <label class="block text-sm font-medium text-gray-700 mb-3">选择壁纸模式</label>
+                                                <div class="mode-selector">
+                                                        <label>
+                                                                <input type="radio" name="wallpaper-mode" value="image" class="sr-only peer">
+                                                                <span class="block">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="mx-auto mb-1">
+                                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                                        </svg>
+                                                                        图片
+                                                                </span>
                                                         </label>
-                                                        <label
-                                                                class="flex-1 text-center p-2 rounded-md cursor-pointer transition-colors">
-                                                                <input type="radio" name="wallpaper-mode"
-                                                                        value="gradient" class="sr-only peer" checked>
-                                                                <span
-                                                                        class="peer-checked:bg-white peer-checked:text-blue-600 peer-checked:shadow text-gray-600 font-medium block w-full h-full p-1 rounded">渐变</span>
+                                                        <label>
+                                                                <input type="radio" name="wallpaper-mode" value="gradient" class="sr-only peer" checked>
+                                                                <span class="block">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="mx-auto mb-1">
+                                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4 4 4 0 004-4V5z" />
+                                                                        </svg>
+                                                                        渐变
+                                                                </span>
                                                         </label>
-                                                        <label
-                                                                class="flex-1 text-center p-2 rounded-md cursor-pointer transition-colors">
-                                                                <input type="radio" name="wallpaper-mode"
-                                                                        value="topology" class="sr-only peer">
-                                                                <span
-                                                                        class="peer-checked:bg-white peer-checked:text-blue-600 peer-checked:shadow text-gray-600 font-medium block w-full h-full p-1 rounded">拓扑</span>
+                                                        <label>
+                                                                <input type="radio" name="wallpaper-mode" value="topology" class="sr-only peer">
+                                                                <span class="block">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="mx-auto mb-1">
+                                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14-7H5m14 14H5" />
+                                                                        </svg>
+                                                                        拓扑
+                                                                </span>
                                                         </label>
                                                 </div>
                                         </div>
 
                                         <div id="wallpaper-settings-container">
-                                                <div id="image-mode-settings" class="hidden space-y-3">
-                                                        <label class="block text-sm font-medium text-gray-700">图片
-                                                                URL</label>
-                                                        <div class="flex rounded-md shadow-sm">
-                                                                <input type="url" id="wallpaper-url"
-                                                                        class="form-input block w-full flex-1 rounded-none rounded-l-md p-2">
-                                                                <button id="apply-wallpaper-url" type="button"
-                                                                        class="btn-apply">应用</button>
-                                                        </div>
-                                                        <button id="select-from-album-btn"
-                                                                class="w-full btn-secondary">从相册选择壁纸</button>
+                                                <div id="image-mode-settings" class="hidden space-y-4">
                                                         <div>
-                                                                <label
-                                                                        class="block text-sm font-medium text-gray-700 mt-2">主题色</label>
-                                                                <input type="color" id="image-theme-color-picker"
-                                                                        value="#3b82f6"
-                                                                        class="mt-1 block w-full h-10 p-1 border-none rounded cursor-pointer">
-                                                        </div>
-                                                </div>
-
-                                                <div id="gradient-mode-settings" class="space-y-3">
-                                                        <p class="text-xs text-gray-500">从预设中选择，或点击齿轮图标自定义。长按预设可删除。</p>
-                                                        <div id="preset-container" class="grid grid-cols-5 gap-4 mt-2"
-                                                                data-type="gradient">
-                                                        </div>
-                                                        <div id="custom-color-maker"
-                                                                class="hidden mt-4 p-4 border rounded-lg bg-gray-50 space-y-4">
-                                                                <div class="flex items-center justify-around">
-                                                                        <div class="text-center"><label
-                                                                                        class="text-xs">渐变色1</label><input
-                                                                                        type="color" id="color1"
-                                                                                        value="#a18cd1"></div>
-                                                                        <div class="text-center"><label
-                                                                                        class="text-xs">渐变色2</label><input
-                                                                                        type="color" id="color2"
-                                                                                        value="#fbc2eb"></div>
-                                                                        <div class="text-center"><label
-                                                                                        class="text-xs">主题色</label><input
-                                                                                        type="color"
-                                                                                        id="theme-color-picker"
-                                                                                        value="#3b82f6"></div>
+                                                                <label class="block text-sm font-medium text-gray-700 mb-2">图片URL</label>
+                                                                <div class="flex gap-2">
+                                                                        <input type="url" id="wallpaper-url" placeholder="输入图片链接..." class="input-enhanced flex-1">
+                                                                        <button id="apply-wallpaper-url" type="button" class="btn-enhanced px-6">应用</button>
                                                                 </div>
-                                                                <button id="save-custom-preset"
-                                                                        class="w-full btn-primary">保存为预设</button>
                                                         </div>
-                                                </div>
-
-                                                <div id="topology-mode-settings" class="hidden space-y-3">
-                                                        <p class="text-xs text-gray-500">从预设中选择，或点击齿轮图标自定义。长按预设可删除。</p>
-                                                        <div id="topology-preset-container"
-                                                                class="grid grid-cols-5 gap-4 mt-2"
-                                                                data-type="topology">
-                                                        </div>
-                                                        <div id="topology-custom-color-maker"
-                                                                class="hidden mt-4 p-4 border rounded-lg bg-gray-50 space-y-4">
-                                                                <p class="text-sm font-medium text-gray-700">自定义拓扑方案</p>
-                                                                <div class="flex items-center justify-around">
-                                                                        <div class="text-center">
-                                                                                <label class="text-xs">背景色</label>
-                                                                                <input type="color" id="topology-color1"
-                                                                                        value="#000000">
-                                                                        </div>
-                                                                        <div class="text-center">
-                                                                                <label class="text-xs">线条色</label>
-                                                                                <input type="color" id="topology-color2"
-                                                                                        value="#ffffff">
-                                                                        </div>
-                                                                        <div class="text-center">
-                                                                                <label class="text-xs">主题色</label>
-                                                                                <input type="color"
-                                                                                        id="topology-theme-color-picker"
-                                                                                        value="#ffffff">
+                                                        <button id="select-from-album-btn" class="w-full btn-secondary-enhanced">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="inline mr-2">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                                </svg>
+                                                                从相册选择壁纸
+                                                        </button>
+                                                        <div>
+                                                                <label class="block text-sm font-medium text-gray-700 mb-3">主题色</label>
+                                                                <div class="color-picker-group">
+                                                                        <div class="color-picker-item">
+                                                                                <label>主题色</label>
+                                                                                <input type="color" id="image-theme-color-picker" value="#3b82f6">
                                                                         </div>
                                                                 </div>
-                                                                <button id="save-topology-preset-btn"
-                                                                        class="w-full text-sm text-white py-1.5 rounded-md primary-btn">保存为预设</button>
+                                                        </div>
+                                                </div>
+
+                                                <div id="gradient-mode-settings" class="space-y-4">
+                                                        <div class="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                                                                <div class="flex items-start gap-3">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="text-blue-600 flex-shrink-0 mt-0.5">
+                                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                                        </svg>
+                                                                        <div>
+                                                                                <p class="text-sm font-medium text-blue-900">使用提示</p>
+                                                                                <p class="text-xs text-blue-700 mt-1">从预设中选择，或点击齿轮图标自定义。长按预设可删除。</p>
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                                        <div id="preset-container" class="grid grid-cols-5 gap-4" data-type="gradient"></div>
+                                                        <div id="custom-color-maker" class="hidden space-y-4">
+                                                                <div class="color-picker-group">
+                                                                        <div class="color-picker-item">
+                                                                                <label>渐变色1</label>
+                                                                                <input type="color" id="color1" value="#a18cd1">
+                                                                        </div>
+                                                                        <div class="color-picker-item">
+                                                                                <label>渐变色2</label>
+                                                                                <input type="color" id="color2" value="#fbc2eb">
+                                                                        </div>
+                                                                        <div class="color-picker-item">
+                                                                                <label>主题色</label>
+                                                                                <input type="color" id="theme-color-picker" value="#3b82f6">
+                                                                        </div>
+                                                                </div>
+                                                                <button id="save-custom-preset" class="w-full btn-enhanced">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="inline mr-2">
+                                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                                                        </svg>
+                                                                        保存为预设
+                                                                </button>
+                                                        </div>
+                                                </div>
+
+                                                <div id="topology-mode-settings" class="hidden space-y-4">
+                                                        <div class="bg-purple-50 border border-purple-200 rounded-xl p-4">
+                                                                <div class="flex items-start gap-3">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="text-purple-600 flex-shrink-0 mt-0.5">
+                                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                                        </svg>
+                                                                        <div>
+                                                                                <p class="text-sm font-medium text-purple-900">动态拓扑背景</p>
+                                                                                <p class="text-xs text-purple-700 mt-1">从预设中选择，或点击齿轮图标自定义。长按预设可删除。</p>
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                                        <div id="topology-preset-container" class="grid grid-cols-5 gap-4" data-type="topology"></div>
+                                                        <div id="topology-custom-color-maker" class="hidden space-y-4">
+                                                                <div class="color-picker-group">
+                                                                        <div class="color-picker-item">
+                                                                                <label>背景色</label>
+                                                                                <input type="color" id="topology-color1" value="#000000">
+                                                                        </div>
+                                                                        <div class="color-picker-item">
+                                                                                <label>线条色</label>
+                                                                                <input type="color" id="topology-color2" value="#ffffff">
+                                                                        </div>
+                                                                        <div class="color-picker-item">
+                                                                                <label>主题色</label>
+                                                                                <input type="color" id="topology-theme-color-picker" value="#ffffff">
+                                                                        </div>
+                                                                </div>
+                                                                <button id="save-topology-preset-btn" class="w-full btn-enhanced">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="inline mr-2">
+                                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                                                        </svg>
+                                                                        保存为预设
+                                                                </button>
                                                         </div>
                                                 </div>
                                 </section>
 
-                                </section>
-                                <section class="bg-white p-4 rounded-xl shadow-sm">
-                                        <h2 class="text-lg font-semibold text-gray-900 mb-3">外观</h2>
-                                        <div class="space-y-2">
-                                                <p class="text-sm font-medium text-gray-700">选择一个主题模式：</p>
-                                                <div
-                                                        class="flex items-center justify-around p-2 bg-gray-100 rounded-lg">
-                                                        <label class="flex items-center space-x-2 cursor-pointer">
-                                                                <input type="radio" name="theme-mode" value="light"
-                                                                        class="form-radio h-4 w-4">
-                                                                <span>浅色</span>
+                                <section class="enhanced-card p-6">
+                                        <div class="section-title">
+                                                <div class="section-icon">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                                                        </svg>
+                                                </div>
+                                                <span>外观模式</span>
+                                        </div>
+                                        <div class="space-y-4">
+                                                <p class="text-sm text-gray-600">选择适合你的界面主题模式</p>
+                                                <div class="mode-selector">
+                                                        <label>
+                                                                <input type="radio" name="theme-mode" value="light" class="sr-only peer">
+                                                                <span class="block">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="mx-auto mb-1">
+                                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                                                                        </svg>
+                                                                        浅色
+                                                                </span>
                                                         </label>
-                                                        <label class="flex items-center space-x-2 cursor-pointer">
-                                                                <input type="radio" name="theme-mode" value="dark"
-                                                                        class="form-radio h-4 w-4">
-                                                                <span>深色</span>
+                                                        <label>
+                                                                <input type="radio" name="theme-mode" value="dark" class="sr-only peer">
+                                                                <span class="block">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="mx-auto mb-1">
+                                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                                                                        </svg>
+                                                                        深色
+                                                                </span>
                                                         </label>
-                                                        <label class="flex items-center space-x-2 cursor-pointer">
-                                                                <input type="radio" name="theme-mode" value="auto"
-                                                                        class="form-radio h-4 w-4">
-                                                                <span>自动</span>
+                                                        <label>
+                                                                <input type="radio" name="theme-mode" value="auto" class="sr-only peer">
+                                                                <span class="block">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="mx-auto mb-1">
+                                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                                                        </svg>
+                                                                        自动
+                                                                </span>
                                                         </label>
                                                 </div>
                                         </div>
                                 </section>
 
-                                <section class="bg-white p-4 rounded-xl shadow-sm">
-                                        <h2 class="text-lg font-semibold text-gray-900 mb-3">字体</h2>
-                                        <div>
-                                                <label for="font-url-input"
-                                                        class="block text-sm font-medium text-gray-700">字体文件 URL (.ttf,
-                                                        .otf, .woff)</label>
-                                                <div class="mt-1">
-                                                        <input type="url" id="font-url-input"
-                                                                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2"
-                                                                placeholder="https://example.com/font.ttf">
+                                <section class="enhanced-card p-6">
+                                        <div class="section-title">
+                                                <div class="section-icon">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                        </svg>
                                                 </div>
+                                                <span>字体定制</span>
                                         </div>
-                                        <div class="mt-4">
-                                                <label class="block text-sm font-medium text-gray-700">实时预览
-                                                        (同时应用于本页面)</label>
-                                                <div id="font-preview"
-                                                        class="mt-1 p-5 border border-gray-200 rounded-lg bg-gray-50 transition-all duration-300 ease-in-out">
-                                                        <p class="text-xl m-0 mb-2">你好世界 Hello World</p>
-                                                        <p class="text-base m-0">这是字体预览效果，12345。</p>
+                                        <div class="space-y-6">
+                                                <div>
+                                                        <label for="font-url-input" class="block text-sm font-medium text-gray-700 mb-2">字体文件 URL</label>
+                                                        <p class="text-xs text-gray-500 mb-3">支持 .ttf, .otf, .woff 格式的字体文件</p>
+                                                        <input type="url" id="font-url-input" class="input-enhanced" placeholder="https://example.com/font.ttf">
                                                 </div>
-                                        </div>
-                                        <div class="mt-4">
-                                                <button id="reset-font-btn"
-                                                        class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-4 border border-gray-300 rounded-md shadow-sm transition-colors">
+                                                <div>
+                                                        <label class="block text-sm font-medium text-gray-700 mb-3">实时预览</label>
+                                                        <div id="font-preview">
+                                                                <p class="text-xl font-semibold mb-3">你好世界 Hello World</p>
+                                                                <p class="text-base text-gray-600">这是字体预览效果，包含数字 12345 和符号 !@#$%。</p>
+                                                                <p class="text-sm text-gray-500 mt-2">The quick brown fox jumps over the lazy dog.</p>
+                                                        </div>
+                                                </div>
+                                                <button id="reset-font-btn" class="w-full btn-secondary-enhanced">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="inline mr-2">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                                        </svg>
                                                         恢复默认字体
                                                 </button>
                                         </div>
