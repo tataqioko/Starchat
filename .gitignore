@@ -1,0 +1,300 @@
+# Starchat - AI角色扮演聊天应用
+# .gitignore 文件
+
+# ===========================================
+# 操作系统生成的文件
+# ===========================================
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ===========================================
+# 编辑器和IDE
+# ===========================================
+
+# Visual Studio Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+.history/
+*.vsix
+
+# JetBrains IDEs
+.idea/
+*.swp
+*.swo
+
+# Sublime Text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+
+# Vim
+[._]*.s[a-v][a-z]
+!*.svg
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# ===========================================
+# Node.js (如果使用了Node.js工具)
+# ===========================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+.npm
+.eslintcache
+.stylelintcache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+.node_repl_history
+*.tgz
+*.tar.gz
+.yarn-integrity
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ===========================================
+# Python (如果使用了Python工具)
+# ===========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# ===========================================
+# 构建和部署相关
+# ===========================================
+dist/
+build/
+out/
+.cache/
+.parcel-cache/
+.next/
+.nuxt/
+.vuepress/dist
+.serverless/
+.fusebox/
+.dynamodb/
+.tern-port
+coverage/
+*.lcov
+.nyc_output
+
+# ===========================================
+# 日志文件
+# ===========================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+pids
+*.pid
+*.seed
+*.pid.lock
+lib-cov
+
+# ===========================================
+# 临时文件和备份
+# ===========================================
+*.tmp
+*.temp
+*.bak
+*.backup
+*.swp
+*.swo
+*~
+.#*
+
+# ===========================================
+# 用户数据和配置 (谨慎处理)
+# ===========================================
+# 注意: 这些文件可能包含用户的个人数据或API密钥
+# 根据项目需要决定是否要忽略
+
+# 用户上传的图片和媒体文件 (如果有本地存储)
+# uploads/
+# media/
+# user-content/
+
+# 数据库文件 (如果使用本地数据库文件)
+# *.db
+# *.sqlite
+# *.sqlite3
+
+# 配置文件 (如果包含敏感信息)
+# config.json
+# settings.json
+# .env
+
+# ===========================================
+# 开发和测试相关
+# ===========================================
+.sass-cache/
+*.css.map
+*.js.map
+.grunt
+bower_components/
+.bower-cache/
+.bower-registry/
+.bower-tmp/
+
+# Jest
+coverage/
+.nyc_output/
+
+# ===========================================
+# 服务器和部署相关
+# ===========================================
+.vercel
+.netlify/
+.firebase/
+.surge/
+
+# Apache
+.htaccess
+
+# Nginx
+nginx.conf
+
+# ===========================================
+# 其他
+# ===========================================
+# 压缩文件
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
+*.bz2
+
+# 证书文件
+*.pem
+*.key
+*.crt
+*.csr
+
+# 文档草稿
+*.draft
+*.wip
+
+# 测试文件
+test-results/
+playwright-report/
+test-output/
+
+# ===========================================
+# 项目特定的忽略规则
+# ===========================================
+# 根据Starchat项目的特点，可能需要忽略的文件
+
+# 启动脚本 (开发环境特定)
+start.bat
+start.sh
+start.cmd
+run.bat
+run.sh
+
+# 如果有本地开发服务器配置
+server.js
+server.py
+local-server.*
+
+# 如果有构建脚本生成的文件
+bundled/
+minified/
+optimized/
+
+# 开发时的调试文件
+debug.log
+console.log
+error.log
