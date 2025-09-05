@@ -39,49 +39,139 @@
                 :root {
                         --theme-color: #3b82f6;
                         /* 浅色模式变量 */
-                        --bg-color-light: #f3f4f6;
+                        --bg-color-light: #f8fafc;
                         --content-bg-color-light: #ffffff;
-                        --text-color-primary-light: #1f2937;
-                        --text-color-secondary-light: #4b5563;
-                        --border-color-light: #e5e7eb;
-                        --hover-bg-color-light: #f9fafb;
+                        --text-color-primary-light: #1e293b;
+                        --text-color-secondary-light: #64748b;
+                        --border-color-light: #e2e8f0;
+                        --hover-bg-color-light: #f1f5f9;
+                        --accent-color-light: #f0f9ff;
                         /* 深色模式变量 */
-                        --bg-color-dark: #000000;
-                        /* 背景 -> 纯黑 */
-                        --content-bg-color-dark: #1c1c1e;
-                        /* 面板 -> iOS风格深灰 */
-                        --text-color-primary-dark: #f9fafb;
-                        --text-color-secondary-dark: #8e8e93;
-                        /* 次要文本 -> iOS风格灰色 */
-                        --border-color-dark: #38383a;
-                        /* 边框 -> iOS风格灰色 */
-                        --hover-bg-color-dark: #2c2c2e;
+                        --bg-color-dark: #0f172a;
+                        --content-bg-color-dark: #1e293b;
+                        --text-color-primary-dark: #f1f5f9;
+                        --text-color-secondary-dark: #94a3b8;
+                        --border-color-dark: #334155;
+                        --hover-bg-color-dark: #334155;
+                        --accent-color-dark: #0f172a;
+                        
+                        /* 新增设计变量 */
+                        --gradient-primary: linear-gradient(135deg, var(--theme-color) 0%, #6366f1 100%);
+                        --gradient-secondary: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+                        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+                        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+                        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+                        --border-radius-sm: 0.375rem;
+                        --border-radius-md: 0.5rem;
+                        --border-radius-lg: 0.75rem;
+                        --border-radius-xl: 1rem;
                 }
 
                 /* --- 1. 全局与布局优化 --- */
                 body {
-                        font-family: 'Inter', sans-serif;
-                        background-color: var(--bg-color-light);
+                        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                        background: var(--gradient-secondary);
                         color: var(--text-color-primary-light);
+                        line-height: 1.6;
+                        -webkit-font-smoothing: antialiased;
+                        -moz-osx-font-smoothing: grayscale;
+                        scroll-behavior: smooth;
+                }
+
+                /* 添加全局动画 */
+                * {
+                        box-sizing: border-box;
+                }
+
+                /* 滚动条美化 */
+                ::-webkit-scrollbar {
+                        width: 8px;
+                }
+
+                ::-webkit-scrollbar-track {
+                        background: var(--bg-color-light);
+                }
+
+                ::-webkit-scrollbar-thumb {
+                        background: var(--theme-color);
+                        border-radius: 4px;
+                }
+
+                ::-webkit-scrollbar-thumb:hover {
+                        background: #2563eb;
+                }
+
+                html.dark ::-webkit-scrollbar-track {
+                        background: var(--bg-color-dark);
+                }
+
+                html.dark ::-webkit-scrollbar-thumb {
+                        background: #64748b;
+                }
+
+                html.dark ::-webkit-scrollbar-thumb:hover {
+                        background: var(--theme-color);
                 }
 
                 html.dark body {
-                        background-color: var(--bg-color-dark);
+                        background: linear-gradient(135deg, var(--bg-color-dark) 0%, #1e293b 100%);
                         color: var(--text-color-primary-dark);
                 }
 
-                /* 增加主内容区域的上下间距，让标题和底部有呼吸感 */
+                /* 改进的主内容区域 */
                 main.main-content {
-                        padding-top: 1.5rem;
-                        /* 24px */
-                        padding-bottom: 2.5rem;
-                        /* 40px */
+                        padding: 2rem 1rem 3rem;
+                        max-width: 1200px;
+                        margin: 0 auto;
                 }
 
-                /* 增加每个可折叠区域之间的垂直间距 */
-                main.main-content>details {
-                        margin-bottom: 1rem;
-                        /* 16px */
+                /* 响应式间距 */
+                main.main-content > * + * {
+                        margin-top: 1.5rem;
+                }
+
+                @media (min-width: 768px) {
+                        main.main-content {
+                                padding: 2rem 2rem 4rem;
+                        }
+                        
+                        main.main-content > * + * {
+                                margin-top: 2rem;
+                        }
+                        
+                        .feature-grid {
+                                grid-template-columns: repeat(2, 1fr);
+                        }
+                }
+                
+                @media (min-width: 1024px) {
+                        main.main-content {
+                                padding: 2.5rem 3rem 4rem;
+                                max-width: 1200px;
+                                margin: 0 auto;
+                        }
+                        
+                        main.main-content > * + * {
+                                margin-top: 2.5rem;
+                        }
+                        
+                        .feature-grid {
+                                grid-template-columns: repeat(3, 1fr);
+                        }
+                        
+                        .welcome-section {
+                                padding: 3rem;
+                        }
+                }
+                
+                @media (min-width: 1280px) {
+                        main.main-content {
+                                padding: 3rem 4rem 5rem;
+                        }
+                        
+                        .section-card-header {
+                                padding: 2.5rem;
+                        }
                 }
 
                 /* --- 2. 字体与排版优化 --- */
@@ -122,110 +212,189 @@
 
                 /* --- 3. 组件样式优化 --- */
 
-                /* a. 高亮文本样式优化 (更柔和) */
+                /* a. 高亮文本样式优化 (更现代) */
                 .highlight {
-                        background-color: rgba(59, 130, 246, 0.15);
-                        /* 主题色的半透明背景 */
+                        background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(99, 102, 241, 0.15) 100%);
                         color: var(--theme-color);
-                        /* 主题色文字 */
-                        padding: 0.2rem 0.4rem;
-                        border-radius: 0.375rem;
-                        /* rounded-md */
+                        padding: 0.25rem 0.6rem;
+                        border-radius: var(--border-radius-md);
                         font-weight: 600;
+                        font-size: 0.9em;
+                        border: 1px solid rgba(59, 130, 246, 0.2);
+                        display: inline-block;
+                        transition: all 0.2s ease;
+                        position: relative;
+                        overflow: hidden;
+                }
+
+                .highlight::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: -100%;
+                        width: 100%;
+                        height: 100%;
+                        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+                        transition: left 0.5s;
+                }
+
+                .highlight:hover::before {
+                        left: 100%;
+                }
+
+                .highlight:hover {
+                        transform: translateY(-1px);
+                        box-shadow: 0 4px 8px rgba(59, 130, 246, 0.2);
                 }
 
                 html.dark .highlight {
-                        background-color: rgba(96, 165, 250, 0.2);
-                        /* 深色模式下稍微亮一点的背景 */
+                        background: linear-gradient(135deg, rgba(96, 165, 250, 0.15) 0%, rgba(129, 140, 248, 0.2) 100%);
                         color: #93c5fd;
-                        /* blue-300 */
+                        border-color: rgba(96, 165, 250, 0.3);
+                }
+
+                html.dark .highlight:hover {
+                        box-shadow: 0 4px 8px rgba(96, 165, 250, 0.3);
                 }
 
                 /* b. 折叠面板(Accordion)样式优化 */
                 details {
                         border: 1px solid var(--border-color-light);
-                        border-radius: 0.75rem;
-                        /* 更大的圆角 (rounded-xl) */
-                        transition: all 0.2s ease-in-out;
+                        border-radius: var(--border-radius-lg);
+                        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                        background: var(--content-bg-color-light);
+                        box-shadow: var(--shadow-sm);
+                        overflow: hidden;
                 }
 
                 html.dark details {
                         border-color: var(--border-color-dark);
+                        background: var(--content-bg-color-dark);
+                        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
                 }
 
                 details[open] {
                         border-color: var(--theme-color);
+                        box-shadow: var(--shadow-md), 0 0 0 1px var(--theme-color);
+                }
+
+                html.dark details[open] {
+                        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 0 0 1px var(--theme-color);
                 }
 
                 details>summary {
                         list-style: none;
                         cursor: pointer;
-                        padding: 1.25rem;
-                        /* 增加内边距 */
-                        background-color: var(--content-bg-color-light);
-                        border-radius: 0.75rem;
+                        padding: 1.5rem;
+                        background: var(--content-bg-color-light);
                         font-weight: 600;
-                        font-size: 1.125rem;
-                        /* 增大字号 (text-lg) */
+                        font-size: 1.1rem;
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
-                        transition: background-color 0.2s;
+                        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                         color: var(--text-color-primary-light);
+                        position: relative;
+                        border-bottom: 1px solid transparent;
+                }
+
+                details>summary::before {
+                        content: '';
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        bottom: 0;
+                        width: 4px;
+                        background: var(--theme-color);
+                        transform: scaleY(0);
+                        transition: transform 0.3s ease;
+                        transform-origin: bottom;
+                }
+
+                details[open]>summary::before {
+                        transform: scaleY(1);
                 }
 
                 html.dark details>summary {
-                        background-color: var(--content-bg-color-dark);
+                        background: var(--content-bg-color-dark);
                         color: var(--text-color-primary-dark);
                 }
 
                 details>summary:hover {
-                        background-color: var(--hover-bg-color-light);
+                        background: var(--hover-bg-color-light);
+                        padding-left: 1.75rem;
                 }
 
                 html.dark details>summary:hover {
-                        background-color: var(--hover-bg-color-dark);
+                        background: var(--hover-bg-color-dark);
                 }
 
                 details>summary::-webkit-details-marker {
                         display: none;
                 }
 
-                /* 优化 + 号为更精致的 Chevron 图标 */
+                /* 现代化的箭头图标 */
                 details>summary::after {
-                        content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%239ca3af'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd' /%3E%3C/svg%3E");
-                        width: 1.25rem;
-                        /* w-5 */
-                        height: 1.25rem;
-                        /* h-5 */
-                        transition: transform 0.3s ease-in-out;
+                        content: '';
+                        width: 1.5rem;
+                        height: 1.5rem;
+                        background: var(--theme-color);
+                        border-radius: 50%;
+                        position: relative;
+                        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                        flex-shrink: 0;
                 }
 
-                html.dark details>summary::after {
-                        content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23d1d5db'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd' /%3E%3C/svg%3E");
+                details>summary::after {
+                        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        background-size: 1rem;
                 }
 
                 details[open]>summary::after {
                         transform: rotate(180deg);
+                        background-color: var(--theme-color);
+                        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
                 }
 
                 details[open]>summary {
-                        border-bottom-left-radius: 0;
-                        border-bottom-right-radius: 0;
+                        border-bottom: 1px solid var(--border-color-light);
+                }
+
+                html.dark details[open]>summary {
+                        border-bottom-color: var(--border-color-dark);
                 }
 
                 .details-content {
-                        padding: 0 1.5rem 1.5rem 1.5rem;
-                        /* 调整内边距 */
-                        border-top: 1px solid var(--border-color-light);
-                        background-color: var(--content-bg-color-light);
-                        border-bottom-left-radius: 0.75rem;
-                        border-bottom-right-radius: 0.75rem;
+                        padding: 2rem;
+                        background: var(--accent-color-light);
+                        color: var(--text-color-primary-light);
+                        line-height: 1.7;
                 }
 
                 html.dark .details-content {
-                        border-top-color: var(--border-color-dark);
-                        background-color: var(--content-bg-color-dark);
+                        background: var(--accent-color-dark);
+                        color: var(--text-color-primary-dark);
+                }
+
+                /* 改进内容区域的文本样式 */
+                .details-content p {
+                        margin-bottom: 1rem;
+                }
+
+                .details-content p:last-child {
+                        margin-bottom: 0;
+                }
+
+                .details-content ul, .details-content ol {
+                        margin: 1rem 0;
+                        padding-left: 1.5rem;
+                }
+
+                .details-content li {
+                        margin-bottom: 0.5rem;
+                        line-height: 1.6;
                 }
 
                 /* c. 代码/文本框样式优化 (针对表情包批量导入) */
@@ -248,25 +417,102 @@
                         color: var(--theme-color);
                         text-decoration: none;
                         font-weight: 500;
+                        position: relative;
+                        transition: all 0.2s ease;
+                        border-radius: var(--border-radius-sm);
+                        padding: 0.1rem 0.2rem;
                 }
 
                 a:hover {
-                        text-decoration: underline;
+                        background: rgba(59, 130, 246, 0.1);
+                        color: var(--theme-color);
+                        transform: translateY(-1px);
+                }
+
+                a.underline {
+                        border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+                        transition: border-color 0.2s ease;
+                }
+
+                a.underline:hover {
+                        border-bottom-color: var(--theme-color);
+                        background: transparent;
+                        transform: none;
+                }
+
+                html.dark a:hover {
+                        background: rgba(96, 165, 250, 0.15);
+                        color: #93c5fd;
                 }
 
                 #json-prompt-code {
-                        background-color: #f3f4f6;
-                        border-color: #e5e7eb;
-                        /* 更浅的边框色 */
+                        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+                        border: 1px solid var(--border-color-light);
+                        border-radius: var(--border-radius-md);
                         color: var(--text-color-secondary-light);
-                        font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+                        font-family: 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+                        font-size: 0.85rem;
+                        line-height: 1.6;
+                        padding: 1.5rem;
+                        position: relative;
+                        overflow: hidden;
+                }
+
+                #json-prompt-code::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        height: 3px;
+                        background: var(--gradient-primary);
                 }
 
                 html.dark #json-prompt-code {
-                        background-color: #1f2937;
+                        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
                         border-color: var(--border-color-dark);
-                        /* 深色模式下的柔和边框 */
                         color: var(--text-color-secondary-dark);
+                }
+
+                /* 复制按钮样式优化 */
+                #copy-prompt-btn {
+                        background: var(--theme-color);
+                        color: white;
+                        border: none;
+                        border-radius: var(--border-radius-md);
+                        padding: 0.5rem 1rem;
+                        font-weight: 600;
+                        font-size: 0.8rem;
+                        transition: all 0.2s ease;
+                        cursor: pointer;
+                        position: relative;
+                        overflow: hidden;
+                }
+
+                #copy-prompt-btn::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: -100%;
+                        width: 100%;
+                        height: 100%;
+                        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+                        transition: left 0.5s;
+                }
+
+                #copy-prompt-btn:hover::before {
+                        left: 100%;
+                }
+
+                #copy-prompt-btn:hover {
+                        background: var(--theme-color);
+                        transform: translateY(-2px);
+                        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+                }
+
+                #copy-prompt-btn:active {
+                        transform: translateY(0);
+                        box-shadow: 0 2px 6px rgba(59, 130, 246, 0.3);
                 }
 
                 #prompt-accordion {
@@ -368,43 +614,71 @@
                 }
 
                 .section-card {
-                        border-radius: 0.75rem;
-                        /* rounded-xl */
+                        border-radius: var(--border-radius-xl);
                         overflow: hidden;
-                        /* 关键：确保子元素的圆角生效 */
                         border: 1px solid var(--border-color-light);
-                        margin-top: 2.5rem;
+                        background: var(--content-bg-color-light);
+                        box-shadow: var(--shadow-md);
+                        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                        position: relative;
+                }
+
+                .section-card:hover {
+                        box-shadow: var(--shadow-lg);
+                        transform: translateY(-2px);
                 }
 
                 html.dark .section-card {
                         border-color: var(--border-color-dark);
+                        background: var(--content-bg-color-dark);
+                        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+                }
+
+                html.dark .section-card:hover {
+                        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
                 }
 
                 .section-card-header {
-                        padding: 1.25rem;
-                        background-color: var(--content-bg-color-light);
+                        padding: 2rem;
+                        background: var(--gradient-primary);
+                        color: white;
+                        position: relative;
+                        overflow: hidden;
                 }
 
-                html.dark .section-card-header {
-                        background-color: var(--content-bg-color-dark);
+                .section-card-header::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+                        pointer-events: none;
+                }
+
+                .section-card-header h2 {
+                        font-size: 1.5rem;
+                        font-weight: 700;
+                        margin: 0;
+                        position: relative;
+                        z-index: 1;
                 }
 
                 .section-card-header p {
-                        margin-top: 0.25rem;
-                        font-size: 0.875rem;
-                        color: var(--text-color-secondary-light);
-                }
-
-                html.dark .section-card-header p {
-                        color: var(--text-color-secondary-dark);
+                        margin: 0.75rem 0 0 0;
+                        font-size: 0.95rem;
+                        opacity: 0.9;
+                        position: relative;
+                        z-index: 1;
                 }
 
                 .section-card-content {
-                        background-color: var(--bg-color-light);
+                        background-color: var(--content-bg-color-light);
                 }
 
                 html.dark .section-card-content {
-                        background-color: var(--bg-color-dark);
+                        background-color: var(--content-bg-color-dark);
                 }
 
                 /* 移除卡片内部 details 元素的独立样式，使其融入卡片 */
@@ -463,6 +737,160 @@
                 html.dark #quick-start-guide .section-card-content p {
                         color: var(--text-color-primary-dark);
                 }
+
+                /* 新增：美化改进的样式 */
+                .feature-grid {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                        gap: 1.5rem;
+                        margin-top: 1.5rem;
+                }
+
+                .feature-card {
+                        background: white;
+                        border-radius: 1rem;
+                        padding: 1.5rem;
+                        border: 1px solid #e5e7eb;
+                        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                        position: relative;
+                        overflow: hidden;
+                }
+
+                .feature-card::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        height: 4px;
+                        background: linear-gradient(90deg, var(--theme-color), #6366f1);
+                        opacity: 0;
+                        transition: opacity 0.3s ease;
+                }
+
+                .feature-card:hover::before {
+                        opacity: 1;
+                }
+
+                .feature-card:hover {
+                        transform: translateY(-4px);
+                        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+                        border-color: var(--theme-color);
+                }
+
+                html.dark .feature-card {
+                        background: var(--content-bg-color-dark);
+                        border-color: var(--border-color-dark);
+                }
+
+                html.dark .feature-card:hover {
+                        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+                }
+
+                .feature-icon {
+                        width: 2rem;
+                        height: 2rem;
+                        border-radius: 0.5rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin-bottom: 1rem;
+                        transition: transform 0.3s ease;
+                }
+
+                .feature-card:hover .feature-icon {
+                        transform: scale(1.1);
+                }
+
+                .info-badge {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        background: rgba(59, 130, 246, 0.1);
+                        color: var(--theme-color);
+                        padding: 0.75rem 1rem;
+                        border-radius: 0.75rem;
+                        font-size: 0.875rem;
+                        font-weight: 500;
+                        border: 1px solid rgba(59, 130, 246, 0.2);
+                        margin: 1rem 0;
+                }
+
+                html.dark .info-badge {
+                        background: rgba(96, 165, 250, 0.15);
+                        color: #93c5fd;
+                        border-color: rgba(96, 165, 250, 0.3);
+                }
+
+                .tag-container {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 0.5rem;
+                        margin-top: 0.75rem;
+                }
+
+                .tag {
+                        display: inline-block;
+                        padding: 0.25rem 0.75rem;
+                        border-radius: 9999px;
+                        font-size: 0.75rem;
+                        font-weight: 500;
+                        transition: all 0.2s ease;
+                }
+
+                .tag:hover {
+                        transform: translateY(-1px);
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                }
+
+                /* 不同颜色的标签 */
+                .tag-blue { background: #dbeafe; color: #1e40af; }
+                .tag-green { background: #dcfce7; color: #166534; }
+                .tag-purple { background: #f3e8ff; color: #7c3aed; }
+                .tag-pink { background: #fce7f3; color: #be185d; }
+                .tag-yellow { background: #fef3c7; color: #d97706; }
+                .tag-indigo { background: #e0e7ff; color: #4338ca; }
+
+                html.dark .tag-blue { background: rgba(59, 130, 246, 0.2); color: #93c5fd; }
+                html.dark .tag-green { background: rgba(34, 197, 94, 0.2); color: #86efac; }
+                html.dark .tag-purple { background: rgba(168, 85, 247, 0.2); color: #c4b5fd; }
+                html.dark .tag-pink { background: rgba(236, 72, 153, 0.2); color: #f9a8d4; }
+                html.dark .tag-yellow { background: rgba(245, 158, 11, 0.2); color: #fcd34d; }
+                html.dark .tag-indigo { background: rgba(99, 102, 241, 0.2); color: #a5b4fc; }
+
+                /* 增强的标题样式 */
+                .enhanced-title {
+                        background: linear-gradient(135deg, var(--theme-color), #6366f1);
+                        background-clip: text;
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        font-weight: 700;
+                }
+
+                /* 改进的高亮样式 */
+                .enhanced-highlight {
+                        background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(99, 102, 241, 0.1));
+                        color: var(--theme-color);
+                        padding: 0.125rem 0.5rem;
+                        border-radius: 0.375rem;
+                        font-weight: 600;
+                        font-size: 0.875rem;
+                        border: 1px solid rgba(59, 130, 246, 0.3);
+                        display: inline-block;
+                        transition: all 0.2s ease;
+                        position: relative;
+                }
+
+                .enhanced-highlight:hover {
+                        transform: translateY(-1px);
+                        box-shadow: 0 4px 8px rgba(59, 130, 246, 0.2);
+                }
+
+                html.dark .enhanced-highlight {
+                        background: linear-gradient(135deg, rgba(96, 165, 250, 0.2), rgba(129, 140, 248, 0.15));
+                        color: #93c5fd;
+                        border-color: rgba(96, 165, 250, 0.4);
+                }
         </style>
 </head>
 
@@ -479,85 +907,240 @@
                                 </a>
                                 <h1 class="text-base font-semibold text-gray-800">帮助</h1>
                                 <button id="toggle-all-btn"
-                                        class="header-btn text-sm font-semibold px-2 py-1 whitespace-nowrap">全部展开</button>
+                                        class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-sm font-semibold px-4 py-2.5 rounded-xl hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 whitespace-nowrap border border-blue-400/20 backdrop-blur-sm">
+                                        <span class="flex items-center gap-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                                                </svg>
+                                                全部展开
+                                        </span>
+                                </button>
                         </div>
                 </header>
-                <main class="flex-grow main-content px-4 space-y-2">
+                <main class="flex-grow main-content px-4 md:px-6 lg:px-8 space-y-6">
+                        <!-- 欢迎介绍区域 -->
+                        <div class="welcome-section bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-slate-800 dark:via-slate-700 dark:to-slate-800 rounded-2xl p-6 md:p-8 lg:p-10 mb-8 relative overflow-hidden shadow-xl">
+                                <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-2xl"></div>
+                                <div class="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-br from-indigo-400/20 to-blue-400/20 rounded-full blur-xl"></div>
+                                <div class="relative z-10">
+                                        <div class="flex flex-col md:flex-row items-center gap-6 mb-6">
+                                                <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-xl">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                                        </svg>
+                                                </div>
+                                                <div class="text-center md:text-left">
+                                                        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">星链小手机</h1>
+                                                        <p class="text-xl text-blue-600 dark:text-blue-400 font-semibold mb-2">帮助中心</p>
+                                                        <p class="text-gray-600 dark:text-gray-300 max-w-md">欢迎使用星链小手机！这里有您需要的所有使用指南和技巧，让您快速掌握这个智能AI角色扮演平台。</p>
+                                                </div>
+                                        </div>
+                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                                                <div class="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-xl p-6 border border-white/30 dark:border-slate-600/30 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-300 group">
+                                                        <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                                                </svg>
+                                                        </div>
+                                                        <h3 class="font-bold text-gray-900 dark:text-white text-lg mb-2">🚀 快速上手</h3>
+                                                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">从基础功能开始，通过简单易懂的步骤指引，快速掌握星链小手机的核心使用方法</p>
+                                                </div>
+                                                <div class="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-xl p-6 border border-white/30 dark:border-slate-600/30 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-300 group">
+                                                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                                </svg>
+                                                        </div>
+                                                        <h3 class="font-bold text-gray-900 dark:text-white text-lg mb-2">⚙️ 高级配置</h3>
+                                                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">配置第三方服务和高级功能，解锁更多强大特性，打造专属的AI交互体验</p>
+                                                </div>
+                                                <div class="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-xl p-6 border border-white/30 dark:border-slate-600/30 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-300 group">
+                                                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                                                </svg>
+                                                        </div>
+                                                        <h3 class="font-bold text-gray-900 dark:text-white text-lg mb-2">🔧 故障排除</h3>
+                                                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">遇到问题不用担心！这里有详细的常见问题解答和故障排除指南</p>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
                         <section id="services-guide" class="section-card">
                                 <div class="section-card-header">
-                                        <h2 class="text-xl font-bold mb-2">基础功能介绍</h2>
-                                        <p class="text-sm">点击下方标题可展开查看各项功能的详细介绍。</p>
+                                        <div class="flex items-center gap-3 mb-3">
+                                                <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                                        </svg>
+                                                </div>
+                                                <div>
+                                                        <h2 class="text-2xl font-bold text-white mb-1">📱 基础功能介绍</h2>
+                                                        <p class="text-white/90 text-sm">探索星链小手机的核心功能，从基础操作到高级特性</p>
+                                                </div>
+                                        </div>
+                                        <div class="bg-white/10 rounded-lg p-3 mt-4">
+                                                <p class="text-white/80 text-sm flex items-center gap-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                        </svg>
+                                                        点击下方标题即可展开查看各项功能的详细介绍和使用指南
+                                                </p>
+                                        </div>
                                 </div>
                                 <div class="section-card-content">
                                         <details>
-                                                <summary>主屏幕 (Home)</summary>
-                                                <div class="details-content space-y-4">
-                                                        <p>应用的主入口，展示当前时间和日期，底部Dock栏陈列了所有核心应用。</p>
-                                                        <ul class="list-disc list-inside text-sm space-y-1">
-                                                                <li><span class="highlight">壁纸</span>: 主屏幕的背景。您可以在<a
-                                                                                href="#personalization-help"
-                                                                                class="underline">个性化</a>设置中进行更换。</li>
-                                                                <li><span class="highlight">应用Dock栏</span>: 快速访问<a
-                                                                                href="#x-message-help"
-                                                                                class="underline">弦镜</a>、<a
-                                                                                href="#summary-help"
-                                                                                class="underline">简报</a>、<a
-                                                                                href="#album-help"
-                                                                                class="underline">相册</a>等核心应用。</li>
-                                                        </ul>
+                                                <summary class="flex items-center gap-3">
+                                                        <div class="w-8 h-8 bg-gradient-to-br from-gray-400 to-gray-600 rounded-lg flex items-center justify-center">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v1H8V5z" />
+                                                                </svg>
+                                                        </div>
+                                                        <span class="font-semibold">🏠 主屏幕 (Home)</span>
+                                                </summary>
+                                                <div class="details-content space-y-6">
+                                                        <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 border-l-4 border-blue-500">
+                                                                <p class="text-gray-800 dark:text-gray-200 leading-relaxed">应用的主入口界面，采用类手机系统设计，展示当前时间和日期，底部Dock栏集成了所有核心应用的快捷入口。</p>
+                                                        </div>
+                                                        
+                                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                                <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                                                                        <div class="flex items-center gap-3 mb-3">
+                                                                                <div class="w-8 h-8 bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg flex items-center justify-center">
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                                                        </svg>
+                                                                                </div>
+                                                                                <h4 class="font-semibold text-gray-800 dark:text-gray-200">壁纸系统</h4>
+                                                                        </div>
+                                                                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">主屏幕的背景展示。您可以在 <a href="#personalization-help" class="text-blue-600 dark:text-blue-400 hover:underline font-medium">个性化设置</a> 中更换为图片、渐变或动态拓扑背景。</p>
+                                                                </div>
+                                                                
+                                                                <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                                                                        <div class="flex items-center gap-3 mb-3">
+                                                                                <div class="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                                                                        </svg>
+                                                                                </div>
+                                                                                <h4 class="font-semibold text-gray-800 dark:text-gray-200">应用Dock栏</h4>
+                                                                        </div>
+                                                                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">快速访问 <a href="#x-message-help" class="text-blue-600 dark:text-blue-400 hover:underline font-medium">弦镜</a>、<a href="#summary-help" class="text-blue-600 dark:text-blue-400 hover:underline font-medium">动态</a>、<a href="#album-help" class="text-blue-600 dark:text-blue-400 hover:underline font-medium">相册</a> 等核心应用的快捷入口。</p>
+                                                                </div>
+                                                        </div>
                                                 </div>
                                         </details>
 
                                         <details id="x-message-help">
-                                                <summary>弦镜 (聊天应用)</summary>
-                                                <div class="details-content space-y-4">
-                                                        <p>应用的核心，集成了聊天、联系人、动态和个人主页四大功能，是您与AI角色互动的主要平台。</p>
+                                                <summary class="flex items-center gap-3">
+                                                        <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                                                                </svg>
+                                                        </div>
+                                                        <span class="font-semibold">💬 弦镜 (聊天应用)</span>
+                                                </summary>
+                                                <div class="details-content space-y-6">
+                                                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
+                                                                <div class="flex items-center gap-3 mb-4">
+                                                                        <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                                                                                </svg>
+                                                                        </div>
+                                                                        <div>
+                                                                                <h3 class="text-lg font-bold text-gray-900 dark:text-white">应用核心功能</h3>
+                                                                                <p class="text-sm text-gray-600 dark:text-gray-400">您与AI角色互动的主要平台</p>
+                                                                        </div>
+                                                                </div>
+                                                                <p class="text-gray-800 dark:text-gray-200 leading-relaxed">弦镜是星链小手机的核心应用，集成了 <span class="font-semibold text-blue-600 dark:text-blue-400">聊天、联系人、动态和个人主页</span> 四大模块，提供了一个完整的AI社交生态系统。</p>
+                                                        </div>
                                                         <details>
-                                                                <summary>四大主界面</summary>
-                                                                <div class="details-content space-y-3">
-                                                                        <div>
-                                                                                <h4 class="font-semibold">聊天列表
-                                                                                        (<code>chat.html</code>)</h4>
-                                                                                <p class="text-sm">
-                                                                                        显示您所有好友和群聊的列表，按最新消息时间排序。未读消息会有红点提示。点击头像可进入<a
-                                                                                                href="#char-profile-help"
-                                                                                                class="underline">角色资料页</a>或点击其他位置进入<a
-                                                                                                href="#chatroom-help"
-                                                                                                class="underline">聊天室</a>。
-                                                                                </p>
+                                                                <summary class="bg-gray-50 dark:bg-gray-800 rounded-lg p-3 font-medium text-gray-800 dark:text-gray-200">
+                                                                        📱 四大主界面详解
+                                                                </summary>
+                                                                <div class="details-content space-y-6">
+                                                                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                                                                <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow duration-300">
+                                                                                        <div class="flex items-center gap-3 mb-3">
+                                                                                                <div class="w-8 h-8 bg-gradient-to-br from-green-400 to-green-600 rounded-lg flex items-center justify-center">
+                                                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                                                                                                        </svg>
+                                                                                                </div>
+                                                                                                <div>
+                                                                                                        <h4 class="font-bold text-gray-800 dark:text-gray-200">💬 聊天列表</h4>
+                                                                                                        <code class="text-xs text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">chat.html</code>
+                                                                                                </div>
+                                                                                        </div>
+                                                                                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                                                                                                显示您所有好友和群聊的列表，按最新消息时间排序。未读消息会有红点提示。点击头像可进入 <a href="#char-profile-help" class="text-blue-600 dark:text-blue-400 hover:underline font-medium">角色资料页</a>，点击其他位置进入 <a href="#chatroom-help" class="text-blue-600 dark:text-blue-400 hover:underline font-medium">聊天室</a>。
+                                                                                        </p>
+                                                                                </div>
+                                                                                
+                                                                                <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow duration-300">
+                                                                                        <div class="flex items-center gap-3 mb-3">
+                                                                                                <div class="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
+                                                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                                                                                        </svg>
+                                                                                                </div>
+                                                                                                <div>
+                                                                                                        <h4 class="font-bold text-gray-800 dark:text-gray-200">📞 通讯录</h4>
+                                                                                                        <code class="text-xs text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">contacts.html</code>
+                                                                                                </div>
+                                                                                        </div>
+                                                                                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                                                                                                管理您的所有AI好友和群聊。您可以 <span class="bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200 px-2 py-1 rounded text-xs font-medium">创建新角色</span>、<span class="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 px-2 py-1 rounded text-xs font-medium">发起群聊</span>、查看好友分组、以及进入 <span class="bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-200 px-2 py-1 rounded text-xs font-medium">角色资料页</span>。
+                                                                                        </p>
+                                                                                </div>
+                                                                                
+                                                                                <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow duration-300">
+                                                                                        <div class="flex items-center gap-3 mb-3">
+                                                                                                <div class="w-8 h-8 bg-gradient-to-br from-pink-400 to-pink-600 rounded-lg flex items-center justify-center">
+                                                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                                                                                        </svg>
+                                                                                                </div>
+                                                                                                <div>
+                                                                                                        <h4 class="font-bold text-gray-800 dark:text-gray-200">📷 动态</h4>
+                                                                                                        <code class="text-xs text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">moments.html</code>
+                                                                                                </div>
+                                                                                        </div>
+                                                                                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                                                                                                类似朋友圈的社交功能，您和AI角色都可以在此发布图文动态，并进行点赞、评论等互动。AI角色也会根据其人设和经历，在后台独立发布动态。
+                                                                                        </p>
+                                                                                </div>
+                                                                                
+                                                                                <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow duration-300">
+                                                                                        <div class="flex items-center gap-3 mb-3">
+                                                                                                <div class="w-8 h-8 bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg flex items-center justify-center">
+                                                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                                                                                        </svg>
+                                                                                                </div>
+                                                                                                <div>
+                                                                                                        <h4 class="font-bold text-gray-800 dark:text-gray-200">👤 我</h4>
+                                                                                                        <code class="text-xs text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">me.html</code>
+                                                                                                </div>
+                                                                                        </div>
+                                                                                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
+                                                                                                您的个人中心。在这里可以管理多个身份和所有个人数据：
+                                                                                        </p>
+                                                                                        <div class="flex flex-wrap gap-2">
+                                                                                                <span class="bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 px-2 py-1 rounded text-xs font-medium">人格预设</span>
+                                                                                                <span class="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 px-2 py-1 rounded text-xs font-medium">收藏</span>
+                                                                                                <span class="bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-200 px-2 py-1 rounded text-xs font-medium">回忆</span>
+                                                                                                <span class="bg-pink-100 dark:bg-pink-900/30 text-pink-800 dark:text-pink-200 px-2 py-1 rounded text-xs font-medium">关系图谱</span>
+                                                                                                <span class="bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200 px-2 py-1 rounded text-xs font-medium">表情包</span>
+                                                                                                <span class="bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-200 px-2 py-1 rounded text-xs font-medium">世界设定</span>
+                                                                                        </div>
+                                                                                </div>
                                                                         </div>
-                                                                        <div>
-                                                                                <h4 class="font-semibold">通讯录
-                                                                                        (<code>contacts.html</code>)
-                                                                                </h4>
-                                                                                <p class="text-sm">
-                                                                                        管理您的所有AI好友和群聊。您可以<span
-                                                                                                class="highlight">创建新角色</span>、<span
-                                                                                                class="highlight">发起群聊</span>、查看好友分组、以及进入<span
-                                                                                                class="highlight">角色资料页</span>。
-                                                                                </p>
-                                                                        </div>
-                                                                        <div>
-                                                                                <h4 class="font-semibold">动态
-                                                                                        (<code>moments.html</code>)</h4>
-                                                                                <p class="text-sm">
-                                                                                        一个类似朋友圈的功能，您和AI角色都可以在此发布图文动态，并进行点赞、评论等互动。AI角色也会根据其人设和经历，在后台独立发布动态。
-                                                                                </p>
-                                                                        </div>
-                                                                        <div>
-
-                                                                                <h4 class="font-semibold">我
-                                                                                        (<code>me.html</code>)</h4>
-                                                                                <p class="text-sm">您的个人中心。在这里可以管理您的<span
-                                                                                                class="highlight">多个人格预设</span>、查看<span
-                                                                                                class="highlight">收藏</span>、<span
-                                                                                                class="highlight">回忆</span>、<span
-                                                                                                class="highlight">关系图谱</span>、管理<span
-                                                                                                class="highlight">表情包</span>以及进入<span
-                                                                                                class="highlight">世界设定</span>。
-                                                                                </p>
-                                                                                <ul
-                                                                                        class="list-disc list-inside text-sm mt-2 space-y-1">
+                                                                        
+                                                                        <div class="mt-6 space-y-4">
                                                                                         <li><strong>人格预设
                                                                                                         (Persona)</strong>:
                                                                                                 您可以创建多个“你”的身份。每个预设包含不同的头像、昵称、人设等。
@@ -763,26 +1346,126 @@
 
 
                                         <details id="summary-help">
-                                                <summary>简报</summary>
-                                                <div class="details-content">
-                                                        <p>当您离线超过<a href="#settings-help"
-                                                                        class="underline">设置</a>中指定的时间后，系统会模拟此期间所有分组的角色圈子中发生的故事（如关系变化、个人事件），并在此处生成一份简报供您阅读。简报内容也会被自动记录到此分组关联的<a
-                                                                        href="#worldbook-help"
-                                                                        class="underline">世界书（编年史）</a>中。</p>
-                                                        <p>在主页看到“简报生成中”提示时，表示系统正在为您生成简报，请在此界面稍等片刻。有时会因为api问题导致生成失败。</p>
-                                                        <p>角色必须要加入一个分组才会触发简报，单人分组会生成个人事件，不会有好感度变化。如多于一人会生成群组简报，内容包括角色之间的互动、关系变化等。
-                                                        </p>
+                                                <summary class="flex items-center gap-3">
+                                                        <div class="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                                                </svg>
+                                                        </div>
+                                                        <span class="font-semibold">📄 动态</span>
+                                                </summary>
+                                                <div class="details-content space-y-6">
+                                                        <div class="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-xl p-6 border border-indigo-200 dark:border-indigo-800">
+                                                                <div class="flex items-center gap-3 mb-4">
+                                                                        <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                                                </svg>
+                                                                        </div>
+                                                                        <div>
+                                                                                <h3 class="text-lg font-bold text-gray-900 dark:text-white">智能离线模拟</h3>
+                                                                                <p class="text-sm text-gray-600 dark:text-gray-400">让AI世界在您离开时也能继续运转</p>
+                                                                        </div>
+                                                                </div>
+                                                                <p class="text-gray-800 dark:text-gray-200 leading-relaxed">
+                                                                        当您离线超过 <a href="#settings-help" class="text-indigo-600 dark:text-indigo-400 hover:underline font-medium">设置</a> 中指定的时间后，系统会自动模拟所有分组中发生的故事和关系变化，并生成一份详细的动态供您阅读。
+                                                                </p>
+                                                        </div>
+                                                        
+                                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                                <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                                                                        <div class="flex items-center gap-3 mb-3">
+                                                                                <div class="w-8 h-8 bg-gradient-to-br from-green-400 to-green-600 rounded-lg flex items-center justify-center">
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                                                                        </svg>
+                                                                                </div>
+                                                                                <h4 class="font-semibold text-gray-800 dark:text-gray-200">单人分组</h4>
+                                                                        </div>
+                                                                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">生成个人事件和心理活动，不会有好感度变化。适合单独角色的深度体验。</p>
+                                                                </div>
+                                                                
+                                                                <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                                                                        <div class="flex items-center gap-3 mb-3">
+                                                                                <div class="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+                                                                                        </svg>
+                                                                                </div>
+                                                                                <h4 class="font-semibold text-gray-800 dark:text-gray-200">多人分组</h4>
+                                                                        </div>
+                                                                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">生成群组动态，包括角色之间的互动、关系变化和重要事件。</p>
+                                                                </div>
+                                                        </div>
+                                                        
+                                                        <div class="info-badge">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                                </svg>
+                                                                动态内容会自动记录到关联的 <a href="#worldbook-help" class="underline font-medium">世界书（编年史）</a> 中，成为角色们的共同记忆
+                                                        </div>
                                                 </div>
                                         </details>
 
                                         <details id="album-help">
-                                                <summary>相册</summary>
-                                                <div class="details-content">
-                                                        <p>一个公共的图片存储空间。您可以通过URL或本地上传添加图片。如果添加了描述，角色有概率使用图片作为个人主页的背景。不填写描述则只有您可以用其作为聊天室或者主屏幕壁纸。
-                                                                可以在<a href="#personalization-help"
-                                                                        class="underline">个性化</a>设置中用作壁纸，或在角色编辑中用作聊天背景。
-                                                                本地上传功能需要配置<a href="#cloudinary-setup"
-                                                                        class="underline">Cloudinary服务</a>。</p>
+                                                <summary class="flex items-center gap-3">
+                                                        <div class="w-8 h-8 bg-gradient-to-br from-pink-500 to-rose-600 rounded-lg flex items-center justify-center">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                                </svg>
+                                                        </div>
+                                                        <span class="font-semibold">🖼️ 相册</span>
+                                                </summary>
+                                                <div class="details-content space-y-6">
+                                                        <div class="bg-gradient-to-r from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20 rounded-xl p-6 border border-pink-200 dark:border-pink-800">
+                                                                <div class="flex items-center gap-3 mb-4">
+                                                                        <div class="w-10 h-10 bg-gradient-to-br from-pink-500 to-rose-600 rounded-lg flex items-center justify-center">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                                                                </svg>
+                                                                        </div>
+                                                                        <div>
+                                                                                <h3 class="text-lg font-bold text-gray-900 dark:text-white">公共图片库</h3>
+                                                                                <p class="text-sm text-gray-600 dark:text-gray-400">与所有AI角色共享的视觉资源</p>
+                                                                        </div>
+                                                                </div>
+                                                                <p class="text-gray-800 dark:text-gray-200 leading-relaxed">
+                                                                        一个中心化的图片存储空间，您可以通过URL或本地上传添加图片。这些图片可以用作壁纸、聊天背景，甚至被AI角色作为个人主页背景使用。
+                                                                </p>
+                                                        </div>
+                                                        
+                                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                                <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                                                                        <div class="flex items-center gap-3 mb-3">
+                                                                                <div class="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                                                                        </svg>
+                                                                                </div>
+                                                                                <h4 class="font-semibold text-gray-800 dark:text-gray-200">个人使用</h4>
+                                                                        </div>
+                                                                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">不填写描述的图片只有您可以使用，可以在 <a href="#personalization-help" class="text-blue-600 dark:text-blue-400 hover:underline font-medium">个性化设置</a> 中用作壁纸或在角色编辑中用作聊天背景。</p>
+                                                                </div>
+                                                                
+                                                                <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                                                                        <div class="flex items-center gap-3 mb-3">
+                                                                                <div class="w-8 h-8 bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg flex items-center justify-center">
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+                                                                                        </svg>
+                                                                                </div>
+                                                                                <h4 class="font-semibold text-gray-800 dark:text-gray-200">AI共享</h4>
+                                                                        </div>
+                                                                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">添加描述的图片可AI角色使用，他们有概率将其作为个人主页背景。</p>
+                                                                </div>
+                                                        </div>
+                                                        
+                                                        <div class="info-badge">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                                                                </svg>
+                                                                本地上传功能需要配置 <a href="#cloudinary-setup" class="underline font-medium">Cloudinary服务</a>
+                                                        </div>
                                                 </div>
                                         </details>
 
@@ -822,7 +1505,7 @@
                                                                                 开启后，AI角色们会在后台独立“生活”，可能会主动给您发消息、发布动态、或在群聊里主动发言。<strong>注意：此功能会显著增加API费用。</strong>
                                                                                 您可以调整活动检测的频率和概率来控制消耗。</p>
                                                                         <p class="text-xs text-gray-500 mt-2">
-                                                                                <strong>它和“离线模拟/简报”有什么不同？</strong>
+                                                                                <strong>它和“离线模拟/动态”有什么不同？</strong>
                                                                         <ul
                                                                                 class="list-disc list-inside text-xs text-gray-500 ml-4">
                                                                                 <li><strong>后台活动</strong>: 是<span
@@ -1103,7 +1786,7 @@
                                                                         <li><strong>离线模拟</strong>:
                                                                                 当您离线超过设定的时间后，AI会自动模拟这段时间内角色之间可能发生的互动、关系变化或个人事件，并生成一份<a
                                                                                         href="#summary-help"
-                                                                                        class="underline">简报</a>。这会让角色的故事在您不在的时候也能延续。
+                                                                                        class="underline">动态</a>。这会让角色的故事在您不在的时候也能延续。
                                                                         </li>
                                                                         <li><strong>情报网 (Intelligence Network)</strong>:
                                                                                 <ul
@@ -1191,7 +1874,7 @@
                                                                                 <ul
                                                                                         class="list-disc list-inside text-sm mt-2 space-y-1 text-gray-600 dark:text-gray-400">
                                                                                         <li>在<a href="#summary-help"
-                                                                                                        class="underline">简报</a>应用中生成一份总结报告。
+                                                                                                        class="underline">动态</a>应用中生成一份总结报告。
                                                                                         </li>
                                                                                         <li>将角色间的<span
                                                                                                         class="highlight">关系变化</span>、个人目标的<span

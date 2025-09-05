@@ -1450,7 +1450,7 @@ ${currentCss}
                             ).primaryKeys();
                             await db.eventLog.bulkDelete(eventLogsToDelete);
 
-                            // 4. 清理 OfflineSummary (简报)
+                            // 4. 清理 OfflineSummary (动态)
                             const summariesToUpdate = await db.offlineSummary.filter(summary =>
                                     summary.events.some(event => event.includes(charName) || event.includes(charRealName))
                             ).toArray();

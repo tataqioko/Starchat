@@ -2148,7 +2148,7 @@ async function getAiResponse(charIdToTrigger = null) {
 
                 let intelligencePromptSection = "";
 
-                // 如果最新的一条需要AI处理的消息是情报简报，就把它提取出来
+                // 如果最新的一条需要AI处理的消息是情报动态，就把它提取出来
                 if (lastMessage && lastMessage.type === 'intelligence_briefing') {
                         intelligencePromptSection = lastMessage.content;
                 }
@@ -5033,13 +5033,13 @@ async function gatherIntelligenceFor(characterId) {
         const scanRange = globalSettings.infoScanRange || 50;
         let intelligenceContent = "";
 
-        // 1. 获取角色自己的聊天记录，检查以前的情报简报
+        // 1. 获取角色自己的聊天记录，检查以前的情报动态
         const characterChat = await db.chats.get(characterId);
         const recentHistoryForBriefings = characterChat.history.slice(-20);
         const oldBriefings = new Set();
         recentHistoryForBriefings.forEach(msg => {
                 if (msg.type === 'intelligence_briefing' && msg.content) {
-                        // 从旧简报中提取出每一条情报，存入Set以便快速查找
+                        // 从旧动态中提取出每一条情报，存入Set以便快速查找
                         const lines = msg.content.match(/- .*/g) || [];
                         lines.forEach(line => oldBriefings.add(line.trim()));
                 }

@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <button data-type="group" data-id="${group.id}" class="manage-books-btn text-sm hover:underline" style="color: var(--theme-color)">管理世界书</button>
                     <div class="flex items-center">
                         <input type="checkbox" id="sim-switch-${group.id}" data-group-id="${group.id}" class="sim-toggle-switch h-4 w-4 rounded border-gray-300" ${isSimEnabled ? 'checked' : ''}>
-                        <label for="sim-switch-${group.id}" class="ml-2 text-sm text-gray-600">模拟简报</label>
+                        <label for="sim-switch-${group.id}" class="ml-2 text-sm text-gray-600">模拟动态</label>
                     </div>
                 </div>
             </summary>

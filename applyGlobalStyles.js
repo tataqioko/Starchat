@@ -239,7 +239,7 @@ async function checkFooterNotifications() {
     const settings = await db.globalSettings.get('main');
     const lastViewTime = settings?.lastSummaryViewTime || 0; // 如果从未看过，则为0
 
-    // 查找时间戳晚于上次查看时间的所有简报
+    // 查找时间戳晚于上次查看时间的所有动态
     const unreadSummaryCount = await db.offlineSummary.where('timestamp').above(lastViewTime).count();
 
     const summaryIconLink = document.querySelector('a.app-icon-link[href="summary.html"]');

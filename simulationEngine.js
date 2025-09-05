@@ -19,7 +19,7 @@ export async function runOfflineSimulation() {
 
     // 计算一周前的时间戳
     const oneWeekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
-    // 删除所有时间戳早于一周前的简报记录
+    // 删除所有时间戳早于一周前的动态记录
     await db.offlineSummary.where('timestamp').below(oneWeekAgo).delete();
 
     // 如果离线时间未达到阈值，则不执行模拟
@@ -96,7 +96,7 @@ export async function runOfflineSimulation() {
                         timestamp: Date.now()
                     });
                     
-                    // 将单人简报写入世界书
+                    // 将单人动态写入世界书
                     if (group && group.worldBookIds) {
                         const associatedBooks = allWorldBooks.filter(wb => group.worldBookIds.includes(wb.id));
                         const chronicleBook = associatedBooks.find(wb => wb.name.includes('编年史'));
@@ -254,14 +254,14 @@ ${personas}
         await db.globalSettings.update('main', { lastOnlineTime: now });
         console.log("离线模拟完成，已更新最后在线时间。");
         if (toast) {
-            toast.querySelector('p:first-child').textContent = '简报已生成！';
+            toast.querySelector('p:first-child').textContent = '动态已生成！';
             toast.querySelector('p:last-of-type').classList.add('hidden');
             setTimeout(() => toast.classList.add('hidden'), 3000);
         }
     } else {
         console.log("离线模拟失败，未更新最后在线时间。");
         if (toast) {
-            toast.querySelector('p:first-child').textContent = '简报生成失败';
+            toast.querySelector('p:first-child').textContent = '动态生成失败';
             toast.querySelector('p:last-of-type').textContent = '请检查API设置或网络连接';
             // 失败的提示可以持续更长时间或需要手动关闭
             setTimeout(() => toast.classList.add('hidden'), 5000);
