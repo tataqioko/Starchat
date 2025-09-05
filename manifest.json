@@ -1,6 +1,6 @@
 {
-  "name": "starchat",
-  "short_name": "starchat",
+  "name": "星链小手机",
+  "short_name": "星链小手机",
   "description": "A simulated phone interface application.",
   "start_url": "./index.html",
   "scope": "./",
